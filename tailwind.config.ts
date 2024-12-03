@@ -136,7 +136,7 @@ export default {
 	// sans: [...fontFamily.sans],
 	sans: ['Roboto', ...fontFamily.sans],
 	serif: ['Alice', ...fontFamily.serif],
-        mono: ['RobotoMono', ...fontFamily.mono]
+        mono: ['Iosevka', ...fontFamily.mono]
       },
       transitionProperty: {
 	height: "height",

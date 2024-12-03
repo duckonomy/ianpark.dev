@@ -5,7 +5,6 @@ import PostPreview from "@/components/blog/PostPreview.astro";
 import { getAllPosts, getUniqueTags, groupPostsByYear, sortMDByDate } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 import type { GetStaticPaths, Page } from "astro";
-import '@fontsource/alice';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const MAX_POSTS_PER_PAGE = 10;
@@ -51,18 +50,15 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
     <section class="group/total sm:border-l sm:border-solid sm:border-neutral-300 sm:ml-20" aria-label="Blog post list">
       {descYearKeys.map((yearKey, i) => (
         <>
-
           <div class="group/years sm:block flex flex-col mb-8 sm:mb-0 last-of-type:mb-0">
-
-
             <div class="mb-2 sm:mb-0 sm:absolute sm:-mx-20 sm:select-none rounded-md px-1 transition">
-              <span class="group-hover/years:bg-neutral-200 dark:group-hover/years:bg-neutral-800 rounded-md p-1 transition font-bold text-xl">{yearKey}</span>
+              <span class="group-hover/years:bg-neutral-100 dark:group-hover/years:bg-neutral-800 rounded-md p-1 transition font-bold text-xl">{yearKey}</span>
             </div>
-            <ul class="group-hover/total:text-neutral-400 dark:group-hover/total:text-neutral-600 space-y-2 sm:ml-6 text-start">
+            <ul class="group-hover/total:text-neutral-300 dark:group-hover/total:text-neutral-600 space-y-2 sm:ml-6 text-start">
               {groupedByYear[yearKey]?.map((p, j) => (
 	        <li
                   class="animate-slideIn opacity-0"
-                  style={{"--delay": (j + 1) * 20 + "ms"}}>
+                  style={{"--delay": ((i + 1) * 150) + ((j + 1) * 50) + "ms"}}>
 	          <PostPreview post={p} />
 	        </li>
               ))}

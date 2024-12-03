@@ -4,7 +4,6 @@ import PostPreview from "@/components/blog/PostPreview.astro";
 import { getAllPosts, sortMDByDate } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 import { fade } from "astro:transitions";
-import '@fontsource/alice';
 
 const MAX_POSTS = 10;
 const allPosts = await getAllPosts();
@@ -15,8 +14,8 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS);
   <section class="mt-12 sm:mt-16">
     <div class="mb-2 sm:mb-1">
     <!-- <div transition:animate={fade({ duration: '0.5s' })} class="mb-1">       -->
-      <div class="mb-1 sm:mb-0 title-fonts animate-slideiny opacity-0 [--slideiny-delay:50ms] text-textColorFaded text-base sm:text-xl">Ian Park</div>
-      <p class="mb-1 sm:mb-0 title-fonts animate-slideiny opacity-0 [--slideiny-delay:200ms] text-xl sm:text-3xl">
+      <div class="mb-1 sm:mb-0 font-serif animate-slideiny opacity-0 [--slideiny-delay:50ms] text-textColorFaded text-base sm:text-xl">Ian Park</div>
+      <p class="mb-1 sm:mb-0 font-serif animate-slideiny opacity-0 [--slideiny-delay:200ms] text-xl sm:text-3xl">
         Shaping ideas into code, with every keystroke a rhythm of thought. Guided by Emacs, driven by curiosity.
       </p>
       <div class="animate-slideiny opacity-0 [--slideiny-delay:300ms]">
@@ -52,9 +51,3 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS);
     <SocialList class="animate-slideiny opacity-0 [--slideiny-delay:300ms]" />
   </section>
 </PageLayout>
-
-<style is:global>
-    .title-fonts {
-      font-family: 'Alice', serif;
-    }
-</style>

@@ -23,31 +23,13 @@ importers:
       '@astrojs/tailwind':
         specifier: 5.1.1
         version: 5.1.1(astro@4.15.12(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.7.2))(tailwindcss@3.4.13)
-      '@fontsource-variable/bodoni-moda':
-        specifier: ^5.1.0
-        version: 5.1.0
-      '@fontsource-variable/dm-sans':
-        specifier: ^5.1.0
-        version: 5.1.0
-      '@fontsource-variable/eb-garamond':
-        specifier: ^5.1.1
-        version: 5.1.1
-      '@fontsource-variable/inter':
-        specifier: ^5.1.0
-        version: 5.1.0
-      '@fontsource-variable/noto-sans':
-        specifier: ^5.1.0
-        version: 5.1.0
       '@fontsource/alice':
         specifier: ^5.1.0
         version: 5.1.0
-      '@fontsource/crimson-text':
+      '@fontsource/iosevka':
         specifier: ^5.1.0
         version: 5.1.0
       '@fontsource/lobster':
-        specifier: ^5.1.0
-        version: 5.1.0
-      '@fontsource/oleo-script':
         specifier: ^5.1.0
         version: 5.1.0
       '@fontsource/roboto':
@@ -71,9 +53,6 @@ importers:
       cssnano:
         specifier: ^7.0.6
         version: 7.0.6(postcss@8.4.47)
-      date-fns:
-        specifier: ^4.1.0
-        version: 4.1.0
       hastscript:
         specifier: ^9.0.0
         version: 9.0.0
@@ -560,32 +539,14 @@ packages:
   '@expressive-code/plugin-text-markers@0.37.0':
     resolution: {integrity: sha512-iDwB7iYga7hIyODR0wGVP2yo10H3Ncknif2diZvc/w9Mb/RvStEtCXRoqs3jgQlS3dhTGBXzTorFZx36vNy4rQ==}
 
-  '@fontsource-variable/bodoni-moda@5.1.0':
-    resolution: {integrity: sha512-duFh/OpjrBr+e2CQ4iqCUDgBqa4X/yAUZOLQUeeevO9k8lfd0EOqQl4SE1LNALulocvOIONkxdin4T3SGqN3Zg==}
-
-  '@fontsource-variable/dm-sans@5.1.0':
-    resolution: {integrity: sha512-wPhOMY/3ipy0t5ZIQk7FTKd3uZqE1XP2Yd2oKe3HfMWCYkotbcoMLkBQXcZzf/SgdCdczSP/hiO/PAZb84Kbxw==}
-
-  '@fontsource-variable/eb-garamond@5.1.1':
-    resolution: {integrity: sha512-8rSdgPsFk96vvJPL7i47VsEaTOdhKvoSOFPSizrX5JcrLuWvTRngT2p9cPFL4WROGCA5TDNa+m68w7pdk4HYoQ==}
-
-  '@fontsource-variable/inter@5.1.0':
-    resolution: {integrity: sha512-Wj2dUGP0vUpxRGQTXQTCNJO+aLcFcQm+gUPXfj/aS877bQkEPBPv9JvZJpwdm2vzelt8NTZ+ausKlBCJjh2XIg==}
-
-  '@fontsource-variable/noto-sans@5.1.0':
-    resolution: {integrity: sha512-mLn33cgmryVFjpHoHy/lx6/DsRvp8kbxDmfMbMNl75eY+bVubad3u6oGSCyc8izcSNZAhAlXdoFW7mCnI2l63w==}
-
   '@fontsource/alice@5.1.0':
     resolution: {integrity: sha512-YriQ4+qpoSDbsxGi2b7AJhvKWpd00Uh7jcVIBel2TtgBxfY0wa7HbBAVeSSLnqe0HR6KWe4HYqTShMpGdNb2og==}
 
-  '@fontsource/crimson-text@5.1.0':
-    resolution: {integrity: sha512-ugD1wgfEayMt0XpwvcIaP1/w+O6MxKFMEZeHeiaazV0UWBu/w3pBNht7k6fc9vujrBZmKIvgtcK1du/VZmc/ww==}
+  '@fontsource/iosevka@5.1.0':
+    resolution: {integrity: sha512-wfo4Tzbb3Lz3Zf+UMF5c/bEQL5enPJ7LT83q/UQxbgXtg+BtleIETkziIwP8lZsw8MwhSou8HVCmSZnY0sfiCw==}
 
   '@fontsource/lobster@5.1.0':
     resolution: {integrity: sha512-kEIt+NiswgZoA7loqiIXZKpO336yZjvvy3gvBj/hLYGPrZajDDGTr4bKEfsa7NmeD3cXYIO4FDiC5GfB0ONyQw==}
-
-  '@fontsource/oleo-script@5.1.0':
-    resolution: {integrity: sha512-wvTItGhxfTmG0VpH/BRC8uit++pWAEBjHZe/V8iYkhN10uLRGyMRf25R6hFo2DcYMuCmXwMNvaEU7reBG0BPsQ==}
 
   '@fontsource/roboto@5.1.0':
     resolution: {integrity: sha512-cFRRC1s6RqPygeZ8Uw/acwVHqih8Czjt6Q0MwoUoDe9U3m4dH1HmNDRBZyqlMSFwgNAUKgFImncKdmDHyKpwdg==}
@@ -1458,9 +1419,6 @@ packages:
   csso@5.0.5:
     resolution: {integrity: sha512-0LrrStPOdJj+SPCCrGhzryycLjwcgUSHBtxNA8aIDxf0GLsRh1cKYhB00Gd1lDOS4yGH69+SNn13+TWbVHETFQ==}
     engines: {node: ^10 || ^12.20.0 || ^14.13.0 || >=15.0.0, npm: '>=7.0.0'}
-
-  date-fns@4.1.0:
-    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
   debug@4.3.6:
     resolution: {integrity: sha512-O/09Bd4Z1fBrU4VzkhFqVgpPzaGbw6Sm9FEkBT1A/YBXQFGuuSxa1dN2nxgxS34JmKXqYx8CZAwEVoJFImUXIg==}
@@ -3960,23 +3918,11 @@ snapshots:
     dependencies:
       '@expressive-code/core': 0.37.0
 
-  '@fontsource-variable/bodoni-moda@5.1.0': {}
-
-  '@fontsource-variable/dm-sans@5.1.0': {}
-
-  '@fontsource-variable/eb-garamond@5.1.1': {}
-
-  '@fontsource-variable/inter@5.1.0': {}
-
-  '@fontsource-variable/noto-sans@5.1.0': {}
-
   '@fontsource/alice@5.1.0': {}
 
-  '@fontsource/crimson-text@5.1.0': {}
+  '@fontsource/iosevka@5.1.0': {}
 
   '@fontsource/lobster@5.1.0': {}
-
-  '@fontsource/oleo-script@5.1.0': {}
 
   '@fontsource/roboto@5.1.0': {}
 
@@ -4965,8 +4911,6 @@ snapshots:
   csso@5.0.5:
     dependencies:
       css-tree: 2.2.1
-
-  date-fns@4.1.0: {}
 
   debug@4.3.6:
     dependencies:
