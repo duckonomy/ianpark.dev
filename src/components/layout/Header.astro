@@ -1,0 +1,144 @@
+---
+import { menuLinks } from "@/site-config";
+import Search from "../Search.astro";
+import ThemeToggle from "../ThemeToggle.astro";
+// import { defineMiddleware } from "astro/middleware";
+// const url = new URL(Astro.request.url);
+import '@fontsource/alice';
+import '@fontsource/lobster';
+
+
+const { type } = Astro.props;
+
+// const pathSplit = url.pathname.split("/");
+// const normPaths = pathSplit.slice(0, 2);
+// const paths = normPaths[1] === ""
+//   ? []
+//   : normPaths[normPaths.length - 1] === ""
+//     ? normPaths.slice(0, normPaths.length - 1)
+//     : normPaths;
+---
+<header id="header-font" class="group italic select-none relative mb-2 flex items-center justify-between">
+  <!-- <div transition:animate="slide" class="flex sm:flex-col"> -->
+  <div class="py-0.5 px-1 flex text-neutral-100 bg-black dark:bg-neutral-800 dark:text-neutral-100 rounded-lg">
+
+    {(type === "home") &&
+      <a
+        aria-current={"page"}
+        href="/">
+        <span class="transition p-1 pr-1.5 rounded-md text-sm inline-block hover:bg-neutral-700">
+          IP
+        </span>
+      </a>}
+
+    {(type === "404") &&
+      <a
+        aria-current={false}
+        href="/posts">
+        <span class="transition px-2 py-1 rounded-md text-sm inline-block hover:bg-neutral-700">
+          ..
+        </span>
+      </a>}
+
+    {(type === "posts") &&
+      <a
+        aria-current={false}
+        href="/">
+        <span class="transition p-1 pr-1.5 rounded-md text-sm inline-block hover:bg-neutral-700">
+          IP
+        </span>
+      </a>
+        <span class="transition p-1 pr-1.5 rounded-md text-sm inline-block">
+          /
+        </span>
+
+        <div class="relative inline-block text-left transition">
+          <input type="checkbox" id="mydropdown" class="peer/edit hidden" aria-expanded="true" aria-haspopup="true" />
+          <label for="mydropdown" class="transition cursor-pointer p-1 pr-1.5 rounded-md text-sm inline-block hover:bg-neutral-700">
+            Writings
+          </label>
+
+          <div class="hidden transition peer-checked/edit:block absolute z-10 mt-2 w-22 origin-top-right rounded-md bg-black dark:bg-neutral-800 shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+            <div class="py-1" role="none">
+              <a href="/about" class="mx-1 rounded block px-1 py-1 pr-2.5 text-sm text-neutral-100 dark:text-neutral-300 hover:bg-neutral-700" role="menuitem" tabindex="-1" id="menu-item-0">About</a>
+              <a href="/posts" class="mx-1 rounded block px-1 py-1 pr-2.5 text-sm text-neutral-100 dark:text-neutral-300 hover:bg-neutral-700" role="menuitem" tabindex="-1" id="menu-item-1">Writings</a>
+            </div>
+          </div>
+        </div>}
+
+    {(type === "post") &&
+      <a
+        aria-current={false}
+        href="/posts">
+        <span class="transition px-2 py-1 rounded-md text-sm inline-block hover:bg-neutral-700">
+          ..
+        </span>
+      </a>}
+
+    {(type === "tag") &&
+      <a
+        aria-current={false}
+        href="/tags">
+        <span class="transition px-2 py-1 rounded-md text-sm inline-block hover:bg-neutral-700">
+          ..
+        </span>
+      </a>}
+
+
+    {(type === "about") &&
+      <a
+        aria-current={false}
+        href="/">
+        <span class="transition p-1 pr-1.5 rounded-md text-sm inline-block hover:bg-neutral-700">
+          IP
+        </span>
+      </a>
+<span class="transition p-1 pr-1.5 rounded-md text-sm inline-block">
+  /
+</span>
+
+<div class="relative inline-block text-left">
+  <input type="checkbox" id="mydropdown" class="peer/edit hidden" id="menu-button" aria-expanded="true" aria-haspopup="true" />
+  <label for="mydropdown" class="transition cursor-pointer p-1 pr-1.5 rounded-md text-sm inline-block hover:bg-neutral-700">
+    About
+  </label>
+
+  <div class="hidden peer-checked/edit:block absolute z-10 mt-2 w-22 origin-top-right rounded-md bg-black dark:text-neutral-100 dark:bg-neutral-800 shadow-lg ring-1 ring-black/5 dark:ring-white/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+    <div class="py-1" role="none">
+      <!-- Active: "bg-gray-100 text-gray-800 outline-none", Not Active: "text-gray-700" -->
+      <a href="/posts" class="transition mx-1 rounded block px-1 py-1 pr-2.5 text-sm text-neutral-100 dark:text-neutral-300 hover:bg-neutral-700" role="menuitem" tabindex="-1" id="menu-item-1">Writings</a>
+      <a href="/about" class="transition mx-1 rounded block px-1 py-1  pr-2.5 text-sm text-neutral-100 dark:text-neutral-300 hover:bg-neutral-700" role="menuitem" tabindex="-1" id="menu-item-0">About</a>
+    </div>
+  </div>
+</div>}
+
+    <!-- paths.map((path, index) => ( -->
+    <!--   <a -->
+    <!--     aria-current={path === "" ? "page" : false} -->
+    <!--     class="p-1 pr-1.5 px-2 animate-fadeIn opacity-0 [--fade-delay:30ms] inline-flex items-center grayscale hover:filter-none sm:relative rounded hover:bg-neutral-700 sm:inline-block" -->
+    <!--     href={path === "" ? "/" : "/" + paths.slice(1, index + 1).join("/")}> -->
+    <!--     <span class="text-sm inline-block"> -->
+    <!--       <span>{path === "" ? "/" : path}</span> -->
+    <!--     </span> -->
+    <!--     <\!-- <span class="text-lg font-bold sm:text-2xl">~<span>{shortPath}</span></span>       -\-> -->
+    <!--   </a>)) -->
+    {!((type === "404") || (type === "home") || (type === "posts") || (type === "post") || (type === "tag") || (type === "about")) &&
+      <a
+        aria-current={false}
+        href="/">
+        <span class="transition px-2 py-1 rounded-md text-sm inline-block hover:bg-neutral-700">
+          ..
+        </span>
+      </a>}
+  </div>
+  <div class="flex">
+    <Search />
+    <ThemeToggle />
+  </div>
+</header>
+
+<style is:global>
+#header-font {
+  font-family: 'Lobster', system-ui;
+}
+</style>

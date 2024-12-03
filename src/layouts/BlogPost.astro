@@ -1,0 +1,95 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import Masthead from "@/components/blog/Masthead.astro";
+// import TOC from "@/components/blog/TOC.astro";
+import WebMentions from "@/components/blog/webmentions/index.astro";
+import PageLayout from "@/layouts/Base.astro";
+import '@fontsource/alice';
+
+interface Props {
+  post: CollectionEntry<"post">;
+}
+
+const { post } = Astro.props;
+const {
+  data: { description, ogImage, publishDate, title, updatedDate },
+  slug,
+} = post;
+const type = "post";
+const socialImage = ogImage ?? `/og-image/${slug}.png`;
+const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString();
+const { headings } = await post.render();
+---
+<PageLayout meta={{ articleDate, description, ogImage: socialImage, title, type }}>
+  <div class="mt-6 sm:mt-16 mb-16 lg:flex">
+    <!-- <div class="mt-16 gap-x-8 lg:flex lg:items-start">     -->
+    <!-- {!!headings.length && <TOC headings={headings} />} -->
+    <article class="animate-slideiny opacity-0 [--slideiny-delay:100ms] mx-0 sm:mx-0 sm:w-full flex-grow break-words" data-pagefind-body>
+      <div id="blog-hero"><Masthead content={post} /></div>
+      <div
+	class="font-normal dark:font-normal prose text-xs sm:text-base prose-sm prose-baseProse leading-relaxed mt-0 sm:mt-12 sm:prose-headings:mb-2 prose-headings:mt-8 prose-code:pt-1 prose-code:pb-0.5 prose-code:align-middle prose-code:px-1 prose-kbd:py-0.5 prose-kbd:px-2  prose-code:text-xs prose-code:font-bold prose-code:rounded prose-code:before:hidden prose-code:border-neutral-300 dark:prose-code:border-neutral-600 prose-code:after:hidden prose-headings:font-normal prose-headings:text-sm sm:prose-headings:text-base prose-headings:font-semibold">
+	<slot />
+      </div>
+    </article>
+  </div>
+</PageLayout>
+
+<script>
+// const scrollBtn = document.getElementById("to-top-btn") as HTMLButtonElement;
+// const targetHeader = document.getElementById("blog-hero") as HTMLDivElement;
+// function callback(entries: IntersectionObserverEntry[]) {
+//   entries.forEach((entry) => {
+//     // only show the scroll to top button when the heading is out of view
+//     scrollBtn.dataset.show = (!entry.isIntersecting).toString();
+//   });
+// }
+
+// scrollBtn.addEventListener("click", () => {
+//   document.documentElement.scrollTo({ behavior: "smooth", top: 0 });
+// });
+
+// const observer = new IntersectionObserver(callback);
+// observer.observe(targetHeader);
+</script>
+
+<style is:global>
+.anchor-link {
+  display: inline-block;
+  margin-left: 0.25rem;
+  text-decoration-line: none;
+  opacity: 0;
+  transition: 0.2s;
+  @apply text-textColorMoreFaded;
+}
+
+.anchor:hover .anchor-link {
+  display: inline-block;
+  transition: 0.4s;
+  opacity: 1;
+}
+
+.anchor-link svg {
+  height: 0.7rem;
+  width: 0.7rem;
+}
+
+#footnote-label {
+  display: none;
+}
+
+.footnotes:before {
+  content: "";
+  border-top: 1px solid grey;
+  width: 50%;
+  display: block;
+  margin: 0 auto;
+  margin-top: 4.5rem;
+  margin-bottom: 4rem;
+}
+
+.footnotes > ol > li > p {
+  margin-top: 0.15rem;
+  margin-bottom: 0.15rem;
+}
+</style>

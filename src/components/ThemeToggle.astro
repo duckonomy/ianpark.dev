@@ -1,0 +1,130 @@
+<theme-toggle>
+<!-- <theme-toggle class="ms-2 sm:ms-4">   -->
+  <button
+    class="relative h-9 w-9 rounded-md p-2 ring-zinc-400 transition-all hover:ring-2"
+    type="button"
+  >
+    <span class="sr-only">Dark Theme</span>
+
+
+    <svg
+      class="absolute start-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 scale-100 opacity-100 transition-all dark:scale-0 dark:opacity-0"
+      aria-hidden="true"
+      fill="none"
+      focusable="false"
+      id="sun-svg"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24">
+      <path fill="currentColor" d="M11 3V2q0-.425.288-.712T12 1t.713.288T13 2v1q0 .425-.288.713T12 4t-.712-.288T11 3m0 19v-1q0-.425.288-.712T12 20t.713.288T13 21v1q0 .425-.288.713T12 23t-.712-.288T11 22m11-9h-1q-.425 0-.712-.288T20 12t.288-.712T21 11h1q.425 0 .713.288T23 12t-.288.713T22 13M3 13H2q-.425 0-.712-.288T1 12t.288-.712T2 11h1q.425 0 .713.288T4 12t-.288.713T3 13m16.75-7.325l-.35.35q-.275.275-.687.275T18 6q-.275-.275-.288-.687t.263-.713l.375-.375q.275-.3.7-.3t.725.3t.288.725t-.313.725M6.025 19.4l-.375.375q-.275.3-.7.3t-.725-.3t-.288-.725t.313-.725l.35-.35q.275-.275.688-.275T6 18q.275.275.288.688t-.263.712m12.3.35l-.35-.35q-.275-.275-.275-.687T18 18q.275-.275.688-.287t.712.262l.375.375q.3.275.3.7t-.3.725t-.725.288t-.725-.313M4.6 6.025l-.375-.375q-.3-.275-.3-.7t.3-.725t.725-.288t.725.313l.35.35q.275.275.275.688T6 6q-.275.275-.687.288T4.6 6.025M12 18q-2.5 0-4.25-1.75T6 12t1.75-4.25T12 6t4.25 1.75T18 12t-1.75 4.25T12 18" />
+    </svg>
+
+
+
+    <!-- <svg -->
+    <!--   aria-hidden="true" -->
+    <!--   class="absolute start-1/2 top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 scale-0 opacity-0 transition-all dark:scale-100 dark:opacity-100" -->
+    <!--   fill="none" -->
+    <!--   focusable="false" -->
+    <!--   id="moon-svg" -->
+    <!-- > -->
+    <!--   <path fill="currentColor" d="M6 14q1.2 0 2.2.65t1.475 1.775l.25.575h.625q1.05 0 1.75.738T13 19.5q0 1.05-.725 1.775T10.5 22H6q-1.65 0-2.825-1.175T2 18q0-1.675 1.175-2.838T6 14m5.25-11q-.45 2.475.275 4.838t2.5 4.137t4.138 2.5T23 14.75q-.65 3.55-3.375 5.863T13.325 23q.8-.65 1.238-1.562T15 19.5q0-1.7-1.062-2.937t-2.713-1.488q-.8-1.425-2.187-2.25T6 12q-.8 0-1.562.2T3 12.8q.05-3.625 2.363-6.375T11.25 3" /> -->
+    <!-- </svg> -->
+
+
+    <svg
+      aria-hidden="true"
+      class="absolute start-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 scale-0 opacity-0 transition-all dark:scale-100 dark:opacity-100"
+      fill="none"
+      focusable="false"
+      id="moon-svg"
+      xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+		<path fill="currentColor" d="M6 14q1.2 0 2.2.65t1.475 1.775l.25.575h.625q1.05 0 1.75.738T13 19.5q0 1.05-.725 1.775T10.5 22H6q-1.65 0-2.825-1.175T2 18q0-1.675 1.175-2.838T6 14m8.025-2.025q1.5 1.5 3.463 2.263t4.087.612q.275-.025.488.075t.362.3t.2.425t-.025.475q-.875 3.025-3.512 4.925T13.325 23q.8-.65 1.238-1.562T15 19.5q0-1.7-1.062-2.937t-2.713-1.488q-.8-1.425-2.187-2.25T6 12q-.8 0-1.562.2T3 12.8Q3.05 9.525 4.913 7T9.85 3.45q.25-.075.488-.025t.437.2t.313.363t.087.487q-.125 2.15.6 4.063t2.25 3.437" />
+	</svg>
+
+
+
+
+
+    <!-- <svg -->
+    <!--   aria-hidden="true" -->
+    <!--   class="absolute start-1/2 top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 scale-100 opacity-100 transition-all dark:scale-0 dark:opacity-0" -->
+    <!--   fill="none" -->
+    <!--   focusable="false" -->
+    <!--   id="sun-svg" -->
+    <!--   stroke-width="1.5" -->
+    <!--   viewBox="0 0 24 24" -->
+    <!--   xmlns="http://www.w3.org/2000/svg" -->
+    <!-- > -->
+    <!--   <path -->
+    <!--     d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z" -->
+    <!--     stroke="currentColor" -->
+    <!--     stroke-linecap="round" -->
+    <!--     stroke-linejoin="round"></path> -->
+    <!--   <path d="M22 12L23 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" -->
+    <!--   ></path> -->
+    <!--   <path d="M12 2V1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path> -->
+    <!--   <path d="M12 23V22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" -->
+    <!--   ></path> -->
+    <!--   <path d="M20 20L19 19" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" -->
+    <!--   ></path> -->
+    <!--   <path d="M20 4L19 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" -->
+    <!--   ></path> -->
+    <!--   <path d="M4 20L5 19" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" -->
+    <!--   ></path> -->
+    <!--   <path d="M4 4L5 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" -->
+    <!--   ></path> -->
+    <!--   <path d="M1 12L2 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" -->
+    <!--   ></path> -->
+    <!-- </svg> -->
+    <!-- <svg -->
+    <!--   aria-hidden="true" -->
+    <!--   class="absolute start-1/2 top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 scale-0 opacity-0 transition-all dark:scale-100 dark:opacity-100" -->
+    <!--   fill="none" -->
+    <!--   focusable="false" -->
+    <!--   id="moon-svg" -->
+    <!--   stroke="currentColor" -->
+    <!--   stroke-width="1.5" -->
+    <!--   viewBox="0 0 24 24" -->
+    <!--   xmlns="http://www.w3.org/2000/svg" -->
+    <!-- > -->
+    <!--   <path d="M0 0h24v24H0z" fill="none" stroke="none"></path> -->
+    <!--   <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" -->
+    <!--   ></path> -->
+    <!--   <path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2"></path> -->
+    <!--   <path d="M19 11h2m-1 -1v2"></path> -->
+    <!-- </svg> -->
+  </button>
+</theme-toggle>
+
+<script>
+// Note that if you fire the theme-change event outside of this component, it will not be reflected in the button's aria-checked attribute. You will need to add an event listener if you want that.
+import { rootInDarkMode } from "@/utils/domElement";
+
+class ThemeToggle extends HTMLElement {
+  connectedCallback() {
+    const button = this.querySelector<HTMLButtonElement>("button")!;
+    // set aria role value
+    button.setAttribute("role", "switch");
+    button.setAttribute("aria-checked", String(rootInDarkMode()));
+
+    // button event
+    button.addEventListener("click", () => {
+      // invert theme
+      let themeChangeEvent = new CustomEvent("theme-change", {
+	detail: {
+	  theme: rootInDarkMode() ? "light" : "dark",
+	},
+      });
+      // dispatch event -> ThemeProvider.astro
+      document.dispatchEvent(themeChangeEvent);
+
+      // set the aria-checked attribute
+      button.setAttribute("aria-checked", String(rootInDarkMode()));
+    });
+  }
+}
+
+customElements.define("theme-toggle", ThemeToggle);
+</script>

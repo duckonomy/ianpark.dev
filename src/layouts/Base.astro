@@ -1,0 +1,47 @@
+---
+import BaseHead from "@/components/BaseHead.astro";
+import SkipLink from "@/components/SkipLink.astro";
+import ThemeProvider from "@/components/ThemeProvider.astro";
+import Footer from "@/components/layout/Footer.astro";
+import Header from "@/components/layout/Header.astro";
+
+import { siteConfig } from "@/site-config";
+import type { SiteMeta } from "@/types";
+
+import { ViewTransitions } from "astro:transitions";
+
+interface Props {
+  meta: SiteMeta;
+}
+
+const {
+  meta: { articleDate, description = siteConfig.description, ogImage, title, type },
+} = Astro.props;
+
+---
+
+<html class="scroll-smooth" lang={siteConfig.lang}>
+  <head>
+    <BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} type={type} />
+    <ViewTransitions />
+  </head>
+  <body
+    class="mx-auto flex min-h-screen max-w-xl flex-col bg-bgColor pt-8 sm:pt-32 text-sm font-normal text-textColor antialiased px-6 sm:px-8"
+  >
+    <ThemeProvider />
+    <SkipLink />
+    <Header type={type} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+<style>
+html {
+  width: 100vw;
+  height:100vh;
+  max-width: 100%;
+
+}
+</style>

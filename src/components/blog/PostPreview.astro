@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getPostSortDate } from "@/data/post";
+import type { HTMLTag, Polymorphic } from "astro/types";
+// import FormattedDate from "../FormattedDate.astro";
+import { getFormattedDate } from "@/utils/date";
+import { format } from 'date-fns';
+import '@fontsource/alice';
+
+type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
+	post: CollectionEntry<"post">;
+	withDesc?: boolean;
+};
+
+const { as: Tag = "div", post, withDesc = false } = Astro.props;
+const postDate = getPostSortDate(post);
+// const formattedDate = getFormattedDate(postDate);
+---
+<div class="group/item hover:text-neutral-800 dark:hover:text-neutral-200 hover:bg-neutral-200 dark:hover:bg-neutral-800 px-2 py-0.5 rounded-md transition w-full sm:w-fit flex flex-row justify-between sm:justify-normal sm:flex-wrap sm:gap-1">
+  <Tag>
+    {post.data.draft && <span class="text-red-500 dark:font-bold">(Draft) </span>}
+    <a class="text-xs sm:text-sm font-normal dark:font-medium" data-astro-prefetch href={`/posts/${post.slug}/`}>
+      {post.data.title}
+    </a>
+  </Tag>
+
+  <div class="flex">
+    {withDesc && <q class="line-clamp-3 italic">{post.data.description}</q>}
+    <time class="transition group-hover/total:text-neutral-300 dark:group-hover/item:text-gray-500 group-hover/item:text-gray-400 dark:group-hover/total:text-neutral-600 mt-[6px] sm:mt-0 text-xs sm:text-sm sm:m-auto sm:items-center text-textColorMoreFaded">{format(new Date(postDate), 'MM/dd')}</time>
+  </div>
+</div>
