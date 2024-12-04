@@ -29,9 +29,6 @@ importers:
       '@fontsource-variable/inter':
         specifier: ^5.1.0
         version: 5.1.0
-      '@fontsource-variable/inter-tight':
-        specifier: ^5.1.0
-        version: 5.1.0
       '@fontsource/alice':
         specifier: ^5.1.0
         version: 5.1.0
@@ -550,9 +547,6 @@ packages:
 
   '@fontsource-variable/eb-garamond@5.1.1':
     resolution: {integrity: sha512-8rSdgPsFk96vvJPL7i47VsEaTOdhKvoSOFPSizrX5JcrLuWvTRngT2p9cPFL4WROGCA5TDNa+m68w7pdk4HYoQ==}
-
-  '@fontsource-variable/inter-tight@5.1.0':
-    resolution: {integrity: sha512-yUSW6LxZmHtbOvyWcQE73q/GbXp19WeVVF3HlKgRXIYjWjOzkR30N73myM/sDWqG4YyflYz/TRVJrzXOMSozag==}
 
   '@fontsource-variable/inter@5.1.0':
     resolution: {integrity: sha512-Wj2dUGP0vUpxRGQTXQTCNJO+aLcFcQm+gUPXfj/aS877bQkEPBPv9JvZJpwdm2vzelt8NTZ+ausKlBCJjh2XIg==}
@@ -3937,8 +3931,6 @@ snapshots:
       '@expressive-code/core': 0.37.0
 
   '@fontsource-variable/eb-garamond@5.1.1': {}
-
-  '@fontsource-variable/inter-tight@5.1.0': {}
 
   '@fontsource-variable/inter@5.1.0': {}
 
