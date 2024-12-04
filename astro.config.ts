@@ -104,6 +104,8 @@ export default defineConfig({
     remarkPlugins: [remarkUnwrapImages, remarkReadingTime, remarkDirective],
     remarkRehype: {
       footnoteLabel: "",
+      allowDangerousHtml: true,
+      footnoteBackContent: "↩\u{FE0E}", // Set this value. The example depicted here ensures that the back arrow is rendered as text
       footnoteLabelProperties: {
 	className: [""],
       },
