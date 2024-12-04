@@ -9,6 +9,7 @@ const baseClassString = "transition hover:bg-neutral-700 " + nativeClassString;
 const slashClassString = baseClassString + " p-1 pr-1.5";
 const dotdotClassString = baseClassString + " px-2 py-1"
 const menuClassString = slashClassString + " cursor-pointer";;
+const unfocusedSlashClassString = "rounded-md inline-block transition p-1 pr-1.5"
 ---
 
 <header class="group italic select-none relative mb-2 flex items-center justify-between">
@@ -40,7 +41,7 @@ const menuClassString = slashClassString + " cursor-pointer";;
           IP
         </span>
       </a>
-        <span class={`${slashClassString}`}>
+        <span class={`${unfocusedSlashClassString}`}>
           /
         </span>
 
@@ -85,9 +86,9 @@ const menuClassString = slashClassString + " cursor-pointer";;
           IP
         </span>
       </a>
-<span class={`${slashClassString}`}>
-  /
-</span>
+      <span class={`${unfocusedSlashClassString}`}>
+        /
+      </span>
 
 <div class="relative inline-block text-left">
   <input type="checkbox" id="mydropdown" class="peer/edit hidden" id="menu-button" aria-expanded="true" aria-haspopup="true" />

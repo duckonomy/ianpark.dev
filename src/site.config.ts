@@ -14,7 +14,7 @@ export const siteConfig: SiteConfig = {
     },
   },
   // Used as the default description meta property and webmanifest description
-  description: "Full-stack developer weaponizing Emacs.",
+  description: "Developer.",
   // HTML lang property, found in src/layouts/Base.astro L:18 & astro.config.ts L:48
   lang: "en-US",
   // Meta property, found in src/components/BaseHead.astro L:42
@@ -61,7 +61,7 @@ export const expressiveCodeOptions: AstroExpressiveCodeOptions = {
   },
   themeCssSelector(theme, { styleVariants }) {
     // If one dark and one light theme are available
-    // generate theme CSS selectors compatible with cactus-theme dark mode switch
+    // generate theme CSS selectors compatible with dark mode switch
     if (styleVariants.length >= 2) {
       const baseTheme = styleVariants[0]?.theme;
       const altTheme = styleVariants.find((v) => v.theme.type !== baseTheme?.type)?.theme;

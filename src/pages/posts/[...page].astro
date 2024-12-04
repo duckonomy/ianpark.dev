@@ -7,7 +7,7 @@ import PageLayout from "@/layouts/Base.astro";
 import type { GetStaticPaths, Page } from "astro";
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const MAX_POSTS_PER_PAGE = 10;
+  const MAX_POSTS_PER_PAGE = 50;
   const allPosts = await getAllPosts();
   const allPostsByDate = sortMDByDate(allPosts);
   const uniqueTags = getUniqueTags(allPosts);
@@ -46,7 +46,8 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 ---
 
 <PageLayout meta={meta}>
-  <div class="sm:h-[400px] mt-6 sm:mt-16">
+  <!-- <div class="sm:h-[400px] mt-6 sm:mt-16"> -->
+  <div class="mt-6 sm:mt-16">
     <section class="group/total sm:border-l sm:border-solid sm:border-neutral-300 sm:ml-20" aria-label="Blog post list">
       {descYearKeys.map((yearKey, i) => (
         <>
@@ -69,9 +70,9 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 
     </section>
   </div>
-  <div class="w-fit mb-6 sm:mb-0 ms-auto me-auto flex justify-center">
-    <Pagination {...paginationProps} />
-  </div>
+  <!-- <div class="w-fit mb-6 sm:mb-0 ms-auto me-auto flex justify-center"> -->
+  <!--   <Pagination {...paginationProps} /> -->
+  <!-- </div> -->
 </PageLayout>
 
 <style>
