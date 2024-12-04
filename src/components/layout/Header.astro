@@ -9,63 +9,63 @@ const slashClassString = baseClassString + " p-1 pr-1.5";
 const dotdotClassString = baseClassString + " px-2 py-1"
 const menuClassString = slashClassString + " cursor-pointer";;
 const unfocusedSlashClassString = "rounded-md inline-block transition p-1 pr-1.5"
+
 ---
 
-<header class="group italic select-none relative mb-2 flex items-center justify-between">
-  <!-- <div transition:animate="slide" class="flex sm:flex-col"> -->
-  <div id="header-font" class="py-0.5 px-1 flex text-sm text-neutral-100 bg-black dark:bg-neutral-800 dark:text-neutral-100 rounded-lg">
+<header class="transition group italic select-none relative my-8 sm:mb-2 flex items-center justify-between">
+  <div id="header-font" class="transition py-0.5 px-1 flex text-base text-neutral-100 bg-black dark:bg-neutral-800 dark:text-neutral-100 rounded-lg">
     {(type === "home") &&
-      <a
-        aria-current={"page"}
-        href="/">
-        <span class={`${slashClassString}`}>
-          IP
-        </span>
-      </a>}
+  <a
+    aria-current={"page"}
+    href="/">
+    <span class={`${slashClassString}`}>
+      IP
+    </span>
+  </a>}
 
     {(type === "404") &&
-      <a
-        aria-current={false}
-        href="/posts">
-        <span class={`${dotdotClassString}`}>
-          ..
-        </span>
-      </a>}
+  <a
+    aria-current={false}
+    href="/posts">
+    <span class={`${dotdotClassString}`}>
+      ..
+    </span>
+  </a>}
 
     {(type === "posts") &&
-      <a
-        aria-current={false}
-        href="/">
-        <span class={`${slashClassString}`}>
-          IP
-        </span>
-      </a>
-        <span class={`${unfocusedSlashClassString}`}>
-          /
-        </span>
+  <a
+    aria-current={false}
+    href="/">
+    <span class={`${slashClassString}`}>
+      IP
+    </span>
+  </a>
+    <span class={`${unfocusedSlashClassString}`}>
+      /
+    </span>
 
-        <div class="relative inline-block text-left transition">
-          <input type="checkbox" id="mydropdown" class="peer/edit hidden" aria-expanded="true" aria-haspopup="true" />
-          <label for="mydropdown" class={`${menuClassString}`}>
-            Writings
-          </label>
+    <div class="relative inline-block text-left transition">
+      <input type="checkbox" id="mydropdown" class="peer/edit hidden" aria-expanded="true" aria-haspopup="true" />
+      <label for="mydropdown" class={`${menuClassString}`}>
+        Writings
+      </label>
 
-          <div class="hidden transition peer-checked/edit:block absolute z-10 mt-2 w-22 origin-top-right rounded-md bg-black dark:bg-neutral-800 shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-            <div class="py-1" role="none">
-              <a href="/about" class="mx-1 rounded block px-1 py-1 pr-2.5 text-neutral-100 dark:text-neutral-300 hover:bg-neutral-700" role="menuitem" tabindex="-1" id="menu-item-0">About</a>
-              <a href="/posts" class="mx-1 rounded block px-1 py-1 pr-2.5 text-neutral-100 dark:text-neutral-300 hover:bg-neutral-700" role="menuitem" tabindex="-1" id="menu-item-1">Writings</a>
-            </div>
-          </div>
-        </div>}
+      <div class="hidden transition peer-checked/edit:block absolute z-10 mt-2 w-22 origin-top-right rounded-md bg-black dark:bg-neutral-800 shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+        <div class="py-1" role="none">
+          <a href="/about" class="mx-1 rounded block px-1 py-1 pr-2.5 text-neutral-100 dark:text-neutral-300 hover:bg-neutral-700" role="menuitem" tabindex="-1" id="menu-item-0">About</a>
+          <a href="/posts" class="mx-1 rounded block px-1 py-1 pr-2.5 text-neutral-100 dark:text-neutral-300 hover:bg-neutral-700" role="menuitem" tabindex="-1" id="menu-item-1">Writings</a>
+        </div>
+      </div>
+    </div>}
 
     {(type === "post") &&
-      <a
-        aria-current={false}
-        href="/posts">
-        <span class={`${dotdotClassString}`}>
-          ..
-        </span>
-      </a>}
+  <a
+    aria-current={false}
+    href="/posts">
+    <span class={`${dotdotClassString}`}>
+      ..
+    </span>
+  </a>}
 
     <!-- {(type === "tag") && -->
     <!--   <a -->
@@ -78,38 +78,38 @@ const unfocusedSlashClassString = "rounded-md inline-block transition p-1 pr-1.5
 
 
     {(type === "about") &&
-      <a
-        aria-current={false}
-        href="/">
-        <span class={`${slashClassString}`}>
-          IP
-        </span>
-      </a>
-      <span class={`${unfocusedSlashClassString}`}>
-        /
-      </span>
+  <a
+    aria-current={false}
+    href="/">
+    <span class={`${slashClassString}`}>
+      IP
+    </span>
+  </a>
+    <span class={`${unfocusedSlashClassString}`}>
+      /
+    </span>
 
-<div class="relative inline-block text-left">
-  <input type="checkbox" id="mydropdown" class="peer/edit hidden" id="menu-button" aria-expanded="true" aria-haspopup="true" />
-  <label for="mydropdown" class={`${menuClassString}`}>
-    About
-  </label>
-  <div class="hidden peer-checked/edit:block absolute z-10 mt-2 w-22 origin-top-right rounded-md bg-black dark:text-neutral-100 dark:bg-neutral-800 shadow-lg ring-1 ring-black/5 dark:ring-white/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-    <div class="py-1" role="none">
-      <!-- Active: "bg-gray-100 text-gray-800 outline-none", Not Active: "text-gray-700" -->
-      <a href="/posts" class="transition mx-1 rounded block px-1 py-1 pr-2.5 text-neutral-100 dark:text-neutral-300 hover:bg-neutral-700" role="menuitem" tabindex="-1" id="menu-item-1">Writings</a>
-      <a href="/about" class="transition mx-1 rounded block px-1 py-1  pr-2.5 text-neutral-100 dark:text-neutral-300 hover:bg-neutral-700" role="menuitem" tabindex="-1" id="menu-item-0">About</a>
-    </div>
-  </div>
-</div>}
+    <div class="relative inline-block text-left">
+      <input type="checkbox" id="mydropdown" class="peer/edit hidden" id="menu-button" aria-expanded="true" aria-haspopup="true" />
+      <label for="mydropdown" class={`${menuClassString}`}>
+        About
+      </label>
+      <div class="hidden peer-checked/edit:block absolute z-10 mt-2 w-22 origin-top-right rounded-md bg-black dark:text-neutral-100 dark:bg-neutral-800 shadow-lg ring-1 ring-black/5 dark:ring-white/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+        <div class="py-1" role="none">
+          <!-- Active: "bg-gray-100 text-gray-800 outline-none", Not Active: "text-gray-700" -->
+          <a href="/posts" class="transition mx-1 rounded block px-1 py-1 pr-2.5 text-neutral-100 dark:text-neutral-300 hover:bg-neutral-700" role="menuitem" tabindex="-1" id="menu-item-1">Writings</a>
+          <a href="/about" class="transition mx-1 rounded block px-1 py-1  pr-2.5 text-neutral-100 dark:text-neutral-300 hover:bg-neutral-700" role="menuitem" tabindex="-1" id="menu-item-0">About</a>
+        </div>
+      </div>
+    </div>}
     {!((type === "404") || (type === "home") || (type === "posts") || (type === "post") || (type === "tag") || (type === "about")) &&
-      <a
-        aria-current={false}
-        href="/">
-        <span class={`${dotdotClassString}`}>
-          ..
-        </span>
-      </a>}
+  <a
+    aria-current={false}
+    href="/">
+    <span class={`${dotdotClassString}`}>
+      ..
+    </span>
+  </a>}
   </div>
   <div class="flex">
     <Search />

@@ -7,6 +7,12 @@ import Header from "@/components/layout/Header.astro";
 import '@fontsource/iosevka';
 import '@fontsource/alice';
 import '@fontsource/lobster';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/inter-tight';
+import '@fontsource-variable/eb-garamond';
+
+
+
 
 import { siteConfig } from "@/site-config";
 import type { SiteMeta } from "@/types";
@@ -29,7 +35,7 @@ const {
     <ViewTransitions />
   </head>
   <body
-    class="mx-auto flex min-h-screen max-w-xl flex-col bg-bgColor pt-8 sm:pt-32 text-sm font-normal text-textColor antialiased px-6 sm:px-8"
+    class="mx-auto flex min-h-screen max-w-xl flex-col bg-bgColor pt-8 sm:pt-32 text-sm font-normal text-textColor antialiased px-8 sm:px-0"
   >
     <ThemeProvider />
     <SkipLink />
@@ -37,7 +43,7 @@ const {
     <main id="main">
       <slot />
     </main>
-    <Footer />
+    <Footer type={type} />
   </body>
 </html>
 <style>

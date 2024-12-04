@@ -22,9 +22,9 @@ const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString();
     <!-- <div class="mt-16 gap-x-8 lg:flex lg:items-start">     -->
     <!-- {!!headings.length && <TOC headings={headings} />} -->
     <article class="animate-slideiny opacity-0 [--slideiny-delay:100ms] mx-0 sm:mx-0 sm:w-full flex-grow break-words" data-pagefind-body>
-      <div id="blog-hero"><Masthead content={post} /></div>
+      <div id="blog-hero" class="mb-8 sm:mb-0"><Masthead content={post} /></div>
       <div
-	class="font-normal dark:font-normal prose text-xs sm:text-base prose-sm prose-baseProse leading-relaxed mt-0 sm:mt-12 sm:prose-headings:mb-2 prose-headings:mt-8 prose-code:px-1 prose-code:align-middle prose-kbd:py-0.5 prose-kbd:px-2  prose-code:text-xs prose-code:font-bold prose-code:rounded prose-code:before:hidden prose-code:border-neutral-300 dark:prose-code:border-neutral-600 prose-code:after:hidden prose-headings:font-normal prose-headings:text-sm sm:prose-headings:text-base prose-headings:font-semibold [&>.footnotes]:text-xs sm:[&>.footnotes]:text-sm">
+	class="font-normal dark:font-normal prose text-sm sm:text-base prose-sm prose-baseProse leading-relaxed mt-0 sm:mt-12 sm:prose-headings:mb-2 prose-headings:mt-8 prose-code:px-1 prose-code:align-middle prose-kbd:py-0.5 prose-kbd:px-2  prose-code:text-xs prose-code:font-bold prose-code:rounded prose-code:before:hidden prose-code:border-neutral-300 dark:prose-code:border-neutral-600 prose-code:after:hidden prose-headings:font-semibold prose-headings:text-sm sm:prose-headings:text-lg [&>.footnotes]:text-xs sm:[&>.footnotes]:text-sm">
 	<slot />
       </div>
     </article>
@@ -77,7 +77,6 @@ const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString();
 .footnotes:before {
   content: "";
   border-top: 1px solid grey;
-
   width: 50%;
   display: block;
   margin: 0 auto;

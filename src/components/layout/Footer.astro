@@ -1,32 +1,55 @@
 ---
-// import { menuLinks, siteConfig } from "@/site-config";
 import { siteConfig } from "@/site-config";
 const url = new URL(Astro.request.url);
 const year = new Date().getFullYear();
+
+const { type } = Astro.props;
+console.log(type);
 ---
 
 <footer
-  class="mt-auto flex w-full items-center justify-center gap-y-2 pb-4 text-center align-top font-semibold text-neutral-600 dark:text-neutral-400 flex-row justify-between text-base"
+  class="mt-auto flex w-full items-center justify-center gap-y-2 mb-8 sm:mb-16 text-center align-top font-semibold text-neutral-500 dark:text-neutral-400 flex-row justify-between"
 >
   <div class="font-normal me-0">
     <a
       aria-current={url.pathname === "/" ? "page" : false}
-      class="text-xs items-center grayscale hover:filter-none relative inline-block"
+      class="text-sm items-center grayscale hover:filter-none relative inline-block"
       href="/"
     >
       &copy;
-      <span class="underline">{siteConfig.author}</span>
+      <span class="">{siteConfig.author}</span>
       {year}.
     </a>
   </div>
+
+  <div class="select-none">
+  {(type === "post") &&
+        <a
+          id="to-top-btn"
+          aria-current={false}
+          href="#blog-hero">
+          <span class="p-1 px-3 mr-1 bg-black dark:bg-neutral-800 text-white rounded-md text-base inline-block hover:bg-neutral-700 dark:hover:bg-neutral-700 transition">
+            ^
+          </span>
+        </a>}
+  {!(type === "home") &&
+        <a
+          aria-current={false}
+          href="javascript: history.go(-1)">
+          <span class="p-1 px-2.5 mr-1 bg-black dark:bg-neutral-800 text-white rounded-md text-base inline-block hover:bg-neutral-700 dark:hover:bg-neutral-700 transition">
+            ..
+          </span>
+        </a>}
+
+
   <a
     aria-current={false}
     href="/">
-    <span class="p-1 px-2 bg-black dark:bg-neutral-800 text-white rounded-md text-xs inline-block hover:bg-neutral-700 dark:hover:bg-neutral-700 transition">
+    <span class="p-1 px-2.5 bg-black dark:bg-neutral-800 text-white rounded-md text-base inline-block hover:bg-neutral-700 dark:hover:bg-neutral-700 transition">
       ~
     </span>
   </a>
-
+</div>
   <!-- <nav -->
   <!-- 	aria-label="More on this site" -->
   <!-- 	class="flex gap-x-2 sm:gap-x-0 sm:divide-x sm:divide-gray-500" -->
@@ -40,3 +63,21 @@ const year = new Date().getFullYear();
   <!-- 	} -->
   <!-- </nav> -->
 </footer>
+
+<script>
+const scrollBtn = document.getElementById("to-top-btn") as HTMLButtonElement;
+const targetHeader = document.getElementById("blog-hero") as HTMLDivElement;
+function callback(entries: IntersectionObserverEntry[]) {
+  entries.forEach((entry) => {
+    // only show the scroll to top button when the heading is out of view
+    scrollBtn.dataset.show = (!entry.isIntersecting).toString();
+  });
+}
+
+scrollBtn.addEventListener("click", () => {
+  document.documentElement.scrollTo({ behavior: "smooth", top: 0 });
+});
+
+const observer = new IntersectionObserver(callback);
+observer.observe(targetHeader);
+</script>

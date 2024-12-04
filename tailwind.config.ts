@@ -133,8 +133,8 @@ export default {
       fontFamily: {
 	// Add any custom fonts here
 	// sans: [...fontFamily.sans],
-	sans: ['Roboto', ...fontFamily.sans],
-	serif: ['Alice', ...fontFamily.serif],
+	sans: ['Inter Variable', ...fontFamily.sans],
+	serif: ['Eb Garamond Variable', ...fontFamily.serif],
         mono: ['Iosevka', ...fontFamily.mono]
       },
       transitionProperty: {

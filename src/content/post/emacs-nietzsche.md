@@ -11,7 +11,7 @@ Emacs, the endlessly customizable text editor, embodies Nietzschean ideals in su
 # Eternal Recurrence
 In *The Gay Science* (*Die fröhliche Wissenschaft*), Nietzsche introduces the idea of *Eternal Recurrence*, a thought experiment that asks:
 
-> What if some day or night a demon were to steal after you into your loneliest loneliness and say to you: ‘This life as you now live it and have lived it, you will have to live once more and innumerable times more’?[^1]
+> What if some day or night a demon were to steal after you into your loneliest loneliness and say to you: ‘This life as you now live it and have lived it, you will have to live once more and innumerable times more’? [^1]
 
 Nietzsche’s question forces us to confront the nature of repetition in our lives. Can we affirm existence, even if every moment were to repeat endlessly?
 
@@ -22,7 +22,7 @@ To use Emacs is to embrace Eternal Recurrence—not passively, but actively. Eac
 # Will to Power
 Nietzsche’s will to power is not merely a drive for dominance but a creative force—the desire to shape the world according to one’s vision. As he writes in *Thus Spoke Zarathustra*:
 
-> What is the great thing about man? That he is a bridge and not a goal: what can be loved in man is that he is an overture and a going under.[^2]
+> What is the great thing about man? That he is a bridge and not a goal: what can be loved in man is that he is an overture and a going under. [^2]
 
 Emacs challenges its users in a similar way. Unlike tools designed for passive consumption, Emacs demands active engagement. Its steep learning curve and immense configurability require users to take control of their environment, shaping it to reflect their goals and values.
 
@@ -32,7 +32,7 @@ Customizing Emacs is an act of creation. Through Emacs Lisp, users can write fun
 Nietzsche believed that true greatness lay in the ability to overcome oneself. Emacs offers the same challenge: to master it is to overcome its initial complexity and to build something personal and meaningful.
 
 # Technology and Nietzschean Freedom
-Nietzsche frequently warned against forces that dull the human spirit. He criticized complacency, mediocrity, and submission to systems that strip individuals of their creative power. In On the *Genealogy of Morality*, he describes modern life as dominated by passive conformity, where individuals "forget to command" and live "as if [they] were a mere appendage to others."[^3]
+Nietzsche frequently warned against forces that dull the human spirit. He criticized complacency, mediocrity, and submission to systems that strip individuals of their creative power. In On the *Genealogy of Morality*, he describes modern life as dominated by passive conformity, where individuals "forget to command" and live "as if [they] were a mere appendage to others." [^3]
 
 This critique resonates in the realm of technology. Many modern tools prioritize ease of use over freedom, locking users into predefined patterns. Social media algorithms, closed ecosystems, and restrictive interfaces reflect this tendency to "forget to command."
 
@@ -45,7 +45,7 @@ To use Emacs is to say "Yes!" to the eternal recurrence of work and to affirm on
 
 As Nietzsche asks us in *Thus Spoke Zarathustra*:
 
-> Do you want to be the ebb of this great flood, and even go back to the beasts rather than overcome man?[^4]
+> Do you want to be the ebb of this great flood, and even go back to the beasts rather than overcome man? [^4]
 
 In using Emacs, we choose not the ebb but the flow: to overcome our limits, master complexity, and shape the world according to our will.
 

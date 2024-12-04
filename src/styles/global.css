@@ -86,3 +86,7 @@ blockquote {
     font-family: 'Alice', serif;
     font-style: italic;
 }
+
+::selection {
+    @apply bg-neutral-100 dark:bg-neutral-800;
+}
