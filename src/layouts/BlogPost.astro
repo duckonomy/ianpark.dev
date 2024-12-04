@@ -3,7 +3,6 @@ import type { CollectionEntry } from "astro:content";
 
 import Masthead from "@/components/blog/Masthead.astro";
 // import TOC from "@/components/blog/TOC.astro";
-import WebMentions from "@/components/blog/webmentions/index.astro";
 import PageLayout from "@/layouts/Base.astro";
 
 interface Props {
@@ -16,18 +15,16 @@ const {
   slug,
 } = post;
 const type = "post";
-const socialImage = ogImage ?? `/og-image/${slug}.png`;
 const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString();
-const { headings } = await post.render();
 ---
-<PageLayout meta={{ articleDate, description, ogImage: socialImage, title, type }}>
+<PageLayout meta={{ articleDate, description, title, type }}>
   <div class="mt-6 sm:mt-16 mb-16 lg:flex">
     <!-- <div class="mt-16 gap-x-8 lg:flex lg:items-start">     -->
     <!-- {!!headings.length && <TOC headings={headings} />} -->
     <article class="animate-slideiny opacity-0 [--slideiny-delay:100ms] mx-0 sm:mx-0 sm:w-full flex-grow break-words" data-pagefind-body>
       <div id="blog-hero"><Masthead content={post} /></div>
       <div
-	class="font-normal dark:font-normal prose text-xs sm:text-base prose-sm prose-baseProse leading-relaxed mt-0 sm:mt-12 sm:prose-headings:mb-2 prose-headings:mt-8 prose-code:px-1 prose-code:align-middle prose-kbd:py-0.5 prose-kbd:px-2  prose-code:text-xs prose-code:font-bold prose-code:rounded prose-code:before:hidden prose-code:border-neutral-300 dark:prose-code:border-neutral-600 prose-code:after:hidden prose-headings:font-normal prose-headings:text-sm sm:prose-headings:text-base prose-headings:font-semibold">
+	class="font-normal dark:font-normal prose text-xs sm:text-base prose-sm prose-baseProse leading-relaxed mt-0 sm:mt-12 sm:prose-headings:mb-2 prose-headings:mt-8 prose-code:px-1 prose-code:align-middle prose-kbd:py-0.5 prose-kbd:px-2  prose-code:text-xs prose-code:font-bold prose-code:rounded prose-code:before:hidden prose-code:border-neutral-300 dark:prose-code:border-neutral-600 prose-code:after:hidden prose-headings:font-normal prose-headings:text-sm sm:prose-headings:text-base prose-headings:font-semibold [&>.footnotes]:text-xs sm:[&>.footnotes]:text-sm">
 	<slot />
       </div>
     </article>
@@ -80,6 +77,7 @@ const { headings } = await post.render();
 .footnotes:before {
   content: "";
   border-top: 1px solid grey;
+
   width: 50%;
   display: block;
   margin: 0 auto;
@@ -87,8 +85,13 @@ const { headings } = await post.render();
   margin-bottom: 4rem;
 }
 
+.footnotes > ol > li {
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+}
+
 .footnotes > ol > li > p {
-  margin-top: 0.15rem;
-  margin-bottom: 0.15rem;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
 }
 </style>

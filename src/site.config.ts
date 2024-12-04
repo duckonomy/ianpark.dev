@@ -2,9 +2,7 @@ import type { SiteConfig } from "@/types";
 import type { AstroExpressiveCodeOptions } from "astro-expressive-code";
 
 export const siteConfig: SiteConfig = {
-  // Used as both a meta property (src/components/BaseHead.astro L:31 + L:49) & the generated satori png (src/pages/og-image/[slug].png.ts)
   author: "Ian Park",
-  // Date.prototype.toLocaleDateString() parameters, found in src/utils/date.ts.
   date: {
     locale: "en-US",
     options: {
@@ -23,10 +21,6 @@ export const siteConfig: SiteConfig = {
   sortPostsByUpdatedDate: false,
   // Used to construct the meta title property found in src/components/BaseHead.astro L:11, and webmanifest name found in astro.config.ts L:42
   title: "Ian Park",
-  // webmentions: {
-    // Webmention.io API endpoint. Get your own here: https://webmention.io/, and follow this blog post: https://astro-cactus.chriswilliams.dev/posts/webmentions/
-    // link: "https://webmention.io/astro-cactus.chriswilliams.dev/webmention",
-  // },
 };
 
 // Used to generate links in both the Header & Footer.

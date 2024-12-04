@@ -1,27 +1,4 @@
 ---
-//import { Icon } from "astro-icon/components";
-
-/**
-Uses https://www.astroicon.dev/getting-started/
-Find icons via guide: https://www.astroicon.dev/guides/customization/#open-source-icon-sets
-Only installed pack is: @iconify-json/mdi
- */
-//const socialLinks: {
-//  friendlyName: string;
-//  isWebmention?: boolean;
-//  link: string;
-//  name: string;
-//}[] = [
-//  {
-//    friendlyName: "Github",
-//    link: "https://github.com/duckonomy/",
-//    name: "mdi:github",
-//  }, {
-//    friendlyName: "Twitter",
-//    link: "https://github.com/duckonomy/",
-//    name: "fa6-brands:square-x-twitter",
-//  },
-//];
 ---
 
 <div class="animate-slideiny opacity-0 [--slideiny-delay:400ms] flex flex-wrap gap-x-2">
@@ -80,7 +57,7 @@ Only installed pack is: @iconify-json/mdi
 
   <a
     class="inline-block transition hover:bg-neutral-100 hover:text-neutral-700 rounded-md px-1 py-1 -mr-1 -my-1"
-    href="mailto:ian@ianpark.dev"
+    href="/rss.xml"
     rel="noreferrer"
     target="_blank">
     <div class="flex flex-col justify-center">
@@ -91,7 +68,4 @@ Only installed pack is: @iconify-json/mdi
       <span class="sr-only">RSS</span>
     </div>
   </a>
-
-  <!-- {socialLinks.map(({ friendlyName, isWebmention, link, name }) => ( -->
-  <!-- ))} -->
 </div>

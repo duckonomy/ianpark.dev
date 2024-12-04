@@ -1,5 +1,4 @@
 ---
-import { menuLinks } from "@/site-config";
 import Search from "../Search.astro";
 import ThemeToggle from "../ThemeToggle.astro";
 
@@ -68,14 +67,14 @@ const unfocusedSlashClassString = "rounded-md inline-block transition p-1 pr-1.5
         </span>
       </a>}
 
-    {(type === "tag") &&
-      <a
-        aria-current={false}
-        href="/tags">
-        <span class={`${dotdotClassString}`}>
-          ..
-        </span>
-      </a>}
+    <!-- {(type === "tag") && -->
+    <!--   <a -->
+    <!--     aria-current={false} -->
+    <!--     href="/tags"> -->
+    <!--     <span class={`${dotdotClassString}`}> -->
+    <!--       .. -->
+    <!--     </span> -->
+    <!--   </a>} -->
 
 
     {(type === "about") &&
