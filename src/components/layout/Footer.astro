@@ -32,10 +32,20 @@ console.log(type);
             ^
           </span>
         </a>}
-  {!(type === "home") &&
+
+  {(type === "posts") &&
         <a
           aria-current={false}
-          href="javascript:history.back()">
+          href="/">
+          <span class="p-1 px-2.5 mr-1 bg-black dark:bg-neutral-800 text-white rounded-md text-base inline-block sm:hover:bg-neutral-700 sm:dark:hover:bg-neutral-700 transition">
+            ..
+          </span>
+        </a>}
+
+  {!(type === "post") &&
+        <a
+          aria-current={false}
+          href="/posts">
           <span class="p-1 px-2.5 mr-1 bg-black dark:bg-neutral-800 text-white rounded-md text-base inline-block sm:hover:bg-neutral-700 sm:dark:hover:bg-neutral-700 transition">
             ..
           </span>
