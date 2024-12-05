@@ -2,7 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 
 import Masthead from "@/components/blog/Masthead.astro";
-// import TOC from "@/components/blog/TOC.astro";
+import TOC from "@/components/blog/TOC.astro";
 import PageLayout from "@/layouts/Base.astro";
 
 interface Props {
@@ -16,38 +16,23 @@ const {
 } = post;
 const type = "post";
 const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString();
+const { headings } = await post.render();
 ---
 <PageLayout meta={{ articleDate, description, title, type }}>
+  {!!headings.length && <TOC headings={headings} />}
   <div class="mt-6 sm:mt-16 mb-16 lg:flex">
-    <!-- <div class="mt-16 gap-x-8 lg:flex lg:items-start">     -->
-    <!-- {!!headings.length && <TOC headings={headings} />} -->
+    <!-- <div class="mt-16 gap-x-0 lg:flex lg:items-start"> -->
+
     <article class="animate-slideiny opacity-0 [--slideiny-delay:100ms] mx-0 sm:mx-0 sm:w-full flex-grow break-words" data-pagefind-body>
       <div id="blog-hero" class="mb-8 sm:mb-0"><Masthead content={post} /></div>
       <div
-	class="font-normal dark:font-normal prose text-base sm:text-base prose-sm prose-baseProse leading-7 sm:leading-7 mt-0 sm:mt-12 sm:prose-headings:mb-2 prose-headings:mt-8 prose-code:px-1 prose-code:align-middle prose-kbd:py-0.5 prose-kbd:px-2  prose-code:text-xs prose-code:font-bold prose-code:rounded prose-code:before:hidden prose-code:border-neutral-300 dark:prose-code:border-neutral-600 prose-code:after:hidden prose-headings:font-semibold prose-headings:text-base sm:prose-headings:text-lg [&>.footnotes]:text-xs sm:[&>.footnotes]:text-sm">
+	class="font-normal dark:font-normal prose text-base prose-sm prose-baseProse leading-7 sm:leading-7 mt-0 sm:mt-12 sm:prose-headings:mb-2 prose-headings:mt-20 prose-code:px-1 prose-code:align-middle prose-kbd:py-0.5 prose-kbd:px-2  prose-code:text-xs prose-code:font-bold prose-code:rounded prose-code:before:hidden prose-code:border-neutral-300 dark:prose-code:border-neutral-600 prose-code:after:hidden prose-headings:font-semibold prose-headings:text-base sm:prose-headings:text-lg [&>.footnotes]:text-xs sm:[&>.footnotes]:text-sm">
 	<slot />
       </div>
     </article>
+      <!-- </div> -->
   </div>
 </PageLayout>
-
-<script>
-// const scrollBtn = document.getElementById("to-top-btn") as HTMLButtonElement;
-// const targetHeader = document.getElementById("blog-hero") as HTMLDivElement;
-// function callback(entries: IntersectionObserverEntry[]) {
-//   entries.forEach((entry) => {
-//     // only show the scroll to top button when the heading is out of view
-//     scrollBtn.dataset.show = (!entry.isIntersecting).toString();
-//   });
-// }
-
-// scrollBtn.addEventListener("click", () => {
-//   document.documentElement.scrollTo({ behavior: "smooth", top: 0 });
-// });
-
-// const observer = new IntersectionObserver(callback);
-// observer.observe(targetHeader);
-</script>
 
 <style is:global>
 .anchor-link {
@@ -84,16 +69,38 @@ const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString();
   margin-bottom: 4rem;
 }
 
-
-
 .footnotes > ol > li {
   margin-top: 0rem;
   margin-bottom: 0rem;
 }
 
-.footnotes > ol > li > p {
-  margin-top: 0rem;
-  margin-bottom: 0rem;
+.cm-em, em {
+    font-family: 'Eb Garamond Variable', serif;
+    font-size: 1.13rem !important;
+    font-weight: 400 !important;
+    font-style: italic;
+}
+
+blockquote {
+    @apply text-textColor !important;
+    font-family: 'Eb Garamond Variable', serif;
+    font-weight: 400 !important;
+    font-size: 1.13rem !important;
+    font-style: italic;
+    padding-inline-start: 2rem !important;
+    padding-inline-end: 2rem !important;
+}
+
+blockquote > p::before {
+  content: "" !important;
+}
+
+blockquote > p::after {
+  content: "" !important;
+}
+
+blockquote > p:nth-of-type(2) {
+  text-align: right !important;
 }
 
 </style>

@@ -36,7 +36,6 @@ export default {
   ],
   theme: {
     // keyframes: {
-
     // },
     // animation: {
     //   slideIn: "slideIn .25s ease-in-out forwards var(--delay, 0)"
@@ -134,7 +133,7 @@ export default {
 	// Add any custom fonts here
 	// sans: [...fontFamily.sans],
 	sans: ['Inter Variable', ...fontFamily.sans],
-	serif: ['Eb Garamond Variable', ...fontFamily.serif],
+	serif: ['Source Serif 4 Variable', ...fontFamily.serif],
         mono: ['Iosevka', ...fontFamily.mono]
       },
       transitionProperty: {

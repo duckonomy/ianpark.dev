@@ -19,7 +19,7 @@
 
     :root[data-theme="dark"] {
 	color-scheme: dark;
-	--theme-bg: 0deg 0% 0%;
+	--theme-bg: 0deg 0% 10%;
 	--theme-link: 0deg 0% 60%;
 	--theme-text: 220deg 3% 75%;
 	--theme-text-faded: 0deg 0% 60%;
@@ -75,16 +75,6 @@
     ::-webkit-scrollbar-thumb:hover {
         @apply bg-neutral-500 dark:bg-neutral-500;
     }
-}
-
-.cm-em, em {
-    font-family: 'Alice', serif;
-    font-style: italic;
-}
-
-blockquote {
-    font-family: 'Alice', serif;
-    font-style: italic;
 }
 
 ::selection {
