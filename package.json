@@ -26,7 +26,7 @@
 		"@fontsource/iosevka": "^5.1.0",
 		"@fontsource/lobster": "^5.1.0",
 		"@fontsource/roboto": "^5.1.0",
-		"astro": "4.15.12",
+		"astro": "4.16.18",
 		"astro-expressive-code": "^0.37.0",
 		"astro-icon": "^1.1.1",
 		"astro-robots-txt": "^1.0.0",
