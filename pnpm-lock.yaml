@@ -27,8 +27,8 @@ importers:
         specifier: ^5.1.1
         version: 5.1.1
       '@fontsource-variable/inter':
-        specifier: ^5.1.0
-        version: 5.1.0
+        specifier: ^5.1.1
+        version: 5.1.1
       '@fontsource-variable/source-serif-4':
         specifier: ^5.1.0
         version: 5.1.0
@@ -551,8 +551,8 @@ packages:
   '@fontsource-variable/eb-garamond@5.1.1':
     resolution: {integrity: sha512-8rSdgPsFk96vvJPL7i47VsEaTOdhKvoSOFPSizrX5JcrLuWvTRngT2p9cPFL4WROGCA5TDNa+m68w7pdk4HYoQ==}
 
-  '@fontsource-variable/inter@5.1.0':
-    resolution: {integrity: sha512-Wj2dUGP0vUpxRGQTXQTCNJO+aLcFcQm+gUPXfj/aS877bQkEPBPv9JvZJpwdm2vzelt8NTZ+ausKlBCJjh2XIg==}
+  '@fontsource-variable/inter@5.1.1':
+    resolution: {integrity: sha512-OpXFTmiH6tHkYijMvQTycFKBLK4X+SRV6tet1m4YOUH7SzIIlMqDja+ocDtiCA72UthBH/vF+3ZtlMr2rN/wIw==}
 
   '@fontsource-variable/source-serif-4@5.1.0':
     resolution: {integrity: sha512-8VI/4B1bfwaUCSZjPxn7yzHTrAcL/nKi+MgjQwl6Tz4mh/ndOyRtsYxn/KajWTj+MdlaXEGsgoyy6OlTMx05RA==}
@@ -3938,7 +3938,7 @@ snapshots:
 
   '@fontsource-variable/eb-garamond@5.1.1': {}
 
-  '@fontsource-variable/inter@5.1.0': {}
+  '@fontsource-variable/inter@5.1.1': {}
 
   '@fontsource-variable/source-serif-4@5.1.0': {}
 
