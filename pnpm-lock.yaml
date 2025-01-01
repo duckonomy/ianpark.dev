@@ -42,8 +42,8 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0
       '@fontsource/roboto':
-        specifier: ^5.1.0
-        version: 5.1.0
+        specifier: ^5.1.1
+        version: 5.1.1
       astro:
         specifier: 4.15.12
         version: 4.15.12(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.7.2)
@@ -566,8 +566,8 @@ packages:
   '@fontsource/lobster@5.1.0':
     resolution: {integrity: sha512-kEIt+NiswgZoA7loqiIXZKpO336yZjvvy3gvBj/hLYGPrZajDDGTr4bKEfsa7NmeD3cXYIO4FDiC5GfB0ONyQw==}
 
-  '@fontsource/roboto@5.1.0':
-    resolution: {integrity: sha512-cFRRC1s6RqPygeZ8Uw/acwVHqih8Czjt6Q0MwoUoDe9U3m4dH1HmNDRBZyqlMSFwgNAUKgFImncKdmDHyKpwdg==}
+  '@fontsource/roboto@5.1.1':
+    resolution: {integrity: sha512-XwVVXtERDQIM7HPUIbyDe0FP4SRovpjF7zMI8M7pbqFp3ahLJsJTd18h+E6pkar6UbV3btbwkKjYARr5M+SQow==}
 
   '@iconify-json/mdi@1.2.0':
     resolution: {integrity: sha512-E9/3l5Syg3wfuarorFodhn4s8YorxhH3U3U20LaNBNiqw1kFNIDWhF6HymuzAD35k7RH0OBasJ+ZUyFtVVV6eg==}
@@ -3948,7 +3948,7 @@ snapshots:
 
   '@fontsource/lobster@5.1.0': {}
 
-  '@fontsource/roboto@5.1.0': {}
+  '@fontsource/roboto@5.1.1': {}
 
   '@iconify-json/mdi@1.2.0':
     dependencies:
