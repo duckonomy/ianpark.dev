@@ -33,8 +33,8 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0
       '@fontsource/alice':
-        specifier: ^5.1.0
-        version: 5.1.0
+        specifier: ^5.1.1
+        version: 5.1.1
       '@fontsource/iosevka':
         specifier: ^5.1.0
         version: 5.1.0
@@ -557,8 +557,8 @@ packages:
   '@fontsource-variable/source-serif-4@5.1.0':
     resolution: {integrity: sha512-8VI/4B1bfwaUCSZjPxn7yzHTrAcL/nKi+MgjQwl6Tz4mh/ndOyRtsYxn/KajWTj+MdlaXEGsgoyy6OlTMx05RA==}
 
-  '@fontsource/alice@5.1.0':
-    resolution: {integrity: sha512-YriQ4+qpoSDbsxGi2b7AJhvKWpd00Uh7jcVIBel2TtgBxfY0wa7HbBAVeSSLnqe0HR6KWe4HYqTShMpGdNb2og==}
+  '@fontsource/alice@5.1.1':
+    resolution: {integrity: sha512-w+Coly9qWTWVjrThddzwjnUyU3f6TfZebPxuK0AjplMv5goLArhSWZ+foaPSwVCRuoZsIlPe6emm7mRp3bH8FA==}
 
   '@fontsource/iosevka@5.1.0':
     resolution: {integrity: sha512-wfo4Tzbb3Lz3Zf+UMF5c/bEQL5enPJ7LT83q/UQxbgXtg+BtleIETkziIwP8lZsw8MwhSou8HVCmSZnY0sfiCw==}
@@ -3942,7 +3942,7 @@ snapshots:
 
   '@fontsource-variable/source-serif-4@5.1.0': {}
 
-  '@fontsource/alice@5.1.0': {}
+  '@fontsource/alice@5.1.1': {}
 
   '@fontsource/iosevka@5.1.0': {}
 
