@@ -1,10 +1,19 @@
 import { type CollectionEntry, getCollection } from "astro:content";
-import { siteConfig } from "@/site-config";
+import { siteConfig } from "@/site.config";
 
 /** filter out draft posts based on the environment */
-export async function getAllPosts() {
+// export async function getAllPosts(lang?: string): Promise<CollectionEntry<"post">[]> {
+//   return await getCollection("post", ({ data }) => {
+//     const isDraft = import.meta.env.PROD ? !data.draft : true;
+//     return lang ? isDraft && data.language === lang : isDraft;
+//   });
+//
+// }
+//
+export async function getAllPosts(lang?: string): Promise<CollectionEntry<"post">[]> {
 	return await getCollection("post", ({ data }) => {
-		return import.meta.env.PROD ? !data.draft : true;
+		const isDraft = import.meta.env.PROD ? !data.draft : true;
+		return lang ? isDraft && data.language === lang : isDraft;
 	});
 }
 

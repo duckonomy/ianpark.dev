@@ -1,49 +1,53 @@
+import type { tags } from "./content.config";
+
 export interface SiteConfig {
-  author: string;
-  date: {
-    locale: string | string[] | undefined;
-    options: Intl.DateTimeFormatOptions;
-  };
-  description: string;
-  lang: string;
-  ogLocale: string;
-  sortPostsByUpdatedDate: boolean;
-  title: string;
+	author: string;
+	date: {
+		locale: string | string[] | undefined;
+		options: Intl.DateTimeFormatOptions;
+	};
+	description: string;
+	lang: string;
+	ogLocale: string;
+	sortPostsByUpdatedDate: boolean;
+	title: string;
 }
 
 export interface PaginationLink {
-  srLabel?: string;
-  text?: string;
-  url: string;
+	srLabel?: string;
+	text?: string;
+	url: string;
 }
 
 export interface SiteMeta {
-  articleDate?: string | undefined;
-  description?: string;
-  ogImage?: string | undefined;
-  title: string;
-  type: string;
+	articleDate?: string | undefined;
+	description?: string;
+	ogImage?: string | undefined;
+	title: string;
+	type: string;
 }
 
 export interface Author {
-  name: string;
-  photo: string;
-  type: string;
-  url: string;
+	name: string;
+	photo: string;
+	type: string;
+	url: string;
 }
 
 export interface Content {
-  "content-type": string;
-  html: string;
-  text: string;
-  value: string;
+	"content-type": string;
+	html: string;
+	text: string;
+	value: string;
 }
 
 export interface Rels {
-  canonical: string;
+	canonical: string;
 }
 
 export interface Summary {
-  "content-type": string;
-  value: string;
+	"content-type": string;
+	value: string;
 }
+
+export type Tags = (typeof tags)[number];

@@ -4,51 +4,63 @@ import SkipLink from "@/components/SkipLink.astro";
 import ThemeProvider from "@/components/ThemeProvider.astro";
 import Footer from "@/components/layout/Footer.astro";
 import Header from "@/components/layout/Header.astro";
-import '@fontsource/iosevka';
-import '@fontsource/alice';
-import '@fontsource/lobster';
-import '@fontsource-variable/inter';
-import '@fontsource-variable/eb-garamond';
-import '@fontsource-variable/source-serif-4';
+import "@fontsource/iosevka";
+import "@fontsource-variable/jetbrains-mono";
+import "@fontsource/alice";
+import "@fontsource/lobster";
+import "@fontsource-variable/inter";
+import "@fontsource-variable/eb-garamond";
+import "@fontsource-variable/playfair-display";
+import "@fontsource-variable/source-serif-4";
+import "@fontsource/ibm-plex-mono/700.css";
+import "@fontsource/ibm-plex-mono/700.css";
+import { getLangFromUrl } from "@/i18n/utils";
 
+import { siteConfig } from "@/site.config";
 
-import { siteConfig } from "@/site-config";
 import type { SiteMeta } from "@/types";
 
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
-  meta: SiteMeta;
+	meta: SiteMeta;
 }
 
 const {
-  meta: { articleDate, description = siteConfig.description, ogImage, title, type },
+	meta: { articleDate, description = siteConfig.description, ogImage, title, type },
 } = Astro.props;
 
+const lang = getLangFromUrl(Astro.url);
 ---
 
-<html class="scroll-smooth" lang={siteConfig.lang}>
-  <head>
-    <BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} type={type} />
-    <ViewTransitions />
-  </head>
-  <body
-    class="mx-auto flex min-h-screen max-w-2xl flex-col bg-bgColor pt-8 sm:pt-32 text-sm font-normal text-textColor antialiased px-6 lg:px-0"
-  >
-    <ThemeProvider />
-    <SkipLink />
-    <Header type={type} />
-    <main id="main">
-      <slot />
-    </main>
-    <Footer type={type} />
-  </body>
+<html class="scroll-smooth" lang={lang}>
+	<head>
+		<BaseHead
+			articleDate={articleDate}
+			description={description}
+			ogImage={ogImage}
+			title={title}
+			type={type}
+		/>
+		<ClientRouter fallback="animate" />
+	</head>
+	<!-- NOTE: transition for theme toggle -->
+	<body
+		class="overflow-y-scroll bg-bgColor text-sm font-normal text-textColor antialiased transition"
+	>
+		<div class="mx-auto flex min-h-screen max-w-2xl flex-col px-6 pt-8 sm:pt-32 lg:px-0">
+			<ThemeProvider />
+			<SkipLink />
+			<Header type={type} />
+			<main id="main">
+				<slot />
+			</main>
+			<Footer type={type} />
+		</div>
+	</body>
 </html>
 <style>
-html {
-  width: 100vw;
-  height:100vh;
-  max-width: 100%;
-
-}
+	:root {
+		scrollbar-gutter: stable both-edges;
+	}
 </style>

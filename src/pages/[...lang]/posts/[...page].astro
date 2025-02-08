@@ -1,0 +1,86 @@
+---
+import type { CollectionEntry } from "astro:content";
+import PostPreview from "@/components/blog/PostPreview.astro";
+import FilterTags from "@/components/blog/FilterTags.astro";
+import { getAllPosts, groupPostsByYear, sortMDByDate } from "@/data/post";
+import PageLayout from "@/layouts/Base.astro";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import Intro from "@/components/layout/Intro.astro";
+
+export const getStaticPaths = async () => {
+	const [enPosts, koPosts] = await Promise.all([getAllPosts("en"), getAllPosts("ko")]);
+
+	return [
+		{
+			params: { lang: undefined },
+			props: { posts: sortMDByDate(enPosts) },
+		},
+		{
+			params: { lang: "ko" },
+			props: { posts: sortMDByDate(koPosts) },
+		},
+	];
+};
+
+interface Props {
+	posts: Array<CollectionEntry<"post">>;
+}
+
+const { posts } = Astro.props;
+const meta = {
+	description: "Read my collection of posts and the things that interest me",
+	title: "Posts",
+	type: "posts",
+};
+
+const groupedByYear = groupPostsByYear(posts);
+const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
+const lang = getLangFromUrl(Astro.url) || "en";
+const t = useTranslations(lang);
+---
+
+<PageLayout meta={meta}>
+	<Intro title={t("posts.title")}>
+		<div slot="description">
+			<FilterTags lang={lang} t={t} />
+		</div>
+	</Intro>
+	<div class="mb-16 mt-6 sm:mt-16">
+		<section
+			class="posts-list group/total relative transition-all duration-200 ease-in-out sm:border-solid sm:border-neutral-200 dark:sm:border-zinc-700"
+			aria-label="Blog post list"
+		>
+			{
+				descYearKeys.map((yearKey, i) => (
+					<div class="year-tag">
+						<div class="h-px w-full bg-neutral-200 dark:bg-zinc-700" />
+						<div
+							class="year-group group/years flex w-full flex-col transition-all duration-200 ease-in-out last-of-type:mb-0 sm:flex-row sm:space-x-10"
+							data-year={yearKey}
+						>
+							<div class="year-label z-10 my-4 mb-2 rounded-md px-1 transition-all duration-200 ease-in-out sm:my-6 sm:mb-0">
+								<span class="font-source-serif mt-3 inline-block rounded-md text-lg font-medium text-neutral-600 transition-all duration-200 ease-in-out group-hover/years:bg-neutral-100 group-hover/total:text-neutral-400 group-hover/years:text-neutral-900 dark:text-zinc-400 dark:group-hover/years:bg-zinc-800 dark:group-hover/total:text-zinc-600 dark:group-hover/years:text-zinc-200 sm:mt-0 sm:px-2">
+									{yearKey}
+								</span>
+							</div>
+							<ul class="my-6 w-full text-start">
+								{groupedByYear[yearKey]?.map((p, j) => (
+									<li
+										class="my-8 transition-all duration-200 ease-in-out first:mt-0 last:mb-0 group-hover/total:text-neutral-400 group-hover/years:text-neutral-900 dark:group-hover/total:text-zinc-600 dark:group-hover/years:text-zinc-200 [.initial-load_&]:animate-slideIn [.initial-load_&]:opacity-0"
+										data-year={yearKey}
+										style={{
+											"--slideIn-delay": (i + 1) * 150 + (j + 1) * 50 + "ms",
+										}}
+									>
+										<PostPreview post={p} />
+									</li>
+								))}
+							</ul>
+						</div>
+					</div>
+				))
+			}
+		</section>
+	</div>
+</PageLayout>
+<script src="../../../scripts/transitions.ts"></script>

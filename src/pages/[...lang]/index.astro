@@ -1,0 +1,56 @@
+---
+import BaseLayout from "@/layouts/Base.astro";
+import MyLink from "@/components/MyLink";
+import { getLangFromUrl, useTranslations, useTranslatedPath } from "@/i18n/utils";
+import Intro from "@/components/layout/Intro.astro";
+
+export async function getStaticPaths() {
+	return [{ params: { lang: "en" } }, { params: { lang: "ko" } }, { params: { lang: undefined } }];
+}
+
+const lang = getLangFromUrl(Astro.url) || "en";
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+---
+
+<BaseLayout meta={{ title: t("about.title"), type: "home" }}>
+	<Intro
+		title={t("about.title")}
+		homeStatement={t("home.description")}
+		animate={true}
+		isHome={true}
+	>
+		<div
+			slot="description-animate"
+			class="text-base text-textColorFaded dark:text-zinc-400 sm:text-base"
+		>
+			<span>{t("portfolio.prefix")} </span>
+			<span class:list={[lang === "en" ? "-mr-1" : "-mr-2"]}>
+				<MyLink href={translatePath("/posts")}>{t("portfolio.thoughts")}</MyLink>
+			</span>
+			<span class="pl-1">{t("portfolio.and")}</span>
+			<span class:list={[lang === "en" ? "-mr-1" : "-mr-2"]}>
+				<MyLink href={translatePath("/about")}>{t("portfolio.work")}</MyLink>
+			</span>
+			<span class="pl-1">{t("portfolio.in_software")}</span>
+		</div>
+	</Intro>
+</BaseLayout>
+
+<script>
+	document.addEventListener("astro:after-swap", () => {
+		const animatedElements = document.querySelectorAll(".animate-slideiny");
+		animatedElements.forEach((el) => {
+			el.classList.remove("animate-slideiny", "opacity-0");
+		});
+	});
+
+	document.addEventListener("astro:page-load", () => {
+		if (!document.referrer.includes("/about")) {
+			const animatedElements = document.querySelectorAll('[class*="animate-slideiny"]');
+			animatedElements.forEach((el) => {
+				el.classList.add("animate-slideiny", "opacity-0");
+			});
+		}
+	});
+</script>

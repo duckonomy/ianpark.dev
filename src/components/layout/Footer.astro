@@ -1,93 +1,69 @@
 ---
-import { siteConfig } from "@/site-config";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
+import { siteConfig } from "@/site.config";
 const url = new URL(Astro.request.url);
 const year = new Date().getFullYear();
 
 const { type } = Astro.props;
-console.log(type);
 ---
 
 <footer
-  class="mt-auto flex w-full items-center justify-center gap-y-2 mb-8 sm:mb-16 text-center align-top font-semibold text-neutral-500 dark:text-neutral-400 flex-row justify-between"
+	class="mb-8 mt-auto flex w-full flex-row items-center justify-between gap-y-2 text-center align-top font-semibold text-neutral-500 dark:text-zinc-400 sm:mb-16"
+	id=""
 >
-  <div class="font-normal me-0">
-    <a
-      aria-current={url.pathname === "/" ? "page" : false}
-      class="text-sm items-center grayscale hover:filter-none relative inline-block"
-      href="/"
-    >
-      &copy;
-      <span class="">{siteConfig.author}</span>
-      {year}.
-    </a>
-  </div>
+	<div class="me-0 font-normal">
+		<a
+			aria-current={url.pathname === "/" ? "page" : false}
+			class="relative inline-block items-center text-sm grayscale hover:filter-none"
+			href="/"
+		>
+			&copy;
+			<span class="">{siteConfig.author}</span>
+			{year}.
+		</a>
+	</div>
 
-  <div class="select-none">
-  {(type === "post") &&
-        <a
-          id="to-top-btn"
-          aria-current={false}
-          href="#blog-hero">
-          <span class="p-1 px-3 mr-1 bg-black dark:bg-neutral-800 text-white rounded-md text-base inline-block sm:hover:bg-neutral-700 sm:dark:hover:bg-neutral-700 transition">
-            ^
-          </span>
-        </a>}
+	<div class="flex select-none justify-center">
+		{type === "post" && <ScrollToTopButton client:load />}
 
-  {(type === "posts") &&
-        <a
-          aria-current={false}
-          href="/">
-          <span class="p-1 px-2.5 mr-1 bg-black dark:bg-neutral-800 text-white rounded-md text-base inline-block sm:hover:bg-neutral-700 sm:dark:hover:bg-neutral-700 transition">
-            ..
-          </span>
-        </a>}
+		{
+			type === "posts" && (
+				<a aria-current={false} href="/">
+					<span class="font-alice mr-1 inline-block h-10 w-9 rounded-md bg-black p-1 px-2.5 text-lg text-white transition dark:bg-zinc-800 sm:hover:bg-neutral-700 sm:dark:hover:bg-zinc-700">
+						··
+					</span>
+				</a>
+			)
+		}
 
-  {(type === "post") &&
-        <a
-          aria-current={false}
-          href="/posts">
-          <span class="p-1 px-2.5 mr-1 bg-black dark:bg-neutral-800 text-white rounded-md text-base inline-block sm:hover:bg-neutral-700 sm:dark:hover:bg-neutral-700 transition">
-            ..
-          </span>
-        </a>}
+		{
+			type === "post" && (
+				<a aria-current={false} href="/posts">
+					<span class="font-alice mr-1 inline-block h-10 w-9 rounded-md bg-black p-1 px-2.5 text-lg text-white transition dark:bg-zinc-800 sm:hover:bg-neutral-700 sm:dark:hover:bg-zinc-700">
+						··
+					</span>
+				</a>
+			)
+		}
 
+		{
+			type !== "home" && (
+				<a aria-current={false} href="/">
+					<span class="font-alice inline-block h-10 w-9 rounded-md bg-black p-1 px-2.5 text-lg text-white transition dark:bg-zinc-800 sm:hover:bg-neutral-700 sm:dark:hover:bg-zinc-700">
+						~
+					</span>
+				</a>
+			)
+		}
 
-  <a
-    aria-current={false}
-    href="/">
-    <span class="p-1 px-2.5 bg-black dark:bg-neutral-800 text-white rounded-md text-base inline-block sm:hover:bg-neutral-700 sm:dark:hover:bg-neutral-700 transition">
-      ~
-    </span>
-  </a>
-</div>
-  <!-- <nav -->
-  <!-- 	aria-label="More on this site" -->
-  <!-- 	class="flex gap-x-2 sm:gap-x-0 sm:divide-x sm:divide-gray-500" -->
-  <!-- > -->
-  <!-- 	{ -->
-  <!-- 		menuLinks.map((link) => ( -->
-  <!-- 			<a class="px-4 py-2 sm:py-0 sm:hover:text-textColor sm:hover:underline" href={link.path}> -->
-  <!-- 				{link.title} -->
-  <!-- 			</a> -->
-  <!-- 		)) -->
-  <!-- 	} -->
-  <!-- </nav> -->
+		{type === "home" && <span class="font-playfair font-light italic">Life is Awesome</span>}
+	</div>
 </footer>
 
-<script>
-const scrollBtn = document.getElementById("to-top-btn") as HTMLButtonElement;
-const targetHeader = document.getElementById("blog-hero") as HTMLDivElement;
-function callback(entries: IntersectionObserverEntry[]) {
-  entries.forEach((entry) => {
-    // only show the scroll to top button when the heading is out of view
-    scrollBtn.dataset.show = (!entry.isIntersecting).toString();
-  });
-}
-
-scrollBtn.addEventListener("click", () => {
-  document.documentElement.scrollTo({ behavior: "smooth", top: 0 });
-});
-
-const observer = new IntersectionObserver(callback);
-observer.observe(targetHeader);
-</script>
+<style is:global>
+	#footer-font {
+		/* font-family: 'Lobster', system-ui; */
+		/* font-family: 'IBM Plex Mono', monospace; */
+		font-weight: "600";
+	}
+</style>

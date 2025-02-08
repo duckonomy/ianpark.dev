@@ -1,0 +1,53 @@
+---
+import { render } from "astro:content";
+import { getAllPosts } from "@/data/post";
+import PostLayout from "@/layouts/BlogPost.astro";
+import type { InferGetStaticPropsType } from "astro";
+
+// export const getStaticPaths = (async () => {
+//   const [enPosts, koPosts] = await Promise.all([
+//     getAllPosts('en'),
+//     getAllPosts('ko')
+//   ]);
+//
+//   const paths = [...enPosts, ...koPosts].map((post) => ({
+//     params: {
+//       lang: post.data.language === 'en' ? undefined : post.data.language,
+//       slug: post.id.split('/').pop()
+//     },
+//     props: { post }
+//   }));
+//
+//   return paths;
+// });
+//
+export const getStaticPaths = async () => {
+  const [enPosts, koPosts] = await Promise.all([
+    getAllPosts('en'),
+    getAllPosts('ko')
+  ]);
+
+  return [...enPosts, ...koPosts].map((post) => {
+    const isDefaultLang = post.data.language === 'en';
+
+    return {
+      params: {
+        lang: isDefaultLang ? undefined : post.data.language, // Exclude 'en'
+        slug: post.id.split('/').pop()
+      },
+      props: { post },
+    };
+  });
+};
+
+
+// if you're using an adaptor in SSR mode, getStaticPaths wont work -> https://docs.astro.build/en/guides/routing/#modifying-the-slug-example-for-ssr
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<PostLayout post={post}>
+  <Content />
+</PostLayout>

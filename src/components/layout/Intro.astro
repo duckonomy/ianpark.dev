@@ -1,0 +1,72 @@
+---
+import SocialList from "@/components/SocialList.tsx";
+
+interface Props {
+	title: string;
+	homeStatement?: string;
+	showSocial?: boolean;
+	animate?: boolean;
+	className?: string;
+	isHome?: boolean;
+}
+
+const {
+	title,
+	homeStatement,
+	showSocial = true,
+	animate = false,
+	className = "",
+	isHome = false,
+} = Astro.props;
+
+const baseClasses = "mb-12 mt-6 sm:mt-16";
+const titleClasses =
+	"font-playfair text-3xl font-medium text-neutral-700 dark:text-zinc-200 sm:text-2xl";
+const homeStatementClasses =
+	"site-home-content font-playfair text-2xl font-normal text-neutral-500 dark:text-zinc-300 sm:text-2xl";
+---
+
+<div class:list={[baseClasses, className]}>
+	<div class="mb-12">
+		<div
+			class:list={[{ "animate-slideiny opacity-0": animate }]}
+			style={animate ? "--slideiny-delay: 50ms" : ""}
+		>
+			<span class={titleClasses}>
+				{title}
+			</span>
+		</div>
+
+		{
+			isHome && (
+				<div
+					class:list={["mt-2 sm:mt-1", { "animate-slideiny opacity-0": animate }]}
+					style={animate ? "--slideiny-delay: 200ms" : ""}
+				>
+					<p class={`${homeStatementClasses} "mb-2"`}>{homeStatement}</p>
+				</div>
+			)
+		}
+
+		<div
+			class:list={["mt-2 sm:mt-1", { "animate-slideiny opacity-0": animate }]}
+			style={animate ? "--slideiny-delay: 300ms" : ""}
+		>
+			<slot name="description-animate" />
+		</div>
+
+		<div class="mb-t sm:mt-1">
+			<slot name="description" />
+		</div>
+		{
+			showSocial && (
+				<div
+					class:list={["mt-2.5 w-fit", { "animate-slideiny opacity-0": animate }]}
+					style={animate ? "--slideiny-delay: 400ms" : ""}
+				>
+					<SocialList />
+				</div>
+			)
+		}
+	</div>
+</div>

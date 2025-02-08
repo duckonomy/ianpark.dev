@@ -2,33 +2,46 @@
 <script is:inline>
 const lightModePref = window.matchMedia("(prefers-color-scheme: light)");
 
+function getSystemTheme() {
+  return lightModePref.matches ? "light" : "dark";
+}
+
 function getUserPref() {
   const storedTheme = typeof localStorage !== "undefined" && localStorage.getItem("theme");
-  return storedTheme || (lightModePref.matches ? "light" : "dark");
+  if (storedTheme === "system") return getSystemTheme();
+  return storedTheme || getSystemTheme();
+}
+
+function getUserPref() {
+  const storedTheme = typeof localStorage !== "undefined" && localStorage.getItem("theme");
+  // Default to system if no theme is stored
+  return storedTheme || "system";
 }
 
 function setTheme(newTheme) {
-  if (newTheme !== "light" && newTheme !== "dark") {
+  if (!["light", "dark", "system"].includes(newTheme)) {
     return console.warn(
-      `Invalid theme value '${newTheme}' received. Expected 'light' or 'dark'.`,
+      `Invalid theme value '${newTheme}' received. Expected 'light', 'dark', or 'system'.`
     );
   }
 
   const root = document.documentElement;
+  const effectiveTheme = newTheme === "system" ? getSystemTheme() : newTheme;
 
-  // root already set to newTheme, exit early
-  if (newTheme === root.getAttribute("data-theme")) {
-    return;
-  }
-
-  root.setAttribute("data-theme", newTheme);
-
-  const colorThemeMetaTag = document.querySelector("meta[name='theme-color']");
-  const bgColour = getComputedStyle(document.body).getPropertyValue("--theme-bg");
-  colorThemeMetaTag.setAttribute("content", `hsl(${bgColour})`);
+  // Store the user's actual preference
   if (typeof localStorage !== "undefined") {
     localStorage.setItem("theme", newTheme);
   }
+
+  // If the effective theme is already set, exit early
+  if (effectiveTheme === root.getAttribute("data-theme")) {
+    return;
+  }
+
+  root.setAttribute("data-theme", effectiveTheme);
+  const colorThemeMetaTag = document.querySelector("meta[name='theme-color']");
+  const bgColour = getComputedStyle(document.body).getPropertyValue("--theme-bg");
+  colorThemeMetaTag.setAttribute("content", `hsl(${bgColour})`);
 }
 
 // initial setup
@@ -37,11 +50,16 @@ setTheme(getUserPref());
 // View Transitions hook to restore theme
 document.addEventListener("astro:after-swap", () => setTheme(getUserPref()));
 
-// listen for theme-change custom event, fired in src/components/ThemeToggle.astro
+// listen for theme-change custom event, fired from ThemeToggle component
 document.addEventListener("theme-change", (e) => {
   setTheme(e.detail.theme);
 });
 
-// listen for prefers-color-scheme change.
-lightModePref.addEventListener("change", (e) => setTheme(e.matches ? "light" : "dark"));
+// listen for prefers-color-scheme change
+lightModePref.addEventListener("change", (e) => {
+  // Only update if the user has selected "system" theme
+  if (localStorage.getItem("theme") === "system") {
+    setTheme("system");
+  }
+});
 </script>

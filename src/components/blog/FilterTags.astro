@@ -1,0 +1,141 @@
+---
+const { t, lang } = Astro.props;
+const buttonClass =
+	"-mx-1 inline-flex items-center rounded-md px-1 py-1 underline decoration-neutral-200 underline-offset-4 grayscale transition-all duration-200 hover:bg-neutral-100 hover:text-neutral-600 hover:filter-none dark:decoration-zinc-700 dark:hover:bg-zinc-700 dark:hover:text-zinc-200 focus-visible:outline-none";
+---
+
+<p class="mb-2 text-base text-neutral-500 dark:text-zinc-400 sm:mb-0.5 sm:text-base">
+	{lang === "en" ? "Thoughts on " : ""}
+	<button
+		data-tag="software"
+		class={`${buttonClass} tag-filter text-neutral-400 underline underline-offset-4 transition-colors duration-200 hover:text-neutral-900 dark:text-zinc-400 dark:hover:text-zinc-200`}
+	>
+		{t("posts.software")}
+	</button>,
+	<button
+		data-tag="tools"
+		class={`${buttonClass} tag-filter text-neutral-400 underline underline-offset-4 transition-colors duration-200 hover:text-neutral-900 dark:text-zinc-400 dark:hover:text-zinc-200`}
+	>
+		{t("posts.tools")}
+	</button>,
+	{lang === "en" ? " and " : ""}
+	<button
+		data-tag="life"
+		class={`${buttonClass} ${lang === "en" ? "-mr-2" : ""} tag-filter text-neutral-400 underline underline-offset-4 transition-colors duration-200 hover:text-neutral-900 dark:text-zinc-400 dark:hover:text-zinc-200`}
+	>
+		{t("posts.life")}
+	</button>
+	{lang === "ko" ? <span class="-ml-1">에 대한 생각들</span> : ""}.
+</p>
+
+<script>
+	// Store selected tags in sessionStorage to persist across route changes
+	const STORAGE_KEY = "selected-tags";
+
+	function initializeTagFilter() {
+		const tagButtons = document.querySelectorAll<HTMLButtonElement>(".tag-filter");
+		const selectedTags = new Set(JSON.parse(sessionStorage.getItem(STORAGE_KEY) || "[]"));
+
+		function updatePosts() {
+			const posts = document.querySelectorAll("[data-tags]");
+			const yearTags = document.querySelectorAll(".year-tag");
+
+			// Restore button states from storage
+			tagButtons.forEach((button) => {
+				const tag = button.getAttribute("data-tag");
+				if (tag && selectedTags.has(tag)) {
+					button.classList.add("text-neutral-900", "dark:text-zinc-200");
+				} else {
+					button.classList.remove("text-neutral-900", "dark:text-zinc-200");
+				}
+			});
+
+			// Handle post visibility
+			posts.forEach((post) => {
+				const parentNode = post.parentNode as HTMLElement;
+				parentNode.classList.remove("-mt-8");
+
+				const postTags = JSON.parse(post.getAttribute("data-tags") || "[]");
+				const shouldShow =
+					selectedTags.size === 0 || postTags.some((cat: string) => selectedTags.has(cat));
+				(post as HTMLElement).style.display = shouldShow ? "" : "none";
+			});
+
+			// Year tag visibility and spacing logic
+			yearTags.forEach((yearTag) => {
+				const yearPosts = yearTag.querySelectorAll("[data-tags]");
+				const hasVisiblePosts = Array.from(yearPosts).some(
+					(post) => (post as HTMLElement).style.display !== "none",
+				);
+
+				let visiblePostIndex = 0;
+				let lastVisibleParent: HTMLElement | null = null;
+
+				yearPosts.forEach((post, index) => {
+					const parentNode = post.parentNode as HTMLElement;
+					parentNode.classList.remove("-mt-8", "-mb-8");
+
+					const postTags = JSON.parse(post.getAttribute("data-tags") || "[]");
+					const shouldShow =
+						selectedTags.size === 0 || postTags.some((cat: string) => selectedTags.has(cat));
+
+					(post as HTMLElement).style.display = shouldShow ? "" : "none";
+
+					if (shouldShow) {
+						if (lastVisibleParent) {
+							lastVisibleParent.classList.remove("-mb-8");
+						}
+						if (visiblePostIndex === 0 && index !== 0) {
+							parentNode.classList.add("-mt-8");
+						}
+						parentNode.classList.add("-mb-8");
+						lastVisibleParent = parentNode;
+						visiblePostIndex++;
+					}
+				});
+
+				(yearTag as HTMLElement).style.display = hasVisiblePosts ? "" : "none";
+			});
+
+			// Handle last visible year tag margins
+			const visibleYearTags = Array.from(yearTags).filter(
+				(tag) => (tag as HTMLElement).style.display !== "none",
+			);
+
+			visibleYearTags.forEach((tag, index) => {
+				if (index === visibleYearTags.length - 1) {
+					(tag as HTMLElement).style.marginBottom = "0";
+				} else {
+					(tag as HTMLElement).style.marginBottom = "";
+				}
+			});
+		}
+
+		// Set up click handlers
+		tagButtons.forEach((button) => {
+			button.addEventListener("click", () => {
+				const tag = button.getAttribute("data-tag");
+				if (!tag) return;
+
+				if (selectedTags.has(tag)) {
+					selectedTags.delete(tag);
+				} else {
+					selectedTags.add(tag);
+				}
+
+				// Store updated selection in sessionStorage
+				sessionStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(selectedTags)));
+				updatePosts();
+			});
+		});
+
+		// Initial update based on stored state
+		updatePosts();
+	}
+
+	// Initialize on page load
+	initializeTagFilter();
+
+	// Re-initialize on view transitions if using Astro's view transitions
+	document.addEventListener("astro:page-load", initializeTagFilter);
+</script>

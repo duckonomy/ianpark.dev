@@ -1,70 +1,71 @@
 import type { SiteConfig } from "@/types";
-import type { AstroExpressiveCodeOptions } from "astro-expressive-code";
+// import type { AstroExpressiveCodeOptions } from "astro-expressive-code";
 
 export const siteConfig: SiteConfig = {
-  author: "Ian Park",
-  date: {
-    locale: "en-US",
-    options: {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    },
-  },
-  // Used as the default description meta property and webmanifest description
-  description: "Developer.",
-  // HTML lang property, found in src/layouts/Base.astro L:18 & astro.config.ts L:48
-  lang: "en-US",
-  // Meta property, found in src/components/BaseHead.astro L:42
-  ogLocale: "en_US",
-  // Option to sort posts by updatedDate if set to true (if property exists). Default (false) will sort by publishDate
-  sortPostsByUpdatedDate: false,
-  // Used to construct the meta title property found in src/components/BaseHead.astro L:11, and webmanifest name found in astro.config.ts L:42
-  title: "Ian Park",
+	author: "Ian Park",
+	date: {
+		locale: "en-US",
+		options: {
+			day: "numeric",
+			month: "short",
+			year: "numeric",
+		},
+	},
+	// Used as the default description meta property and webmanifest description
+	description: "Developer.",
+	// HTML lang property, found in src/layouts/Base.astro L:18 & astro.config.ts L:48
+	lang: "en-US",
+	// Meta property, found in src/components/BaseHead.astro L:42
+	ogLocale: "en_US",
+	// Option to sort posts by updatedDate if set to true (if property exists). Default (false) will sort by publishDate
+	sortPostsByUpdatedDate: false,
+	// Used to construct the meta title property found in src/components/BaseHead.astro L:11, and webmanifest name found in astro.config.ts L:42
+	title: "Ian Park",
 };
 
 // Used to generate links in both the Header & Footer.
 export const menuLinks: { path: string; title: string }[] = [
-  {
-    path: "/",
-    title: "~",
-  },
-  {
-    path: "/about/",
-    title: "About",
-  },
-  {
-    path: "/posts/",
-    title: "Writings",
-  },
+	{
+		path: "/",
+		title: "~",
+	},
+	{
+		path: "/about/",
+		title: "About",
+	},
+	{
+		path: "/posts/",
+		title: "Posts",
+	},
 ];
 
 // https://expressive-code.com/reference/configuration/
-export const expressiveCodeOptions: AstroExpressiveCodeOptions = {
-  styleOverrides: {
-    borderRadius: "4px",
-    codeFontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;',
-    codeFontSize: "0.775rem",
-    codeFontWeight: "bold",
-    codeLineHeight: "1.7142857rem",
-    codePaddingInline: "1rem",
-    frames: {
-      frameBoxShadowCssValue: "none",
-    },
-    uiLineHeight: "inherit",
-  },
-  themeCssSelector(theme, { styleVariants }) {
-    // If one dark and one light theme are available
-    // generate theme CSS selectors compatible with dark mode switch
-    if (styleVariants.length >= 2) {
-      const baseTheme = styleVariants[0]?.theme;
-      const altTheme = styleVariants.find((v) => v.theme.type !== baseTheme?.type)?.theme;
-      if (theme === baseTheme || theme === altTheme) return `[data-theme='${theme.type}']`;
-    }
-    // return default selector
-    return `[data-theme="${theme.name}"]`;
-  },
-  // One dark, one light theme => https://expressive-code.com/guides/themes/#available-themes
-  themes: ["github-dark-high-contrast", "vitesse-light"],
-  useThemedScrollbars: false,
-};
+// export const expressiveCodeOptions: AstroExpressiveCodeOptions = {
+// 	styleOverrides: {
+// 		borderRadius: "4px",
+// 		codeFontFamily:
+// 			'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;',
+// 		codeFontSize: "0.775rem",
+// 		// codeFontWeight: "",
+// 		codeLineHeight: "1.7142857rem",
+// 		codePaddingInline: "1rem",
+// 		frames: {
+// 			frameBoxShadowCssValue: "none",
+// 		},
+// 		uiLineHeight: "inherit",
+// 	},
+// 	themeCssSelector(theme, { styleVariants }) {
+// 		// If one dark and one light theme are available
+// 		// generate theme CSS selectors compatible with dark mode switch
+// 		if (styleVariants.length >= 2) {
+// 			const baseTheme = styleVariants[0]?.theme;
+// 			const altTheme = styleVariants.find((v) => v.theme.type !== baseTheme?.type)?.theme;
+// 			if (theme === baseTheme || theme === altTheme) return `[data-theme='${theme.type}']`;
+// 		}
+// 		// return default selector
+// 		return `[data-theme="${theme.name}"]`;
+// 	},
+// 	// One dark, one light theme => https://expressive-code.com/guides/themes/#available-themes
+// 	themes: ["vitesse-dark", "vitesse-light"],
+// 	useThemedScrollbars: false,
+// };

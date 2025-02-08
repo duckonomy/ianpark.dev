@@ -1,0 +1,83 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+import MyLink from "@/components/MyLink";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import { FileUser, Mail } from "lucide-react";
+import ExperienceSection from "@/components/ExperienceSection";
+import HighlightsSection from "@/components/HighlightsSection";
+import ProjectsSection from "@/components/ProjectsSection";
+import EducationSection from "@/components/EducationSection";
+import LeadershipSection from "@/components/LeadershipSection";
+import Section from "@/components/about/PorfolioSection.astro";
+import Intro from "@/components/layout/Intro.astro";
+
+const meta = {
+	description: "About",
+	title: "About",
+	type: "about",
+};
+// New content organization
+
+export async function getStaticPaths() {
+	return [
+		{ params: { lang: "en" } },
+		{ params: { lang: "ko" } },
+		{ params: { lang: undefined } }, // For default route
+	];
+}
+
+const lang = getLangFromUrl(Astro.url) || "en";
+const t = useTranslations(lang);
+---
+
+<PageLayout meta={meta}>
+	<Intro title={t("about.title")}>
+		<div slot="description" class="mt-2 flex flex-col space-y-2">
+			<div class="text-base font-normal text-neutral-500 dark:text-zinc-400 sm:text-base">
+				{t("about.description")}
+			</div>
+			<div class="text-base font-medium text-neutral-800 dark:text-zinc-300 sm:text-base">
+				{t("about.open")}
+			</div>
+			<div class="text-base font-normal text-neutral-500 dark:text-zinc-400 sm:text-base">
+				{t("contact.prefix")}
+
+				<MyLink href="mailto:ian@ianpark.dev">
+					ian@ianpark.dev
+					<Mail className="ml-1 inline-block h-4 w-4" />
+				</MyLink>
+
+				{" "}{t("contact.or")}
+
+				<MyLink href="/resume.pdf">
+					CV
+					<FileUser className="ml-1 inline-block h-4 w-4" />
+				</MyLink>
+
+				{t("contact.portfolio")}
+			</div>
+		</div>
+	</Intro>
+
+	<div class="mb-16 mt-8 flex w-full flex-col justify-center space-y-16">
+		<Section title="Skills">
+			<HighlightsSection lang={lang} client:load />
+		</Section>
+
+		<Section title="Work">
+			<ExperienceSection lang={lang} client:load />
+		</Section>
+
+		<Section title="Projects">
+			<ProjectsSection lang={lang} client:load />
+		</Section>
+
+		<Section title="Activities">
+			<LeadershipSection lang={lang} client:load />
+		</Section>
+
+		<Section title="Education">
+			<EducationSection lang={lang} client:load />
+		</Section>
+	</div>
+</PageLayout>
