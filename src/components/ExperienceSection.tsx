@@ -96,7 +96,7 @@ const ExperienceSection = ({ lang }: { lang: string }) => {
 									name: "Web & Mobile Applications Team",
 									link: "https://tacc.utexas.edu/about/contact/",
 								},
-								date: "2020.10–2022.03",
+								date: "2020.10–2023.04",
 								highlights: [
 									{
 										summary: "Led hazard research visualization project",
