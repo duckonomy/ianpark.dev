@@ -1,6 +1,6 @@
 ---
 // import Search from "../Search.astro";
-import Search from "../Search.tsx";
+// import Search from "../Search.tsx";
 // import ThemeToggle from "../ThemeToggle.astro";
 import ThemeToggle from "../ThemeToggle.tsx";
 import LanguageSelector from '@/components/LanguageSelector.tsx';
@@ -151,7 +151,7 @@ const translatePath = useTranslatedPath(lang);
     }
   </div>
   <div class="flex">
-    <Search client:load />
+    <!-- <Search client:load /> -->
     <ThemeToggle client:load />
     <LanguageSelector type={type} client:load />
   </div>

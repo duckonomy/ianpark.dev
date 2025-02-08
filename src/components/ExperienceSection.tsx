@@ -237,7 +237,7 @@ const ExperienceSection = ({ lang }: { lang: string }) => {
 		<div className="space-y-12 md:space-y-16">
 			<div className="relative" ref={containerRef}>
 				{experience.map((company, index) => (
-					<div key={index} className="group relative mb-24 last-of-type:mb-4">
+					<div key={index} className="group relative mb-12 last-of-type:mb-4">
 						<div className="px-0 pb-1 pt-0">
 							<h2 className="font-playfair text-base font-semibold text-neutral-700 dark:text-zinc-200">
 								{company.company}

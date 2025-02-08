@@ -280,7 +280,7 @@ const ProjectsSection = ({ lang }: { lang: string }) => {
 
 	return (
 		<div className="-mb-4">
-			<Tabs defaultValue="Pinned" className="w-full">
+			<Tabs defaultValue="All" className="w-full">
 				<TabsList className="mb-4 flex h-10 w-full items-center justify-start gap-2 border-neutral-200 bg-transparent p-0 dark:border-zinc-800">
 					<TabsTrigger value="Pinned" className={tabTriggerStyles}>
 						<svg
@@ -335,11 +335,11 @@ const ProjectsSection = ({ lang }: { lang: string }) => {
 };
 
 const ProjectGrid = ({ projects, lang }: { projects: Project[]; lang: string }) => (
-	<div className="group/list relative mb-0 mt-10 grid grid-cols-1 gap-y-4 md:grid-cols-1">
+	<div className="group/list relative mb-0 mt-10 grid grid-cols-1 gap-y-0 md:grid-cols-1">
 		{projects.map((project, index) => (
 			<ProjectModal key={index} project={project} lang={lang}>
-				<Card className="group relative -ml-4 cursor-pointer rounded-lg border-b-0 border-l-0 border-r-0 border-t-0 border-neutral-200 p-4 pb-2 shadow-none transition-all duration-200 last:border-b-0 hover:bg-neutral-50 hover:!opacity-100 group-hover/list:opacity-50 dark:border-zinc-950 dark:bg-transparent dark:hover:bg-zinc-800/50">
-					<CardHeader className="p-0 pb-6">
+				<Card className="group relative -ml-4 cursor-pointer rounded-lg border-b-0 border-l-0 border-r-0 border-t-0 border-neutral-200 p-4 px-2 shadow-none transition-all duration-200 last:border-b-0 hover:bg-neutral-50 hover:!opacity-100 group-hover/list:opacity-50 dark:border-zinc-950 dark:bg-transparent dark:hover:bg-zinc-800/50">
+					<CardHeader className="p-0 pb-3">
 						<div className="flex items-start justify-between">
 							<div className="flex items-center gap-2">
 								<CardTitle className="font-playfair text-base font-semibold dark:text-zinc-200">

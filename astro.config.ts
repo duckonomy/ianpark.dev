@@ -11,6 +11,7 @@ import { siteConfig } from "./src/site.config";
 import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
 import { transformerCopyButton } from "@rehype-pretty/transformers";
+import pdf from "astro-pdf";
 
 // Remark plugins
 import remarkDirective from "remark-directive"; /* Handle ::: directives as nodes */
@@ -102,6 +103,11 @@ export default defineConfig({
 		},
 	},
 	integrations: [
+		pdf({
+			pages: {
+				"/about": true,
+			},
+		}),
 		react({
 			include: ["**/react/*"],
 			experimentalReactChildren: true,
