@@ -280,7 +280,7 @@ const ProjectsSection = ({ lang }: { lang: string }) => {
 
 	return (
 		<div className="-mb-4">
-			<Tabs defaultValue="All" className="w-full">
+			<Tabs defaultValue="Pinned" className="w-full">
 				<TabsList className="mb-4 flex h-10 w-full items-center justify-start gap-2 border-neutral-200 bg-transparent p-0 dark:border-zinc-800">
 					<TabsTrigger value="Pinned" className={tabTriggerStyles}>
 						<svg
