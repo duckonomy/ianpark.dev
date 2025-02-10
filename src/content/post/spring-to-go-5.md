@@ -8,9 +8,9 @@ tags: ["software"]
 
 Dear Java developers clutching their try-catch blocks,
 
-Let's talk about Go's error handling - you know, that thing that made you go "eww, what's with all these `if err != nil` checks?" when you first saw Go code. I get it. I was once like you, comfortable in the warm embrace of Java's exception handling, but let me tell you a story about how I learned to stop worrying and love the explicit error.
+Let's talk about Go's error handling - you know, that thing that made you go "eww, what's with all these `if err != nil` checks?" when you first saw Go code. *I get it*. I was once like you, comfortable in the warm embrace of Java's exception handling, but let me tell you a story about how I learned to stop worrying and love the explicit error.
 
-## The Java Way: Throwing Caution to the Wind
+# The Java Way: Throwing Caution to the Wind
 
 In Java, we're used to code that looks something like this:
 
@@ -33,7 +33,7 @@ try {
 
 It's like playing hot potato with exceptions - throw them around until someone catches them or the program crashes. Sure, it looks clean(ish), but it's also a bit like those horror movies where the protagonist splits up from the group. You know something bad might happen, but you won't know where or when until it jumps out and scares you.
 
-## The Go Way: Facing Our Fears
+# The Go Way: Facing Our Fears
 
 Now, let's look at Go's approach:
 
@@ -58,7 +58,7 @@ cleanup()
 
 "But that's so verbose!" I hear you cry. Yes, it is! And that's exactly the point. It's like having your mom remind you to check if you've packed your lunch every single day - annoying but ultimately good for you.
 
-## Why Go's Way Is (Actually) Better
+# Why Go's Way Is (Actually) Better
 
 1. **No Surprises**: In Go, errors are just values. They're not some magical control flow mechanism that can appear out of nowhere like your cat at 3 AM. You have to deal with them right there, right then.
 
@@ -66,7 +66,7 @@ cleanup()
 
 3. **Better Error Context**: Instead of getting a stack trace that looks like a CVS receipt, Go encourages you to wrap errors with context at each step. It's like leaving yourself breadcrumbs instead of throwing bread at birds and hoping they make a trail.
 
-## The Real Beauty of Go's Error Handling
+# The Real Beauty of Go's Error Handling
 
 The beauty of Go's error handling isn't just in its explicitness - it's in how it changes the way you think about errors. They're not exceptional cases to be caught in a safety net somewhere up the call stack. They're regular values that need to be dealt with as part of your normal program flow.
 
@@ -88,9 +88,9 @@ try {
 }
 ```
 
-## The Horror Stories We Don't Talk About
+# The Horror Stories We Don't Talk About
 
-Let me tell you about that one time in production... Actually, let me tell you about MANY times in production with Java exceptions:
+Let me tell you about that one time in production... Actually, let me tell you about *many* times in production with Java exceptions:
 
 ```java
 try {
@@ -102,11 +102,11 @@ try {
 }
 ```
 
-We've all seen it. We've all done it (don't deny it). And we've all regretted it at 3 AM when something breaks and all we have is a stack trace longer than a university thesis.
+We've all seen it. We've all done it (*don't deny it*). And we've all regretted it at 3 AM when something breaks and all we have is a stack trace longer than a university thesis.
 
 Here are some classic Java exception horror stories:
 
-1. **The Silent Catch**:
+## The Silent Catch
 
 ```java
 try {
@@ -117,7 +117,7 @@ try {
 // Narrator: "Later" never came
 ```
 
-2. **The Exception Blackhole**:
+## The Exception Blackhole
 
 ```java
 try {
@@ -130,7 +130,7 @@ try {
 }
 ```
 
-3. **The Nested Try-Catch Nightmare**:
+## The Nested Try-Catch Nightmare
 
 ```java
 try {
@@ -153,7 +153,7 @@ try {
 }
 ```
 
-## Why Go's Approach Leads to More Robust Code
+# Why Go's Approach Leads to More Robust Code
 
 Here's where Go's "verbose" error handling really shines in terms of robustness:
 
@@ -171,7 +171,7 @@ if err := stepTwo(); err != nil {
 }
 ```
 
-2. **No Hidden Control Flow**: In Java, an exception can bubble up through multiple layers of code, making it hard to reason about the program's flow. With Go, you can trace the error handling path by just reading the code line by line. It's like having a map with "You Are Here" markers everywhere instead of just hoping you'll end up at the right place.
+2. **No Hidden Control Flow**: In Java, an exception can bubble up through multiple layers of code, making it hard to reason about the program's flow. With Go, you can trace the error handling path by just reading the code line by line. It's like having a map with *You Are Here* markers everywhere instead of just hoping you'll end up at the right place.
 
 3. **Forced Error Design**: Because Go makes you handle errors explicitly, you're forced to think about error cases during development, not just when things break in production. It's like building a ship in a bottle - you have to plan each step carefully because you can't just reach in and fix things later.
 
@@ -195,7 +195,7 @@ func robustOperation() error {
 }
 ```
 
-## Conclusion
+# Conclusion
 
 Is Go's error handling perfect? No. Is it verbose? Yes. But it's like eating your vegetables - sometimes the things that are good for you aren't the most exciting. Go's error handling makes you face your errors head-on, deal with them explicitly, and think about failure modes as a first-class concern.
 

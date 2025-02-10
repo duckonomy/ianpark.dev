@@ -239,7 +239,7 @@ const ExperienceSection = ({ lang }: { lang: string }) => {
 				{experience.map((company, index) => (
 					<div key={index} className="group relative mb-12 last-of-type:mb-4">
 						<div className="px-0 pb-1 pt-0">
-							<h2 className="font-playfair text-base font-semibold text-neutral-700 dark:text-zinc-200">
+							<h2 className="font-serif text-base font-semibold text-accent-foreground">
 								{company.company}
 							</h2>
 						</div>
@@ -255,21 +255,16 @@ const ExperienceSection = ({ lang }: { lang: string }) => {
 									<div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between md:gap-4">
 										<div className="min-w-0 flex-auto">
 											<div>
-												<div className="flex flex-row space-x-1">
-													<h3 className="text-sm font-medium text-neutral-700 dark:text-zinc-200">
+												<div className="flex flex-row items-center space-x-1">
+													<div className="text-sm font-medium text-accent-foreground">
 														{position.role}
-													</h3>
-													<div className="">
-														<Badge
-															variant="secondary"
-															className="bg-transparent px-0 text-xs text-neutral-400 dark:text-zinc-500"
-														>
-															({position.date})
-														</Badge>
+													</div>
+													<div className="bg-background px-0 text-xs text-muted-foreground">
+														({position.date})
 													</div>
 												</div>
 												<div className="mt-0 space-y-1">
-													<div className="text-sm text-neutral-500 dark:text-zinc-400">
+													<div className="text-muted-foreground">
 														{position.team.link ? (
 															<MyLink href={position.team.link}>{position.team.name}</MyLink>
 														) : (
@@ -285,8 +280,8 @@ const ExperienceSection = ({ lang }: { lang: string }) => {
 														{position.techStack.map((tech, techIndex) => (
 															<Badge
 																key={techIndex}
-																variant="outline"
-																className="border-0 bg-neutral-100 text-xs text-neutral-700 dark:border-zinc-700 dark:bg-zinc-100/10 dark:text-zinc-400"
+																variant="secondary"
+																className="border-0 text-xs"
 															>
 																{tech}
 															</Badge>
@@ -300,17 +295,14 @@ const ExperienceSection = ({ lang }: { lang: string }) => {
 														position.highlights.map((highlight, highlightIndex) => (
 															<li key={highlightIndex} className="space-y-2">
 																<div className="flex items-start gap-x-2">
-																	<span className="text-sm font-medium text-neutral-600 dark:text-zinc-300">
+																	<span className="font-normal text-accent-foreground">
 																		{highlight.summary}
 																	</span>
 																</div>
 																<ul className="ml-0 space-y-1">
 																	{highlight.details.map((detail, detailIndex) => (
-																		<li
-																			key={detailIndex}
-																			className="flex items-start gap-x-2 pl-0 text-sm text-neutral-500 dark:text-zinc-400"
-																		>
-																			<span className="mt-2 h-1 w-1 flex-none rounded-full bg-neutral-400 dark:bg-zinc-700" />
+																		<li key={detailIndex} className="flex items-start gap-x-2 pl-0">
+																			<span className="mt-2 h-1 w-1 flex-none rounded-full bg-ring" />
 																			<span className="text-pretty">{detail}</span>
 																		</li>
 																	))}

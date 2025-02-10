@@ -73,10 +73,10 @@
 // });
 
 // Add a class to indicate initial page load
-document.addEventListener("DOMContentLoaded", () => {
-	document.body.classList.add("initial-load");
-	// Remove it after animations complete
-	setTimeout(() => {
-		document.body.classList.remove("initial-load");
-	}, 1000); // Adjust based on your longest animation duration
-});
+// document.addEventListener("DOMContentLoaded", () => {
+// 	document.body.classList.add("initial-load");
+// 	// Remove it after animations complete
+// 	setTimeout(() => {
+// 		document.body.classList.remove("initial-load");
+// 	}, 1000); // Adjust based on your longest animation duration
+// });

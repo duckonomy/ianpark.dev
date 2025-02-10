@@ -20,7 +20,7 @@ const TOCHeading = ({ heading, index }: { heading: MarkdownHeading; index: numbe
 		>
 			<a
 				aria-label={`Scroll to section: ${heading.text}`}
-				className="toc-link break-word mt-3 line-clamp-2 block origin-left transform text-[0.8rem] text-muted-foreground underline decoration-neutral-300 decoration-1 underline-offset-4 transition-all duration-200 hover:text-accent"
+				className="toc-link break-word mt-3 line-clamp-2 block origin-left transform text-[0.8rem] text-muted-foreground underline decoration-ring decoration-1 underline-offset-4 transition-all duration-200 hover:text-accent-foreground"
 				href={`#${heading.slug}`}
 			>
 				{heading.text}
@@ -74,9 +74,10 @@ const TableOfContents = ({ headings }: TOCProps) => {
 	if (filteredHeadings.length === 0) return null;
 
 	return (
-		<aside className="fixed right-8 top-60 order-2 m-auto -me-0 hidden basis-64 font-medium xl:block min-[1680px]:right-14">
+		<aside className="fixed right-16 top-60 order-2 m-auto -me-0 hidden basis-64 font-medium xl:block min-[1680px]:right-14">
 			<div>
-				<ul className="mt-4 max-w-56">
+				{/* <ul className="mt-4 max-w-56"> */}
+				<ul className="mt-4 max-w-64">
 					{filteredHeadings.map((heading, i) => (
 						<TOCHeading key={heading.slug} heading={heading} index={i} />
 					))}

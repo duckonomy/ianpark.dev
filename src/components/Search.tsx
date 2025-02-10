@@ -73,7 +73,7 @@ const ElegantSearch = () => {
 		<div className="font-serif">
 			<button
 				onClick={() => setIsOpen(true)}
-				className="flex h-9 w-9 items-center justify-center rounded-md transition-all hover:bg-neutral-200 dark:hover:bg-zinc-800"
+				className="flex h-9 w-9 items-center justify-center rounded-md transition-all hover:bg-accent"
 				aria-label="Open search"
 			>
 				<Search className="h-4 w-4" />

@@ -1,27 +1,26 @@
 ---
 const { t, lang } = Astro.props;
-const buttonClass =
-	"-mx-1 inline-flex items-center rounded-md px-1 py-1 underline decoration-neutral-200 underline-offset-4 grayscale transition-all duration-200 hover:bg-neutral-100 hover:text-neutral-600 hover:filter-none dark:decoration-zinc-700 dark:hover:bg-zinc-700 dark:hover:text-zinc-200 focus-visible:outline-none";
 ---
 
-<p class="mb-2 text-base text-neutral-500 dark:text-zinc-400 sm:mb-0.5 sm:text-base">
+<p class="text-base">
 	{lang === "en" ? "Thoughts on " : ""}
 	<button
 		data-tag="software"
-		class={`${buttonClass} tag-filter text-neutral-400 underline underline-offset-4 transition-colors duration-200 hover:text-neutral-900 dark:text-zinc-400 dark:hover:text-zinc-200`}
+		class="tag-filter my-link text-faded-foreground underline underline-offset-4 transition-colors duration-200"
 	>
 		{t("posts.software")}
 	</button>,
 	<button
 		data-tag="tools"
-		class={`${buttonClass} tag-filter text-neutral-400 underline underline-offset-4 transition-colors duration-200 hover:text-neutral-900 dark:text-zinc-400 dark:hover:text-zinc-200`}
+		class="tag-filter my-link text-faded-foreground underline underline-offset-4 transition-colors duration-200"
 	>
 		{t("posts.tools")}
 	</button>,
 	{lang === "en" ? " and " : ""}
 	<button
 		data-tag="life"
-		class={`${buttonClass} ${lang === "en" ? "-mr-2" : ""} tag-filter text-neutral-400 underline underline-offset-4 transition-colors duration-200 hover:text-neutral-900 dark:text-zinc-400 dark:hover:text-zinc-200`}
+		class=`${lang === "en" ? "-mr-2" : ""} my-link tag-filter text-faded-foreground underline underline-offset-4 transition-colors duration-200 `
+		}
 	>
 		{t("posts.life")}
 	</button>
@@ -44,9 +43,11 @@ const buttonClass =
 			tagButtons.forEach((button) => {
 				const tag = button.getAttribute("data-tag");
 				if (tag && selectedTags.has(tag)) {
-					button.classList.add("text-neutral-900", "dark:text-zinc-200");
+					button.classList.remove("text-faded-foreground");
+					button.classList.add("text-accent-foreground");
 				} else {
-					button.classList.remove("text-neutral-900", "dark:text-zinc-200");
+					button.classList.add("text-faded-foreground");
+					button.classList.remove("text-accent-foreground");
 				}
 			});
 

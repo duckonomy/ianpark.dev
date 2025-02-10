@@ -1,5 +1,4 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import MyLink from "@/components/MyLink";
 
 interface Course {
@@ -22,34 +21,24 @@ const EducationSection = ({ lang }: { lang: string }) => {
 
 	return (
 		<div className="w-full">
-			<Card className="w-full border-none bg-transparent shadow-none">
+			<Card className="w-full border-none shadow-none">
 				<CardHeader className="w-full p-0">
 					<div className="flex w-full items-start justify-between">
 						<div className="w-full">
-							<CardTitle className="font-playfair text-base font-semibold dark:text-zinc-200">
+							<CardTitle className="font-serif text-base font-semibold text-accent-foreground">
 								Calvin University
 							</CardTitle>
 
 							<div className="mt-0 space-y-1">
-								<div className="flex flex-row space-x-1">
-									<MyLink
-										href="https://calvin.edu/majors-programs/bachelor-computer-science-bcs"
-										className="text-sm dark:text-zinc-400"
-									>
+								<div className="flex flex-row items-center space-x-1">
+									<MyLink href="https://calvin.edu/majors-programs/bachelor-computer-science-bcs">
 										Computer Science, B.CS.
 									</MyLink>
-									<Badge
-										variant="secondary"
-										className="bg-transparent text-xs text-neutral-400 dark:text-zinc-500"
-									>
-										(2016.09–2020.05)
-									</Badge>
+									<div className="text-xs text-muted-foreground">(2016.09–2020.05)</div>
 								</div>
 								<div className="flex gap-3">
-									<span className="text-sm dark:text-zinc-400">GPA: 3.52/4.00</span>
-									<span className="text-sm dark:text-zinc-400">
-										{lang === "en" ? "Major GPA: " : "전공 GPA: "}3.798/4.00
-									</span>
+									<span>GPA: 3.52/4.00</span>
+									<span>{lang === "en" ? "Major GPA: " : "전공 GPA: "}3.798/4.00</span>
 								</div>
 							</div>
 						</div>
@@ -59,9 +48,9 @@ const EducationSection = ({ lang }: { lang: string }) => {
 				<CardContent className="mt-4 w-full space-y-6 p-0">
 					{/* Relevant Coursework */}
 					<div className="w-full">
-						<h3 className="mb-3 text-sm font-medium tracking-wider text-neutral-700 dark:text-zinc-400">
+						<div className="mb-3 text-sm font-medium text-accent-foreground">
 							{lang === "en" ? "Relevant Coursework" : "주요 수강 과목"}
-						</h3>
+						</div>
 						<div className="grid w-full grid-cols-1 gap-2">
 							{relevantCourses.map((course, index) => (
 								<div
@@ -69,12 +58,8 @@ const EducationSection = ({ lang }: { lang: string }) => {
 									className="flex w-full items-center justify-between rounded-md px-0 py-0"
 								>
 									<div className="flex items-center gap-2">
-										<span className="text-xs font-medium text-neutral-400 dark:text-zinc-500">
-											{course.code}
-										</span>
-										<span className="text-sm text-neutral-600 dark:text-zinc-300">
-											{course.name}
-										</span>
+										<span className="text-xs font-medium text-faded-foreground">{course.code}</span>
+										<span>{course.name}</span>
 									</div>
 								</div>
 							))}
@@ -84,14 +69,14 @@ const EducationSection = ({ lang }: { lang: string }) => {
 					<div className="grid w-full grid-cols-1 gap-6">
 						{/* Awards & Honors */}
 						<div className="w-full">
-							<h3 className="mb-3 text-sm font-medium tracking-wider text-neutral-700 dark:text-zinc-400">
+							<div className="mb-3 text-sm font-medium text-accent-foreground">
 								{lang === "en" ? "Awards & Honors" : "수상 및 장학금"}
-							</h3>
+							</div>
 							<ul className="w-full space-y-2">
 								{awards.map((award, index) => (
 									<li key={index} className="flex items-start gap-x-2">
-										<span className="mt-2 h-1 w-1 flex-none rounded-full bg-neutral-400 dark:bg-zinc-600" />
-										<span className="text-sm text-neutral-500 dark:text-zinc-400">{award}</span>
+										<span className="mt-2 h-1 w-1 flex-none rounded-full bg-ring" />
+										<span>{award}</span>
 									</li>
 								))}
 							</ul>

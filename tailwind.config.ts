@@ -19,55 +19,39 @@ export default {
 	// darkMode: ['selector', '[data-theme="dark"]'],
 	plugins: [
 		require("@tailwindcss/typography"),
-		require("tailwindcss-animate"), // Add this for shadcn animations
+		require("tailwindcss-animate"),
 		plugin(({ addComponents }) => {
 			addComponents({
 				".my-link": {
-					"&:hover": {
-						"@apply decoration-link decoration-2": {},
+					"&[href^='http']::after": {
+						content: '""',
+						"@apply ml-0.5 inline-block h-3 w-3 bg-current": {},
+						"mask-image":
+							"url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='7' y1='17' x2='17' y2='7'%3E%3C/line%3E%3Cpolyline points='7 7 17 7 17 17'%3E%3C/polyline%3E%3C/svg%3E\")",
 					},
-					"@apply underline underline-offset-2": {},
+					"&:hover": {
+						"@apply decoration-secondary bg-secondary text-secondary-foreground": {},
+					},
+					"@apply underline decoration-1 leading-none align-baseline font-normal text-foreground decoration-ring underline-offset-4 transition-all -mx-1 -my-1 rounded-md p-1":
+						{},
+				},
+				".my-link-no-icon": {
+					"&:hover": {
+						"@apply decoration-secondary bg-secondary text-secondary-foreground": {},
+					},
+					"@apply underline leading-none decoration-1 align-baseline font-normal text-foreground -mx-1 -my-1 decoration-ring underline-offset-4 transition-all -mx-1 rounded-md p-1":
+						{},
 				},
 				".title": {
-					"@apply text-2xl font-semibold text-accent-2": {},
+					"@apply text-2xl font-semibold text-accent-foreground": {},
 				},
 			});
 		}),
 	],
 	theme: {
-		// keyframes: {
-		// },
-		// animation: {
-		//   slideIn: "slideIn .25s ease-in-out forwards var(--delay, 0)"
-		// }
-
 		extend: {
 			keyframes: {
-				slideDown: {
-					from: {
-						height: "0",
-						opacity: "0",
-					},
-					to: { height: "var(--radix-collapsible-content-height)" },
-				},
-				slideUp: {
-					from: { height: "var(--radix-collapsible-content-height)" },
-					to: {
-						height: "0",
-						opacity: "0",
-					},
-				},
 				slideIn: {
-					from: {
-						opacity: "0",
-						transform: "translateY(10px)",
-					},
-					to: {
-						opacity: "1",
-						transform: "translateY(0)",
-					},
-				},
-				slideiny: {
 					from: {
 						opacity: "0",
 						transform: "translateY(10px)",
@@ -79,43 +63,11 @@ export default {
 				},
 			},
 			animation: {
-				// slidein: "slidein 1s ease 300ms",
-				// slidein300: "slidein 1s ease 300ms forwards",
-				// slidein500: "slidein 1s ease 500ms forwards",
-				// slidein700: "slidein 1s ease 700ms forwards",
-				// animation: {
-				// fadeIn: "fadeIn 0.5s ease forwards var(--fade-delay, 0)",
-
-				slideDown: "slideDown 300ms ease-out",
-				slideUp: "slideUp 300ms ease-out",
-				// slideDown: 'slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)',
-				// slideUp: 'slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)',
-				// slideIn: "slideIn 0.5s ease forwards var(--delay, 0)",
-				// slideIn: "slideIn 1s ease forwards var(--slideIn-delay, 0)",
-				// slideIn: "slideIn 1s ease-out forwards var(--slideIn-delay, 0)",
-        slideIn: "slideIn 200ms cubic-bezier(0.2, 0, 0.2, 1) forwards var(--slideIn-delay, 0)",
-
-				// slideInX: "slideInX 0.5s ease forwards var(--delay, 0)",
-				slideiny: "slideiny 200ms ease var(--slideiny-delay, 0) forwards",
-				// slideinx: "slideinx 1s ease var(--slideinx-delay, 0) forwards",
-				// slideinxreverse: "slideinxreverse 1s ease var(--slideinxreverse-delay, 0) forwards",
-				// "accordion-down": "accordion-down 0.2s ease-out",
-				// "accordion-up": "accordion-up 0.2s ease-out",
+				slideIn: "slideIn 300ms cubic-bezier(0.2, 0, 0.2, 1) forwards var(--slideIn-delay, 0)",
 			},
 			colors: {
-				accent: "hsl(var(--theme-accent) / <alpha-value>)",
-				"accent-2": "hsl(var(--theme-accent-2) / <alpha-value>)",
-				bgColor: "hsl(var(--theme-bg) / <alpha-value>)",
-				link: "hsl(var(--theme-link) / <alpha-value>)",
-				quote: "hsl(var(--theme-quote) / <alpha-value>)",
-				textColor: "hsl(var(--theme-text) / <alpha-value>)",
-				textColorFaded: "hsl(var(--theme-text-faded) / <alpha-value>)",
-				textColorMoreFaded: "hsl(var(--theme-text-more-faded) / <alpha-value>)",
-				border: "hsl(var(--border))",
-				input: "hsl(var(--input))",
-				ring: "hsl(var(--ring))",
-				background: "hsl(var(--background))",
-				foreground: "hsl(var(--foreground))",
+				background: "hsl(var(--background) / <alpha-value>)",
+				foreground: "hsl(var(--foreground) / <alpha-value>)",
 				primary: {
 					DEFAULT: "hsl(var(--primary))",
 					foreground: "hsl(var(--primary-foreground))",
@@ -123,6 +75,10 @@ export default {
 				secondary: {
 					DEFAULT: "hsl(var(--secondary))",
 					foreground: "hsl(var(--secondary-foreground))",
+				},
+				accent: {
+					DEFAULT: "hsl(var(--accent))",
+					foreground: "hsl(var(--accent-foreground))",
 				},
 				destructive: {
 					DEFAULT: "hsl(var(--destructive))",
@@ -132,14 +88,29 @@ export default {
 					DEFAULT: "hsl(var(--muted))",
 					foreground: "hsl(var(--muted-foreground))",
 				},
+				faded: {
+					DEFAULT: "hsl(var(--faded))",
+					foreground: "hsl(var(--faded-foreground))",
+				},
 				popover: {
 					DEFAULT: "hsl(var(--popover))",
 					foreground: "hsl(var(--popover-foreground))",
+				},
+				logo: {
+					DEFAULT: "hsl(var(--logo))",
+					foreground: "hsl(var(--logo-foreground))",
+					accent: {
+						DEFAULT: "hsl(var(--logo-accent))",
+						foreground: "hsl(var(--logo-accent-foreground))",
+					},
 				},
 				card: {
 					DEFAULT: "hsl(var(--card))",
 					foreground: "hsl(var(--card-foreground))",
 				},
+				border: "hsl(var(--border))",
+				input: "hsl(var(--input))",
+				ring: "hsl(var(--ring))",
 			},
 			borderRadius: {
 				lg: "var(--radius)",
@@ -150,8 +121,11 @@ export default {
 				// Add any custom fonts here
 				// sans: [...fontFamily.sans],
 				sans: ["Inter Variable", ...fontFamily.sans],
-				serif: ["Source Serif 4 Variable", ...fontFamily.serif],
+				serif: ['"Source Serif 4 Variable"', ...fontFamily.serif], // Note the extra quotes
 				mono: ["JetBrains Mono Variable", ...fontFamily.mono],
+				fun: ["Alice", ...fontFamily.serif],
+				logo: ["Playfair Display Variable", ...fontFamily.serif],
+				italic: ["Newsreader", ...fontFamily.serif],
 			},
 			// transitionProperty: {
 			//   height: "height",
@@ -161,35 +135,86 @@ export default {
 			typography: (theme) => ({
 				DEFAULT: {
 					css: {
-						// maxWidth: '0%', // add required value here
+						"h1, h2, h3, h4, h5, h6": {
+							"@apply mt-12": {},
+							fontFamily: '"Source Serif 4 Variable", serif',
+						},
+
+						h1: {
+							"@apply text-xl font-normal": {},
+						},
+						h2: {
+							"@apply text-lg font-normal": {},
+						},
+						h3: {
+							"@apply text-lg font-normal": {},
+						},
+						h4: {
+							"@apply text-lg font-normal": {},
+						},
+						h5: {
+							"@apply text-lg font-normal": {},
+						},
+						h6: {
+							"@apply text-lg font-normal": {},
+						},
 						a: {
-							"@apply my-link": "",
+							"@apply my-link": {},
+						},
+						em: {
+							"@apply font-italic italic text-[1.1rem]": {},
+						},
+						"blockquote > p::before": {
+							content: '""',
+						},
+						"blockquote > p::after": {
+							content: '""',
+						},
+						"blockquote > p:nth-of-type(2)": {
+							"@apply text-right": {},
 						},
 						blockquote: {
-							borderLeftWidth: "0",
+							"@apply border-l font-normal font-light": {},
 						},
 						code: {
-							border: "1px solid #666",
-							borderRadius: "2px",
+							"@apply border-ring rounded border p-1 font-normal": {},
 							"&::before": {
+								"@apply hidden": {},
 								content: '""',
 							},
 							"&::after": {
+								"@apply hidden": {},
 								content: '""',
 							},
 						},
-						kbd: {
-							"@apply dark:bg-textColor": "",
+						":not(pre) > code": {
+							"@apply align-baseline relative -top-[0.05em] px-1 py-0.5 text-sm font-semibold": {},
 						},
-						hr: {
-							borderTopStyle: "solid",
+						"pre code": {
+							"@apply font-mono text-sm leading-relaxed": {},
+						},
+						kbd: {
+							"@apply dark:bg-foreground px-2 py-0.5": {},
+						},
+						".footnotes": {
+							"@apply text-sm": {},
+							"&:before": {
+								"@apply block mx-auto border-t border-gray-500": {},
+								content: '""',
+								width: "50%", // Changed from w-1/2
+								margin: "4.5rem auto 4rem auto", // Keeping as raw CSS since it's a complex value
+							},
+							"& > ol > li": {
+								"@apply my-0": {},
+							},
 						},
 						strong: {
-							fontWeight: "700",
+							"@apply font-[550] text-accent-foreground": {},
 						},
 						sup: {
-							"@apply ms-0.5": "",
+							"@apply ms-0.5": {},
 							a: {
+								"@apply bg-none": {},
 								"&:after": {
 									content: "']'",
 								},
@@ -197,46 +222,45 @@ export default {
 									content: "'['",
 								},
 								"&:hover": {
-									"@apply text-link no-underline bg-none": "",
+									"@apply text-accent-foreground": {},
 								},
-								"@apply bg-none": "",
 							},
 						},
 						/* Table */
 						"tbody tr": {
-							borderBottomWidth: "none",
+							"@apply border-b-0": {},
 						},
 						tfoot: {
-							borderTop: "1px solid #666",
+							"@apply border-t border-[#666]": {},
 						},
 						thead: {
-							borderBottomWidth: "none",
+							"@apply border-b-0": {},
 						},
 						"thead th": {
-							borderBottom: "1px solid #666",
-							fontWeight: "700",
+							"@apply border-b border-[#666] font-semibold": {},
 						},
 						'th[align="center"], td[align="center"]': {
-							"text-align": "center",
+							"@apply text-center": {},
 						},
 						'th[align="right"], td[align="right"]': {
-							"text-align": "right",
+							"@apply text-right": {},
 						},
 						'th[align="left"], td[align="left"]': {
-							"text-align": "left",
+							"@apply text-left": {},
 						},
 					},
 				},
 				baseProse: {
 					css: {
-						"--tw-prose-body": theme("colors.textColor / 1"),
-						"--tw-prose-bold": theme("colors.textColor / 1"),
-						"--tw-prose-bullets": theme("colors.textColor / 1"),
-						"--tw-prose-code": theme("colors.textColor / 1"),
-						"--tw-prose-headings": theme("colors.accent-2 / 1"),
+						"--tw-prose-body": theme("colors.foreground / 1"),
+						"--tw-prose-bold": theme("colors.accent.foreground / 1"),
+						"--tw-prose-bullets": theme("colors.ring / 1"),
+						"--tw-prose-counters": theme("colors.ring / 1"),
+						"--tw-prose-code": theme("colors.foreground / 1"),
+						"--tw-prose-headings": theme("colors.accent.foreground / 1"),
 						"--tw-prose-hr": "0.5px solid #666",
-						"--tw-prose-links": theme("colors.textColor / 1"),
-						"--tw-prose-quotes": theme("colors.quote / 1"),
+						"--tw-prose-links": theme("colors.foreground / 1"),
+						"--tw-prose-quotes": theme("colors.muted.foreground / 1"),
 						"--tw-prose-th-borders": "#666",
 					},
 				},

@@ -20,17 +20,18 @@ const translatePath = useTranslatedPath(lang);
 		animate={true}
 		isHome={true}
 	>
-		<div
-			slot="description-animate"
-			class="text-base text-textColorFaded dark:text-zinc-400 sm:text-base"
-		>
+		<div slot="description-animate" class="text-base text-muted-foreground sm:text-base">
 			<span>{t("portfolio.prefix")} </span>
-			<span class:list={[lang === "en" ? "-mr-1" : "-mr-2"]}>
-				<MyLink href={translatePath("/posts")}>{t("portfolio.thoughts")}</MyLink>
+			<span class:list={[lang === "en" ? "-mr-1" : "-mr-2", "-my-1"]}>
+				<MyLink className="text-muted-foreground" href={translatePath("/posts")}
+					>{t("portfolio.thoughts")}</MyLink
+				>
 			</span>
 			<span class="pl-1">{t("portfolio.and")}</span>
-			<span class:list={[lang === "en" ? "-mr-1" : "-mr-2"]}>
-				<MyLink href={translatePath("/about")}>{t("portfolio.work")}</MyLink>
+			<span class:list={[lang === "en" ? "-mr-1" : "-mr-2", "-my-1"]}>
+				<MyLink className="text-muted-foreground" href={translatePath("/about")}
+					>{t("portfolio.work")}</MyLink
+				>
 			</span>
 			<span class="pl-1">{t("portfolio.in_software")}</span>
 		</div>
@@ -39,17 +40,17 @@ const translatePath = useTranslatedPath(lang);
 
 <script>
 	document.addEventListener("astro:after-swap", () => {
-		const animatedElements = document.querySelectorAll(".animate-slideiny");
+		const animatedElements = document.querySelectorAll(".animate-slideIn");
 		animatedElements.forEach((el) => {
-			el.classList.remove("animate-slideiny", "opacity-0");
+			el.classList.remove("animate-slideIn", "opacity-0");
 		});
 	});
 
 	document.addEventListener("astro:page-load", () => {
 		if (!document.referrer.includes("/about")) {
-			const animatedElements = document.querySelectorAll('[class*="animate-slideiny"]');
+			const animatedElements = document.querySelectorAll('[class*="animate-slideIn"]');
 			animatedElements.forEach((el) => {
-				el.classList.add("animate-slideiny", "opacity-0");
+				el.classList.add("animate-slideIn", "opacity-0");
 			});
 		}
 	});

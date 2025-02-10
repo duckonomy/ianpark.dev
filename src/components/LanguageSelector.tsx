@@ -45,17 +45,13 @@ const LanguageToggle = ({ type }: { type: string }) => {
 
 	return type === "post" ? null : (
 		<DropdownMenu>
-			<DropdownMenuTrigger className="hover:text-accent-foreground inline-flex h-9 w-9 items-center justify-center rounded-md p-0 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 dark:hover:bg-zinc-800">
+			<DropdownMenuTrigger className="inline-flex h-9 w-9 items-center justify-center rounded-md p-0 text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50">
 				<Globe className="h-4 w-4" />
 				<span className="sr-only">Toggle language menu</span>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="border-0 dark:bg-zinc-800" align="end">
+			<DropdownMenuContent className="border-0" align="end">
 				{Object.entries(languages).map(([lang, label]) => (
-					<DropdownMenuItem
-						key={lang}
-						asChild
-						className="flex items-center justify-between dark:hover:bg-zinc-700"
-					>
+					<DropdownMenuItem key={lang} asChild className="flex items-center justify-between">
 						<a
 							href={getLanguagePath(lang)}
 							className="flex w-full cursor-pointer items-center justify-between"

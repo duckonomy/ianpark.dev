@@ -22,6 +22,7 @@ The same operations in Neovim are nearly instantaneous, with background processi
 
 This isn't a new issue - the Emacs community has been discussing the limitations of single-threaded architecture for years. As detailed in [Andrea Corallo's deep dive into Emacs concurrency](https://akrl.sdf.org/gccemacs.html), adding true multithreading to Emacs would require fundamental changes to its core architecture.
 
+
 I still remember the moment that broke me - it was 11 PM, I was deep in the flow state working on a complex feature, when Emacs decided to freeze for a good 15 seconds while processing some treesitter operations. In that moment, watching my cursor turn into the dreaded spinning wheel, I finally admitted to myself: maybe it's time for a change.
 
 Neovim's architecture, built with modern workflows in mind, leverages multi-threading effectively. This isn't just about raw speed – it's about maintaining sanity while coding. When your LSP operations run in separate threads, you don't get those micro-freezes that make you question your life choices. The difference is particularly noticeable when working with larger codebases or when running multiple language servers simultaneously.
@@ -63,7 +64,7 @@ The switch to Neovim came with both technical and lifestyle adjustments, some mo
 
 Then came the terminal multiplexing decision. Moving from Emacs's built-in window management to a terminal environment meant choosing between several less-than-ideal options. While I had previous experience with tmux, I was hesitant to add another layer of terminal emulation and potential rendering overhead. After some research, I landed on Kitty for its native multiplexing support. Tools like tmux and Zellij are powerful, but when you're already dealing with a terminal emulator and Neovim, adding another layer of terminal abstraction felt unnecessary. Kitty's approach of handling multiplexing at the terminal emulator level just made more sense.
 
-But the deeper impacts came from losing Emacs's integrated environment. `magit` was a particularly hard goodbye - `fugitive` is capable but lacks that seamless integration that made version control feel natural. `dired` was another casualty; even with `nvim-tree`, file management feels more primitive. (edit 01/01/2025: I found `oil.nvim` \o/)
+But the deeper impacts came from losing Emacs's integrated environment. `magit` was a particularly hard goodbye - `fugitive` is capable but lacks that seamless integration that made version control feel natural. `dired` was another casualty; even with `nvim-tree`, file management feels more primitive. (**edit 01/01/2025**: I found `oil.nvim` \o/)
 
 The most significant loss, however, has been org-mode. This wasn't just about losing a feature - it was about dismantling an entire life organization system. I've found myself in the uncomfortable position of fragmenting my workflow across multiple "native" apps:
 

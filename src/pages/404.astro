@@ -1,14 +1,159 @@
 ---
 import PageLayout from "@/layouts/Base.astro";
-
 const meta = {
-  description: "Oops! It looks like this page is lost in space!",
-  title: "404",
-  type: "404"
+	description: "Page not found",
+	title: "404",
+	type: "404",
 };
 ---
 
 <PageLayout meta={meta}>
-  <h1 class="mt-16 title mb-6">404 | No such page</h1>
+	<div
+		id="void-container"
+		class="relative flex min-h-[50vh] flex-col items-center justify-center overflow-hidden"
+	>
+		{/* Grid Background */}
+		<div
+			id="perspective-grid"
+			class="absolute inset-0 grid grid-cols-[repeat(24,1fr)] grid-rows-[repeat(16,1fr)] opacity-20 transition-transform duration-500 ease-out"
+		>
+			{Array.from({ length: 384 }).map(() => <div class="border border-foreground/20" />)}
+		</div>
+		{/* Main Content */}
+		<div class="relative z-10 text-center">
+			<div class="relative">
+				<h1
+					class="font-serif text-[8rem] font-normal leading-none tracking-tighter sm:text-[12rem] md:text-[16rem]"
+				>
+					<span class="relative inline-block">
+						<span
+							class="absolute inset-0 text-foreground/5 blur-sm transition-transform duration-500 ease-out"
+							id="shadow1"
+						>
+							404
+						</span>
+						<span
+							class="absolute inset-0 text-foreground/10 blur-[2px] transition-transform duration-500 ease-out"
+							id="shadow2"
+						>
+							404
+						</span>
+						<span
+							class="absolute inset-0 text-foreground/10 transition-transform duration-500 ease-out"
+							id="shadow3"
+						>
+							404
+						</span>
+						<span class="relative text-logo">404</span>
+					</span>
+				</h1>
+			</div>
+			<p
+				class="font-italic mx-auto mt-4 max-w-[90%] px-4 text-base italic text-muted-foreground sm:mt-6 sm:max-w-lg sm:text-lg md:mt-8"
+			>
+				<em>You've discovered an anomaly in the digital space-time continuum.</em>
+			</p>
+		</div>
+		{/* Floating Particles */}
+		<div class="absolute inset-0 overflow-hidden">
+			{
+				Array.from({ length: 50 }).map(() => (
+					<div
+						class="absolute h-[2px] w-[2px] rounded-full bg-black blur-[1px]"
+						style={{
+							top: `${Math.random() * 100}%`,
+							left: `${Math.random() * 100}%`,
+							animation: `float ${3 + Math.random() * 10}s linear infinite`,
+							animationDelay: `-${Math.random() * 10}s`,
+						}}
+					/>
+				))
+			}
+		</div>
+	</div>
 </PageLayout>
+<style>
+	@keyframes float {
+		0% {
+			transform: translateY(0) translateX(0) scale(1);
+			opacity: 0;
+		}
+		25% {
+			transform: translateY(-50vh) translateX(25vw) scale(2);
+			opacity: 0.8;
+		}
+		50% {
+			transform: translateY(-100vh) translateX(0) scale(1.5);
+			opacity: 0.4;
+		}
+		75% {
+			transform: translateY(-150vh) translateX(-25vw) scale(2);
+			opacity: 0.8;
+		}
+		100% {
+			transform: translateY(-200vh) translateX(0) scale(1);
+			opacity: 0;
+		}
+	}
+</style>
+<script>
+	function setupInteractionEffects(): (() => void) | undefined {
+		const container = document.getElementById("void-container");
+		const shadow1 = document.getElementById("shadow1") as HTMLElement;
+		const shadow2 = document.getElementById("shadow2") as HTMLElement;
+		const shadow3 = document.getElementById("shadow3") as HTMLElement;
+		const grid = document.getElementById("perspective-grid") as HTMLElement;
 
+		function handleMovement(x: number, y: number) {
+			const rect = container!.getBoundingClientRect();
+			const normalizedX = (x - rect.left) / rect.width - 0.5;
+			const normalizedY = (y - rect.top) / rect.height - 0.5;
+
+			if (shadow1 && shadow2 && shadow3 && grid) {
+				shadow1.style.transform = `translate(${normalizedX * 90}px, ${normalizedY * 90}px)`;
+				shadow2.style.transform = `translate(${normalizedX * -70}px, ${normalizedY * -70}px)`;
+				shadow3.style.transform = `translate(${normalizedX * 50}px, ${normalizedY * 50}px)`;
+				grid.style.transform = `perspective(1000px) rotateX(${normalizedY * 15}deg) rotateY(${normalizedX * 15}deg) translateZ(0)`;
+			}
+		}
+
+		function handleMouseMove(e: MouseEvent) {
+			handleMovement(e.clientX, e.clientY);
+		}
+
+		function handleTouchMove(e: TouchEvent) {
+			e.preventDefault(); // Prevent scrolling while touching
+			const touch = e.touches[0];
+			if (touch) {
+				handleMovement(touch.clientX, touch.clientY);
+			}
+		}
+
+		if (container) {
+			// Clean up existing event listeners if any
+			container.removeEventListener("mousemove", handleMouseMove);
+			container.removeEventListener("touchmove", handleTouchMove);
+			container.removeEventListener("touchstart", handleTouchMove);
+
+			// Attach new event listeners
+			container.addEventListener("mousemove", handleMouseMove);
+			container.addEventListener("touchmove", handleTouchMove, { passive: false });
+			container.addEventListener("touchstart", handleTouchMove, { passive: false });
+
+			// Clean up when the component is destroyed
+			return () => {
+				container.removeEventListener("mousemove", handleMouseMove);
+				container.removeEventListener("touchmove", handleTouchMove);
+				container.removeEventListener("touchstart", handleTouchMove);
+			};
+		}
+
+		return undefined;
+	}
+
+	// Setup on initial load
+	setupInteractionEffects();
+
+	// Re-setup on client-side navigation
+	document.addEventListener("astro:page-load", setupInteractionEffects);
+</script>

@@ -1,5 +1,3 @@
-import { Badge } from "@/components/ui/badge";
-
 interface LeadershipRole {
 	organization: string;
 	role: string;
@@ -67,22 +65,15 @@ const LeadershipSection = ({ lang }: { lang: string }) => {
 								<div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between md:gap-4">
 									<div className="min-w-0 flex-auto">
 										<div>
-											<h3 className="font-playfair text-base font-semibold text-neutral-700 dark:text-zinc-200">
+											<div className="font-serif text-base font-semibold text-accent-foreground">
 												{role.organization}
-											</h3>
+											</div>
 											<div className="mt-1 space-y-1">
-												<div className="flex space-x-1">
-													<div className="text-sm font-normal text-neutral-700 dark:text-zinc-400">
-														{role.role}
-													</div>
+												<div className="flex items-center space-x-1">
+													<div className="text-sm text-accent-foreground">{role.role}</div>
 
 													<div>
-														<Badge
-															variant="secondary"
-															className="bg-transparent px-0 text-xs text-neutral-400 dark:text-zinc-500"
-														>
-															({role.date})
-														</Badge>
+														<div className="px-0 text-xs text-muted-foreground">({role.date})</div>
 													</div>
 												</div>
 											</div>
@@ -92,10 +83,8 @@ const LeadershipSection = ({ lang }: { lang: string }) => {
 											<ul className="space-y-2">
 												{role.achievements.map((achievement, achievementIndex) => (
 													<li key={achievementIndex} className="flex items-start gap-x-2">
-														<span className="mt-2 h-1 w-1 flex-none rounded-full bg-neutral-400 dark:bg-zinc-700" />
-														<span className="text-sm text-neutral-500 dark:text-zinc-400">
-															{achievement}
-														</span>
+														<span className="mt-2 h-1 w-1 flex-none rounded-full bg-ring" />
+														<span className="text-pretty">{achievement}</span>
 													</li>
 												))}
 											</ul>

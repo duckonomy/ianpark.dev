@@ -42,7 +42,7 @@ const ProjectModal = ({
 			<DialogTrigger asChild>{children}</DialogTrigger>
 			<DialogContent className="border-0 sm:max-w-3xl" aria-describedby={undefined}>
 				<DialogHeader>
-					<DialogTitle className="sr-only">{project.title}</DialogTitle>
+					<DialogTitle className="sr-only text-accent-foreground">{project.title}</DialogTitle>
 					<p id={dialogDescriptionId} className="sr-only">
 						{project.description}
 					</p>
@@ -53,7 +53,7 @@ const ProjectModal = ({
 						size="icon"
 						onClick={() => setOpen(false)}
 						aria-label={lang === "en" ? "Close dialog" : "닫기"}
-						className="absolute right-0 top-0 z-50 hover:bg-neutral-100 dark:hover:bg-neutral-800/80"
+						className="absolute right-0 top-0 z-50"
 					>
 						<X className="h-5 w-5" />
 					</Button>
@@ -73,12 +73,12 @@ const ProjectModal = ({
 						<div className={`flex flex-col ${!project.image ? "mx-auto w-full md:max-w-3xl" : ""}`}>
 							{/* Header */}
 							<div>
-								<h2 className="font-playfair text-lg font-semibold">{project.title}</h2>
+								<h2 className="font-serif text-lg font-semibold">{project.title}</h2>
 								<div className="mt-2 flex flex-wrap gap-2">
-									<Badge variant="outline" className="text-xs dark:border-zinc-700">
+									<Badge variant="outline" className="text-xs">
 										{project.date}
 									</Badge>
-									<Badge variant="outline" className="text-xs dark:border-zinc-700">
+									<Badge variant="outline" className="text-xs">
 										{project.category}
 									</Badge>
 								</div>
@@ -86,18 +86,16 @@ const ProjectModal = ({
 
 							{/* Description */}
 							<div className="mt-4 flex-grow">
-								<h3 className="mb-2 font-medium">About</h3>
-								<p className="text-sm text-neutral-600 dark:text-neutral-300">
-									{project.longDescription || project.description}
-								</p>
+								<div className="mb-2 font-medium text-accent-foreground">About</div>
+								<p className="text-sm">{project.longDescription || project.description}</p>
 							</div>
 
 							{/* Tech Stack */}
 							<div className="mt-4">
-								<h3 className="mb-2 font-medium">Technologies</h3>
+								<h3 className="mb-2 font-medium text-accent-foreground">Technologies</h3>
 								<div className="flex flex-wrap gap-2">
 									{project.stack.map((tech, index) => (
-										<Badge key={index} variant="secondary" className="dark:bg-transparent">
+										<Badge key={index} variant="secondary">
 											{tech}
 										</Badge>
 									))}
@@ -106,11 +104,7 @@ const ProjectModal = ({
 
 							{/* Links */}
 							<div className="mt-6 flex gap-2">
-								<Button
-									variant="outline"
-									className="flex-1 dark:bg-transparent dark:hover:bg-zinc-700/80"
-									asChild
-								>
+								<Button variant="outline" className="flex-1" asChild>
 									<a
 										href={
 											project.link.startsWith("http") ? project.link : `https://${project.link}`
@@ -124,11 +118,7 @@ const ProjectModal = ({
 									</a>
 								</Button>
 								{project.link.includes("github.com") && (
-									<Button
-										variant="outline"
-										className="dark:bg-transparent dark:hover:bg-zinc-700/80"
-										asChild
-									>
+									<Button variant="outline" asChild>
 										<a
 											href={
 												project.link.startsWith("http") ? project.link : `https://${project.link}`
@@ -276,12 +266,12 @@ const ProjectsSection = ({ lang }: { lang: string }) => {
 	};
 
 	const tabTriggerStyles =
-		"pt-0 pb-2 px-0 relative border-none shadow-none bg-transparent px-2 font-medium text-neutral-500 hover:text-neutral-900 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:scale-x-0 data-[state=active]:after:scale-x-100 after:bg-neutral-900 after:transition-transform data-[state=active]:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 dark:data-[state=active]:text-neutral-100 data-[state=active]:shadow-none dark:after:bg-neutral-100";
+		"pt-0 pb-2 px-0 relative border-none shadow-none px-2 font-medium text-faded-foreground after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:scale-x-0 data-[state=active]:after:scale-x-100 after:bg-accent-foreground after:transition-transform data-[state=active]:text-accent-foreground data-[state=active]:shadow-none";
 
 	return (
 		<div className="-mb-4">
 			<Tabs defaultValue="Pinned" className="w-full">
-				<TabsList className="mb-4 flex h-10 w-full items-center justify-start gap-2 border-neutral-200 bg-transparent p-0 dark:border-zinc-800">
+				<TabsList className="mb-4 flex h-10 w-full items-center justify-start gap-2 bg-background p-0">
 					<TabsTrigger value="Pinned" className={tabTriggerStyles}>
 						<svg
 							width="15"
@@ -335,14 +325,14 @@ const ProjectsSection = ({ lang }: { lang: string }) => {
 };
 
 const ProjectGrid = ({ projects, lang }: { projects: Project[]; lang: string }) => (
-	<div className="group/list relative mb-0 mt-10 grid grid-cols-1 gap-y-0 md:grid-cols-1">
+	<div className="group/list relative mb-0 grid grid-cols-1 gap-y-0 md:grid-cols-1">
 		{projects.map((project, index) => (
 			<ProjectModal key={index} project={project} lang={lang}>
-				<Card className="group relative -ml-4 cursor-pointer rounded-lg border-b-0 border-l-0 border-r-0 border-t-0 border-neutral-200 p-4 px-2 shadow-none transition-all duration-200 last:border-b-0 hover:bg-neutral-50 hover:!opacity-100 group-hover/list:opacity-50 dark:border-zinc-950 dark:bg-transparent dark:hover:bg-zinc-800/50">
+				<Card className="group relative -ml-4 cursor-pointer rounded-lg border-none p-4 px-2 shadow-none transition-all duration-200 hover:bg-accent hover:!opacity-100 group-hover/list:opacity-50">
 					<CardHeader className="p-0 pb-3">
 						<div className="flex items-start justify-between">
 							<div className="flex items-center gap-2">
-								<CardTitle className="font-playfair text-base font-semibold dark:text-zinc-200">
+								<CardTitle className="font-serif text-base font-semibold text-accent-foreground">
 									{project.title}
 								</CardTitle>
 								<ArrowUpRight className="h-4 w-4" />
@@ -351,16 +341,12 @@ const ProjectGrid = ({ projects, lang }: { projects: Project[]; lang: string }) 
 								{project.date}
 							</Badge>
 						</div>
-						<CardDescription className="dark:text-zinc-300">{project.description}</CardDescription>
+						<CardDescription>{project.description}</CardDescription>
 					</CardHeader>
 					<CardContent className="p-0">
 						<div className="flex flex-wrap gap-2">
 							{project.stack.map((tech, techIndex) => (
-								<Badge
-									className="dark:bg-zinc-100/10 dark:text-zinc-400"
-									key={techIndex}
-									variant="secondary"
-								>
+								<Badge className="" key={techIndex} variant="secondary">
 									{tech}
 								</Badge>
 							))}

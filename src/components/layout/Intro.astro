@@ -19,50 +19,52 @@ const {
 	isHome = false,
 } = Astro.props;
 
-const baseClasses = "mb-12 mt-6 sm:mt-16";
-const titleClasses =
-	"font-playfair text-3xl font-medium text-neutral-700 dark:text-zinc-200 sm:text-2xl";
-const homeStatementClasses =
-	"site-home-content font-playfair text-2xl font-normal text-neutral-500 dark:text-zinc-300 sm:text-2xl";
+const baseClasses = "mt-6 sm:mt-16 ";
+const titleClasses = "font-serif text-xl font-medium sm:text-2xl text-accent-foreground";
+const homeStatementClasses = "site-home-content font-fun text-2xl sm:text-2xl";
 ---
 
 <div class:list={[baseClasses, className]}>
-	<div class="mb-12">
-		<div
-			class:list={[{ "animate-slideiny opacity-0": animate }]}
-			style={animate ? "--slideiny-delay: 50ms" : ""}
+	<div class="flex flex-col space-y-1">
+		<span
+			class:list={[{ "animate-slideIn opacity-0": animate }]}
+			style={animate ? "--slideIn-delay: 50ms" : ""}
 		>
 			<span class={titleClasses}>
 				{title}
 			</span>
-		</div>
+		</span>
 
 		{
 			isHome && (
-				<div
-					class:list={["mt-2 sm:mt-1", { "animate-slideiny opacity-0": animate }]}
-					style={animate ? "--slideiny-delay: 200ms" : ""}
+				<span
+					class:list={["", { "animate-slideIn opacity-0": animate }]}
+					style={animate ? "--slideIn-delay: 200ms" : ""}
 				>
-					<p class={`${homeStatementClasses} "mb-2"`}>{homeStatement}</p>
-				</div>
+					<span class={`${homeStatementClasses} "mb-2"`}>{homeStatement}</span>
+				</span>
 			)
 		}
 
-		<div
-			class:list={["mt-2 sm:mt-1", { "animate-slideiny opacity-0": animate }]}
-			style={animate ? "--slideiny-delay: 300ms" : ""}
-		>
-			<slot name="description-animate" />
-		</div>
-
-		<div class="mb-t sm:mt-1">
-			<slot name="description" />
-		</div>
+		{
+			animate ? (
+				<span
+					class:list={["", { "animate-slideIn opacity-0": animate }]}
+					style={animate ? "--slideIn-delay: 300ms" : ""}
+				>
+					<slot name="description-animate" />
+				</span>
+			) : (
+				<span>
+					<slot name="description" />
+				</span>
+			)
+		}
 		{
 			showSocial && (
 				<div
-					class:list={["mt-2.5 w-fit", { "animate-slideiny opacity-0": animate }]}
-					style={animate ? "--slideiny-delay: 400ms" : ""}
+					class:list={["mt-0 w-fit", { "animate-slideIn opacity-0": animate }]}
+					style={animate ? "--slideIn-delay: 400ms" : ""}
 				>
 					<SocialList />
 				</div>

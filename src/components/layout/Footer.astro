@@ -8,10 +8,9 @@ const { type } = Astro.props;
 ---
 
 <footer
-	class="mb-8 mt-auto flex w-full flex-row items-center justify-between gap-y-2 text-center align-top font-semibold text-neutral-500 dark:text-zinc-400 sm:mb-16"
-	id=""
+	class="mb-8 mt-auto flex w-full flex-row items-center justify-between gap-y-2 text-center align-top font-normal text-accent-foreground sm:mb-16"
 >
-	<div class="me-0 font-normal">
+	<div class="me-0">
 		<a
 			aria-current={url.pathname === "/" ? "page" : false}
 			class="relative inline-block items-center text-sm grayscale hover:filter-none"
@@ -23,13 +22,13 @@ const { type } = Astro.props;
 		</a>
 	</div>
 
-	<div class="flex select-none justify-center">
+	<div class="font-logo flex select-none justify-center font-bold text-logo-foreground">
 		{type === "post" && <ScrollToTopButton client:load />}
 
 		{
 			type === "posts" && (
 				<a aria-current={false} href="/">
-					<span class="font-alice mr-1 inline-block h-10 w-9 rounded-md bg-black p-1 px-2.5 text-lg text-white transition dark:bg-zinc-800 sm:hover:bg-neutral-700 sm:dark:hover:bg-zinc-700">
+					<span class="mr-1 inline-block h-10 w-9 rounded-md bg-logo p-1 px-2.5 text-lg transition sm:hover:bg-logo-accent">
 						··
 					</span>
 				</a>
@@ -39,7 +38,7 @@ const { type } = Astro.props;
 		{
 			type === "post" && (
 				<a aria-current={false} href="/posts">
-					<span class="font-alice mr-1 inline-block h-10 w-9 rounded-md bg-black p-1 px-2.5 text-lg text-white transition dark:bg-zinc-800 sm:hover:bg-neutral-700 sm:dark:hover:bg-zinc-700">
+					<span class="mr-1 inline-block h-10 w-9 rounded-md bg-logo p-1 px-2.5 text-lg transition sm:hover:bg-logo-accent">
 						··
 					</span>
 				</a>
@@ -49,21 +48,13 @@ const { type } = Astro.props;
 		{
 			type !== "home" && (
 				<a aria-current={false} href="/">
-					<span class="font-alice inline-block h-10 w-9 rounded-md bg-black p-1 px-2.5 text-lg text-white transition dark:bg-zinc-800 sm:hover:bg-neutral-700 sm:dark:hover:bg-zinc-700">
+					<span class="inline-block h-10 w-9 rounded-md bg-logo p-1 px-2.5 text-lg transition sm:hover:bg-logo-accent">
 						~
 					</span>
 				</a>
 			)
 		}
 
-		{type === "home" && <span class="font-playfair font-light italic">Life is Awesome</span>}
+		{type === "home" && <span class="font-italic font-light italic">Life is Awesome</span>}
 	</div>
 </footer>
-
-<style is:global>
-	#footer-font {
-		/* font-family: 'Lobster', system-ui; */
-		/* font-family: 'IBM Plex Mono', monospace; */
-		font-weight: "600";
-	}
-</style>

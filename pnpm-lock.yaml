@@ -38,6 +38,9 @@ importers:
       '@fontsource-variable/jetbrains-mono':
         specifier: ^5.1.2
         version: 5.1.2
+      '@fontsource-variable/newsreader':
+        specifier: ^5.1.1
+        version: 5.1.1
       '@fontsource-variable/playfair-display':
         specifier: ^5.1.1
         version: 5.1.1
@@ -55,6 +58,9 @@ importers:
         version: 5.1.0
       '@fontsource/lobster':
         specifier: ^5.1.0
+        version: 5.1.1
+      '@fontsource/newsreader':
+        specifier: ^5.1.1
         version: 5.1.1
       '@fontsource/roboto':
         specifier: ^5.1.0
@@ -668,6 +674,9 @@ packages:
   '@fontsource-variable/jetbrains-mono@5.1.2':
     resolution: {integrity: sha512-syGEJ/N4FFisAXegxtbe1etYpo2T630dqCbYufPf7Dli/hMKSoSUIm3wK4q5RsGFRxWno1WecfnsgZA1jRK0EQ==}
 
+  '@fontsource-variable/newsreader@5.1.1':
+    resolution: {integrity: sha512-cW9UGrGSPsPvrNV1uHrRo/21xNtVj/Im9b2mhComwopdXETjIbmqEY2T0akGwp1+FdSfQNpioiw+3FO8hemOhA==}
+
   '@fontsource-variable/playfair-display@5.1.1':
     resolution: {integrity: sha512-89gLVOcVRIp0aayWwTcaLGQxhxDT2ZIv7cFU/BjxcWA8iALi8SrlT7dNHdhakb8MeXc0UUw9n8k6kG+jWvX61A==}
 
@@ -685,6 +694,9 @@ packages:
 
   '@fontsource/lobster@5.1.1':
     resolution: {integrity: sha512-NalmVtEQtEv80T658yl1T2CXf1+I8ypDSYz4bgxMdR9bMhVu2myguXY1exhBhPQ+iNKmxatoLuukJp/QgNaBOQ==}
+
+  '@fontsource/newsreader@5.1.1':
+    resolution: {integrity: sha512-OjPOUgaJ02kuo9F2vsgUEOje7nbfFW1sXDcM1EeZSg6UuR9ceYYksxqb3cStfHAPEPrXkG4nxrzLdNVGHLWDcw==}
 
   '@fontsource/roboto@5.1.1':
     resolution: {integrity: sha512-XwVVXtERDQIM7HPUIbyDe0FP4SRovpjF7zMI8M7pbqFp3ahLJsJTd18h+E6pkar6UbV3btbwkKjYARr5M+SQow==}
@@ -4884,6 +4896,8 @@ snapshots:
 
   '@fontsource-variable/jetbrains-mono@5.1.2': {}
 
+  '@fontsource-variable/newsreader@5.1.1': {}
+
   '@fontsource-variable/playfair-display@5.1.1': {}
 
   '@fontsource-variable/source-serif-4@5.1.1': {}
@@ -4895,6 +4909,8 @@ snapshots:
   '@fontsource/iosevka@5.1.0': {}
 
   '@fontsource/lobster@5.1.1': {}
+
+  '@fontsource/newsreader@5.1.1': {}
 
   '@fontsource/roboto@5.1.1': {}
 

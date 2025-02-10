@@ -45,32 +45,26 @@ const t = useTranslations(lang);
 			<FilterTags lang={lang} t={t} />
 		</div>
 	</Intro>
-	<div class="mb-16 mt-6 sm:mt-16">
-		<section
-			class="posts-list group/total relative transition-all duration-200 ease-in-out sm:border-solid sm:border-neutral-200 dark:sm:border-zinc-700"
-			aria-label="Blog post list"
-		>
+	<div class="mb-16 mt-8">
+		<section class="posts-list group/total relative" aria-label="Blog post list">
 			{
-				descYearKeys.map((yearKey, i) => (
+				descYearKeys.map((yearKey) => (
 					<div class="year-tag">
-						<div class="h-px w-full bg-neutral-200 dark:bg-zinc-700" />
+						<div class="h-px w-full bg-border" />
 						<div
-							class="year-group group/years flex w-full flex-col transition-all duration-200 ease-in-out last-of-type:mb-0 sm:flex-row sm:space-x-10"
+							class="year-group group/years flex w-full flex-col last-of-type:mb-0 sm:flex-row sm:space-x-10"
 							data-year={yearKey}
 						>
-							<div class="year-label z-10 my-4 mb-2 rounded-md px-1 transition-all duration-200 ease-in-out sm:my-6 sm:mb-0">
-								<span class="font-source-serif mt-3 inline-block rounded-md text-lg font-medium text-neutral-600 transition-all duration-200 ease-in-out group-hover/years:bg-neutral-100 group-hover/total:text-neutral-400 group-hover/years:text-neutral-900 dark:text-zinc-400 dark:group-hover/years:bg-zinc-800 dark:group-hover/total:text-zinc-600 dark:group-hover/years:text-zinc-200 sm:mt-0 sm:px-2">
+							<div class="year-label z-10 mb-0 mt-4 rounded-md sm:my-6 sm:mb-0">
+								<span class="mt-3 inline-block rounded-md font-serif text-lg font-medium transition-all duration-200 ease-in-out group-hover/years:bg-muted group-hover/total:opacity-40 group-hover/years:!opacity-100 sm:mt-0 sm:px-2">
 									{yearKey}
 								</span>
 							</div>
 							<ul class="my-6 w-full text-start">
-								{groupedByYear[yearKey]?.map((p, j) => (
+								{groupedByYear[yearKey]?.map((p) => (
 									<li
-										class="my-8 transition-all duration-200 ease-in-out first:mt-0 last:mb-0 group-hover/total:text-neutral-400 group-hover/years:text-neutral-900 dark:group-hover/total:text-zinc-600 dark:group-hover/years:text-zinc-200 [.initial-load_&]:animate-slideIn [.initial-load_&]:opacity-0"
+										class="my-8 transition-all duration-200 ease-in-out first:mt-0 last:mb-0 hover:!opacity-100 group-hover/total:opacity-40"
 										data-year={yearKey}
-										style={{
-											"--slideIn-delay": (i + 1) * 150 + (j + 1) * 50 + "ms",
-										}}
 									>
 										<PostPreview post={p} />
 									</li>

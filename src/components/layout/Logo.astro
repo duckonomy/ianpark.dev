@@ -1,0 +1,41 @@
+---
+import NavDropdown from "@/components/NavDropdown";
+const { baseText, currentText, url, isMenu, translatePath } = Astro.props;
+const menuItems = [
+	{
+		url: translatePath("/about"),
+		text: "About",
+	},
+	{
+		url: translatePath("/posts"),
+		text: "Posts",
+	},
+];
+
+const baseClasses = "rounded-md inline-block";
+const hoverClasses = "sm:hover:bg-logo-accent";
+const paddingClasses = "p-1";
+
+const textClasses = `${baseClasses} ${hoverClasses} ${paddingClasses} px-2`;
+const slashClasses = `${baseClasses} ${paddingClasses} px-0`;
+const menuClasses = `${baseClasses} ${hoverClasses} ${paddingClasses} cursor-pointer`;
+---
+
+<div>
+	<a aria-current={false} data-astro-prefetch href={translatePath(url)} class={textClasses}>
+		{baseText}
+	</a>
+	{
+		isMenu && (
+			<>
+				<span class={slashClasses}>/</span>
+				<NavDropdown
+					currentText={currentText}
+					client:load
+					menuItems={menuItems}
+					menuClassString={menuClasses}
+				/>
+			</>
+		)
+	}
+</div>

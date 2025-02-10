@@ -47,7 +47,7 @@ const ThemeToggle = () => {
 
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className="hover:text-accent-foreground inline-flex h-9 w-9 items-center justify-center rounded-md p-0 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 dark:hover:bg-zinc-800">
+			<DropdownMenuTrigger className="inline-flex h-9 w-9 items-center justify-center rounded-md p-0 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50">
 				<Sun
 					className={`h-4 w-4 transition-all ${getEffectiveTheme() === "dark" ? "rotate-90 scale-0" : "rotate-0 scale-100"}`}
 				/>
@@ -56,10 +56,10 @@ const ThemeToggle = () => {
 				/>
 				<span className="sr-only">Toggle theme</span>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent align="end" className="border-0 dark:bg-zinc-800">
+			<DropdownMenuContent align="end" className="border-0">
 				<DropdownMenuItem
 					onClick={() => setTheme("light")}
-					className="flex cursor-pointer items-center justify-between dark:hover:bg-zinc-700"
+					className="flex cursor-pointer items-center justify-between"
 				>
 					<div className="flex items-center">
 						<Sun className="mr-2 h-4 w-4" />
@@ -69,7 +69,7 @@ const ThemeToggle = () => {
 				</DropdownMenuItem>
 				<DropdownMenuItem
 					onClick={() => setTheme("dark")}
-					className="flex cursor-pointer items-center justify-between dark:hover:bg-zinc-700"
+					className="flex cursor-pointer items-center justify-between"
 				>
 					<div className="flex items-center">
 						<Moon className="mr-2 h-4 w-4" />
@@ -79,7 +79,7 @@ const ThemeToggle = () => {
 				</DropdownMenuItem>
 				<DropdownMenuItem
 					onClick={() => setTheme("system")}
-					className="flex cursor-pointer items-center justify-between dark:hover:bg-zinc-700"
+					className="flex cursor-pointer items-center justify-between"
 				>
 					<div className="flex items-center">
 						<Laptop className="mr-2 h-4 w-4" />

@@ -7,6 +7,7 @@ import Header from "@/components/layout/Header.astro";
 import "@fontsource/iosevka";
 import "@fontsource-variable/jetbrains-mono";
 import "@fontsource/alice";
+import "@fontsource/newsreader/400-italic.css";
 import "@fontsource/lobster";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/eb-garamond";
@@ -45,9 +46,7 @@ const lang = getLangFromUrl(Astro.url);
 		<ClientRouter fallback="animate" />
 	</head>
 	<!-- NOTE: transition for theme toggle -->
-	<body
-		class="overflow-y-scroll bg-bgColor text-sm font-normal text-textColor antialiased transition"
-	>
+	<body class="overflow-y-scroll bg-background text-sm text-foreground antialiased transition">
 		<!-- <div class="mx-auto flex min-h-screen max-w-2xl flex-col px-6 pt-8 sm:pt-32 lg:px-0"> -->
 		<div class="mx-auto flex min-h-screen max-w-2xl flex-col px-6 pt-8 sm:pt-32 lg:px-0">
 			<ThemeProvider />
@@ -63,5 +62,11 @@ const lang = getLangFromUrl(Astro.url);
 <style>
 	:root {
 		scrollbar-gutter: stable both-edges;
+	}
+
+	html {
+		text-rendering: optimizeLegibility;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
 	}
 </style>

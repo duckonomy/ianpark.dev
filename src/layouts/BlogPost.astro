@@ -22,13 +22,11 @@ const readingTime: string = remarkPluginFrontmatter.readingTime;
 <BaseLayout meta={{ articleDate, description, title, type }}>
 	{!!headings.length && <TableOfContents client:load headings={headings} />}
 	<div class="post-content mb-16 mt-6 sm:mt-16 lg:flex">
-		<article class="mx-0 flex-grow break-words sm:mx-0 sm:w-full" data-pagefind-body>
+		<article class="mx-0 flex-grow text-pretty break-words sm:mx-0 sm:w-full" data-pagefind-body>
 			<div id="blog-hero" class="mb-8 sm:mb-0">
 				<Masthead content={post} readingTime={readingTime} />
 			</div>
-			<div
-				class="prose prose-sm prose-baseProse mt-0 text-base font-normal leading-7 text-neutral-500 prose-headings:mt-16 prose-headings:text-base prose-headings:font-semibold prose-kbd:px-2 prose-kbd:py-0.5 prose-code:rounded prose-code:border-neutral-300 prose-code:px-1 prose-code:align-middle prose-code:font-bold prose-code:before:hidden prose-code:after:hidden dark:font-normal dark:text-zinc-200 dark:prose-headings:text-zinc-200 dark:prose-code:border-neutral-600 sm:mt-12 sm:leading-8 sm:prose-headings:mb-2 sm:prose-headings:text-xl [&>.footnotes]:text-xs sm:[&>.footnotes]:text-sm"
-			>
+			<div class="prose prose-baseProse leading-7 sm:leading-7">
 				<slot />
 			</div>
 		</article>
@@ -37,17 +35,16 @@ const readingTime: string = remarkPluginFrontmatter.readingTime;
 
 <style is:global>
 	.anchor-link {
-		display: inline-block;
+		display: inline-flex; /* Changed from inline-block */
+		align-items: center; /* Added for vertical centering */
 		margin-left: 0.25rem;
 		text-decoration-line: none;
 		opacity: 0;
 		transition: 0.2s;
-		@apply text-textColorMoreFaded;
+		@apply text-muted-foreground;
 	}
 
 	.anchor:hover .anchor-link {
-		display: inline-block;
-		transition: 0.4s;
 		opacity: 1;
 	}
 
@@ -56,94 +53,8 @@ const readingTime: string = remarkPluginFrontmatter.readingTime;
 		width: 0.7rem;
 	}
 
+	/* Remove header for footnotes */
 	#footnote-label {
 		display: none;
-	}
-
-	.footnotes:before {
-		content: "";
-		border-top: 1px solid grey;
-		width: 50%;
-		display: block;
-		margin: 0 auto;
-		margin-top: 4.5rem;
-		margin-bottom: 4rem;
-	}
-
-	.footnotes > ol > li {
-		margin-top: 0rem;
-		margin-bottom: 0rem;
-	}
-
-	.cm-em,
-	em {
-		font-family: "Eb Garamond Variable", serif;
-		font-size: 1.13rem !important;
-		font-weight: 400 !important;
-		font-style: italic;
-	}
-
-	/* .prose > p { */
-	/*   font-family: 'Source Serif 4 Variable', serif; */
-	/*   font-size: 1rem !important; */
-	/* } */
-
-	/* .prose > ul { */
-	/*   font-family: 'Source Serif 4 Variable', serif; */
-	/*   font-size: 1.125rem !important; */
-	/* } */
-
-	blockquote {
-		font-style: normal !important;
-		/* border-left: 2px solid #eeeeee !important;  */
-
-		font-family: "Source Serif 4 Variable", serif;
-		font-weight: 300;
-		padding-left: 1.5rem !important; /* Add some padding from the border */
-		margin-left: 0 !important; /* Remove default margin if any */
-	}
-
-	blockquote > p::before {
-		content: "" !important;
-	}
-
-	blockquote > p::after {
-		content: "" !important;
-	}
-
-	blockquote > p:nth-of-type(2) {
-		text-align: right !important;
-	}
-	.prose :not(pre) > code {
-		vertical-align: baseline;
-		position: relative;
-		top: -0.05em;
-		padding: 0.2em 0.4em;
-		font-size: 0.875em !important;
-	}
-
-	.prose pre code {
-		font-family: "JetBrains Mono", monospace !important;
-		font-size: 0.875em !important;
-		line-height: 1.7142857 !important;
-	}
-
-	.prose h1,
-	.prose h2,
-	.prose h3,
-	.prose h4,
-	.prose h5,
-	.prose h6 {
-		font-family: "Source Serif 4 Variable", serif;
-	}
-
-	.prose h1 {
-		font-size: 1.325rem;
-		font-weight: 400;
-	}
-
-	.prose h2 {
-		font-size: 1rem;
-		font-weight: 400;
 	}
 </style>

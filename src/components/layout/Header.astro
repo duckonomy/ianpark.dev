@@ -3,247 +3,179 @@
 // import Search from "../Search.tsx";
 // import ThemeToggle from "../ThemeToggle.astro";
 import ThemeToggle from "../ThemeToggle.tsx";
-import LanguageSelector from '@/components/LanguageSelector.tsx';
+import LanguageSelector from "@/components/LanguageSelector.tsx";
+import Logo from "./Logo.astro";
 
 const { type } = Astro.props;
-const nativeClassString = "rounded-md inline-block";
-const baseClassString = "sm:hover:bg-zinc-700 " + nativeClassString;
-const slashClassString = baseClassString + " p-1 pr-1.5";
-const dotdotClassString = baseClassString + " px-2 py-1"
-const menuClassString = slashClassString + " cursor-pointer";;
-const unfocusedSlashClassString = "rounded-md inline-block p-1 pr-1.5"
-import { getLangFromUrl, useTranslatedPath } from '@/i18n/utils';
+import { getLangFromUrl, useTranslatedPath } from "@/i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
 ---
-<header class="group select-none relative font-bold my-8 sm:mb-2 flex items-center justify-between">
-  <div
-    class="nav-container font-alice font-bold py-0.5 px-1 flex text-lg text-neutral-100 bg-black dark:bg-zinc-800 dark:text-zinc-100 rounded-lg"
-  >
-    {(type === "home") &&
-    <div
-      class="nav-static"
-    >
 
-  <a aria-current={"page"} href={translatePath('/')}>
-        <span class={`${baseClassString} p-1 px-2`}>
-          ~
-        </span>
-      </a>
+<header class="group relative my-8 flex select-none items-center justify-between font-bold sm:mb-2">
+	<div
+		class="nav-container font-logo flex rounded-lg bg-logo p-1 text-lg font-bold text-logo-foreground"
+	>
+		{
+			type === "home" && (
+				<div class="nav-static">
+					<Logo baseText="~" isMenu={false} translatePath={translatePath} url="/" />
+				</div>
+			)
+		}
 
-    </div>
-    }
+		{
+			type === "404" && (
+				<div class="nav-static">
+					<Logo baseText="~" isMenu={false} translatePath={translatePath} url="/" />
+				</div>
+			)
+		}
 
-    {(type === "404") &&
-    <div
-      class="nav-static"
-    >
-      <a
-      aria-current={false}
-    href={translatePath('/posts')}
-      >
+		{
+			type === "posts" && (
+				<div class="nav-dynamic">
+					<Logo
+						baseText="~"
+						currentText="Posts"
+						isMenu={true}
+						translatePath={translatePath}
+						url="/"
+					/>
+				</div>
+			)
+		}
 
-        <span class={`${dotdotClassString}`}>
-          ··
-        </span>
-      </a>
-    </div>
-    }
+		{
+			type === "post" && (
+				<div class="nav-static">
+					<Logo baseText="··" isMenu={false} translatePath={translatePath} url="/posts" />
+				</div>
+			)
+		}
 
-    {(type === "posts") &&
-    <div
-      class="nav-dynamic"
-    >
-      <a
-        aria-current={false}
-    href={translatePath('/')}
-  >
-        <span class={`${baseClassString} p-1 px-2 transform`}>
-          ~
-        </span>
-      </a>
-      <span class={`${unfocusedSlashClassString}`}>
-        /
-      </span>
+		{
+			type === "about" && (
+				<div class="nav-dynamic">
+					<Logo
+						baseText="~"
+						currentText="About"
+						isMenu={true}
+						translatePath={translatePath}
+						url="/"
+					/>
+				</div>
+			)
+		}
 
-      <div class="relative inline-block text-left">
-        <input type="checkbox" id="mydropdown" class="peer/edit hidden" aria-expanded="true" aria-haspopup="true" />
-        <label for="mydropdown" class={`${menuClassString}`}>
-          Posts
-        </label>
-
-        <div class="hidden peer-checked/edit:block absolute z-10 mt-2 w-22 origin-top-right rounded-md bg-black dark:bg-zinc-800 shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-          <div class="py-1" role="none">
-            <a href={translatePath('/about')} class="mx-1 rounded block px-1 py-1 pr-2.5 text-neutral-100 dark:text-zinc-300 sm:hover:bg-neutral-700" role="menuitem" tabindex="-1" id="menu-item-0">About</a>
-            <a href={translatePath('/posts')} class="mx-1 rounded block px-1 py-1 pr-2.5 text-neutral-100 dark:text-zinc-300 sm:hover:bg-neutral-700" role="menuitem" tabindex="-1" id="menu-item-1">Posts</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    }
-
-    {(type === "post") &&
-    <div
-      class="nav-static"
-    >
-      <a
-        aria-current={false}
-        data-astro-prefetch
-        href={translatePath('/posts')}
->
-        <span class={`${dotdotClassString}`}>
-          ··
-        </span>
-      </a>
-    </div>
-    }
-    {(type === "about") &&
-    <div
-      class="nav-dynamic"
-    >
-      <a
-        aria-current={false}
-        href={translatePath('/')}
-      >
-        <span class={`${baseClassString} p-1 px-2`}>
-          ~
-        </span>
-      </a>
-      <span class={`${unfocusedSlashClassString}`}>
-        /
-      </span>
-
-      <div class="relative inline-block text-left">
-        <input type="checkbox" id="mydropdown" class="peer/edit hidden" id="menu-button" aria-expanded="true" aria-haspopup="true" />
-        <label for="mydropdown" class={`${menuClassString}`}>
-          About
-        </label>
-        <div class="hidden peer-checked/edit:block absolute z-10 mt-2 w-22 origin-top-right rounded-md bg-black dark:text-zinc-100 dark:bg-zinc-800 shadow-lg ring-1 ring-black/5 dark:ring-white/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-          <div class="py-1" role="none">
-            <!-- Active: "bg-gray-100 text-gray-800 outline-none", Not Active: "text-gray-700" -->
-            <a
-              href={translatePath('/posts')}
-              class="mx-1 rounded block px-1 py-1 pr-2.5 text-neutral-100 dark:text-zinc-300 sm:hover:bg-neutral-700" role="menuitem" tabindex="-1" id="menu-item-1">Posts</a>
-            <a
-              href={translatePath('/about')}
-              class="mx-1 rounded block px-1 py-1  pr-2.5 text-neutral-100 dark:text-zinc-300 sm:hover:bg-neutral-700" role="menuitem" tabindex="-1" id="menu-item-0">About</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    }
-    {!((type === "404") || (type === "home") || (type === "posts") || (type === "post") || (type === "tag") || (type === "about")) &&
-    <div
-      class="nav-static"
-    >
-      <a
-        aria-current={false}
-        href={translatePath('/')}
->
-        <span class={`${dotdotClassString}`}>
-          ..
-        </span>
-      </a>
-
-    </div>
-    }
-  </div>
-  <div class="flex">
-    <!-- <Search client:load /> -->
-    <ThemeToggle client:load />
-    <LanguageSelector type={type} client:load />
-  </div>
+		{
+			!(
+				type === "404" ||
+				type === "home" ||
+				type === "posts" ||
+				type === "post" ||
+				type === "tag" ||
+				type === "about"
+			) && (
+				<div class="nav-static">
+					<Logo baseText="··" isMenu={false} translatePath={translatePath} url="/" />
+				</div>
+			)
+		}
+	</div>
+	<div class="flex">
+		<!-- <Search client:load /> -->
+		<ThemeToggle client:load />
+		<LanguageSelector type={type} client:load />
+	</div>
 </header>
 
-
 <style is:global>
-/* Ensure font is loaded before animations */
-@font-face {
-  font-family: 'Playfair Display Variable', serif;
-  font-display: block; /* This ensures the font is shown only when loaded */
-}
+	/* Ensure font is loaded before animations */
+	@font-face {
+		font-family: "Playfair Display Variable", serif;
+		font-display: block; /* This ensures the font is shown only when loaded */
+	}
 
-/* Preserve font during transitions */
-::view-transition-old(*),
-::view-transition-new(*) {
-  font-family: 'Playfair Display Variable', serif;
-}
+	/* Preserve font during transitions */
+	::view-transition-old(*),
+	::view-transition-new(*) {
+		font-family: "Playfair Display Variable", serif;
+	}
 
-.nav-container {
-  view-transition-name: nav-container;
-  font-synthesis: none; /* Prevent synthetic font variants */
-}
+	.nav-container {
+		view-transition-name: nav-container;
+		font-synthesis: none; /* Prevent synthetic font variants */
+	}
 
+	:root::view-transition-container(nav-container) {
+		animation: 0.15s cubic-bezier(0.4, 0, 0.2, 1) both morphWidth;
+	}
 
-:root::view-transition-container(nav-container) {
-  animation: 0.01s cubic-bezier(0.4, 0, 0.2, 1) both morphWidth;
-}
+	@keyframes content-fade {
+		from {
+			opacity: 1;
+		}
+		to {
+			opacity: 1;
+		}
+	}
 
-@keyframes content-fade {
-from {
-  opacity: 1;
-}
-to {
-  opacity: 1;
-}
-}
+	::view-transition-old(nav-container),
+	::view-transition-new(nav-container) {
+		animation: none;
+		height: 100%;
+		transform-origin: left;
+		border-radius: 0.5rem;
+		overflow: hidden;
+	}
 
-::view-transition-old(nav-container),
-::view-transition-new(nav-container) {
-  animation: none;
-  height: 100%;
-  transform-origin: left;
-  border-radius: 0.5rem;
-  overflow: hidden;
-}
+	.nav-static {
+		view-transition-name: nav-static;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
 
-.nav-static {
-  view-transition-name: nav-static;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+	.nav-dynamic {
+		view-transition-name: nav-dynamic;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
 
-.nav-dynamic {
-  view-transition-name: nav-dynamic;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+	::view-transition-old(nav-static),
+	::view-transition-new(nav-static) {
+		/* animation: none; */
+		animation: 0.15s cubic-bezier(0.4, 0, 0.2, 1) both content-fade;
+		transform-origin: left;
+	}
 
-::view-transition-old(nav-static),
-::view-transition-new(nav-static) {
-  /* animation: none; */
-  animation: 0.15s cubic-bezier(0.4, 0, 0.2, 1) both content-fade;
-  transform-origin: left;
-}
+	::view-transition-old(nav-dynamic) {
+		animation: 0.15s cubic-bezier(0.4, 0, 0.2, 1) both fadeOut;
+	}
 
-::view-transition-old(nav-dynamic) {
-  animation: 0.15s cubic-bezier(0.4, 0, 0.2, 1) both fadeOut;
-}
+	::view-transition-new(nav-dynamic) {
+		animation: 0.15s cubic-bezier(0.4, 0, 0.2, 1) both fadeIn;
+	}
 
-::view-transition-new(nav-dynamic) {
-  animation: 0.15s cubic-bezier(0.4, 0, 0.2, 1) both fadeIn;
-}
+	@keyframes morphWidth {
+		from {
+			transform: scaleX(0.9);
+		}
+		to {
+			transform: scaleX(1);
+		}
+	}
 
-@keyframes morphWidth {
-from {
-  transform: scaleX(0.9);
-}
-to {
-  transform: scaleX(1);
-}
-}
+	@keyframes fadeOut {
+		to {
+			opacity: 0;
+		}
+	}
 
-@keyframes fadeOut {
-to {
-  opacity: 0;
-}
-}
-
-@keyframes fadeIn {
-from {
-  opacity: 0;
-}
-}
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+	}
 </style>
