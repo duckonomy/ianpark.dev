@@ -5,8 +5,15 @@
 import ThemeToggle from "../ThemeToggle.tsx";
 import LanguageSelector from "@/components/LanguageSelector.tsx";
 import Logo from "./Logo.astro";
+import type { CollectionEntry } from "astro:content";
 
-const { type } = Astro.props;
+interface Props {
+	type: string;
+	post?: CollectionEntry<"post"> | undefined;
+}
+
+
+const { type, post } = Astro.props;
 import { getLangFromUrl, useTranslatedPath } from "@/i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
@@ -15,7 +22,7 @@ const translatePath = useTranslatedPath(lang);
 
 <header class="group relative my-8 flex select-none items-center justify-between font-bold sm:mb-2">
 	<div
-		class="nav-container font-logo flex rounded-lg bg-logo p-1 text-lg font-bold text-logo-foreground"
+		class="nav-container flex rounded-lg bg-logo p-1 font-logo text-lg font-bold text-logo-foreground"
 	>
 		{
 			type === "home" && (
@@ -87,7 +94,7 @@ const translatePath = useTranslatedPath(lang);
 	<div class="flex">
 		<!-- <Search client:load /> -->
 		<ThemeToggle client:load />
-		<LanguageSelector type={type} client:load />
+		<LanguageSelector type={type} post={post} client:load />
 	</div>
 </header>
 

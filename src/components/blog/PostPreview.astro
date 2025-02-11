@@ -17,7 +17,11 @@ const dateOptions: Intl.DateTimeFormatOptions = {
 };
 const lang = getLangFromUrl(Astro.url) || "en";
 const translatePath = useTranslatedPath(lang);
-const postUrl = `${translatePath("/posts")}/${post.id}/`;
+
+const [, ...slugParts] = post.id.split("/");
+const slug = slugParts.join("/");
+
+const postUrl = translatePath("/posts/" + slug, lang);
 ---
 
 <Tag data-tags={JSON.stringify(post.data.tags)}>

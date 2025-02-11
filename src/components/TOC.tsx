@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import type { MarkdownHeading } from "astro";
 
 // interface TocItem {
@@ -9,13 +9,13 @@ import type { MarkdownHeading } from "astro";
 // }
 
 interface TOCProps {
-	headings: MarkdownHeading[];
+	headings?: MarkdownHeading[] | undefined;
 }
 
 const TOCHeading = ({ heading, index }: { heading: MarkdownHeading; index: number }) => {
 	return (
 		<li
-			className="ms-2 transform animate-slideIn opacity-0 transition-all duration-300"
+			className="transform animate-slideIn opacity-0 transition-all duration-300"
 			style={{ "--slideIn-delay": `${(index + 1) * 100}ms` } as React.CSSProperties}
 		>
 			<a
@@ -30,7 +30,30 @@ const TOCHeading = ({ heading, index }: { heading: MarkdownHeading; index: numbe
 };
 
 const TableOfContents = ({ headings }: TOCProps) => {
-	const filteredHeadings = headings.filter((heading) => heading.depth === 1);
+	const filteredHeadings = headings?.filter((heading) => heading.depth === 1);
+	const tocRef = useRef<HTMLUListElement>(null);
+	const [topOffset, setTopOffset] = useState<number>(0);
+
+	useEffect(() => {
+		const calculatePosition = () => {
+			if (tocRef.current) {
+				const tocHeight = tocRef.current.getBoundingClientRect().height;
+				const viewportMiddle = window.innerHeight / 2;
+				const newTopOffset = viewportMiddle - tocHeight / 2;
+				setTopOffset(newTopOffset);
+			}
+		};
+
+		// Calculate initial position
+		calculatePosition();
+
+		// Only recalculate on window resize
+		window.addEventListener("resize", calculatePosition);
+
+		return () => {
+			window.removeEventListener("resize", calculatePosition);
+		};
+	}, [filteredHeadings]);
 
 	useEffect(() => {
 		const setActiveHeading = () => {
@@ -71,19 +94,21 @@ const TableOfContents = ({ headings }: TOCProps) => {
 		};
 	}, []);
 
-	if (filteredHeadings.length === 0) return null;
+	if (filteredHeadings?.length === 0) return null;
 
 	return (
-		<aside className="fixed right-16 top-60 order-2 m-auto -me-0 hidden basis-64 font-medium xl:block min-[1680px]:right-14">
-			<div>
-				{/* <ul className="mt-4 max-w-56"> */}
-				<ul className="mt-4 max-w-64">
-					{filteredHeadings.map((heading, i) => (
+		<div
+			className="2xl:32 min-[1500px]-left-32 absolute left-0 min-[1255px]:left-12 min-[1340px]:left-24 min-[1450px]:left-32"
+			style={{ top: `${topOffset}px` }}
+		>
+			<aside className="fixed">
+				<ul ref={tocRef} className="mt-4 max-w-64">
+					{filteredHeadings?.map((heading, i) => (
 						<TOCHeading key={heading.slug} heading={heading} index={i} />
 					))}
 				</ul>
-			</div>
-		</aside>
+			</aside>
+		</div>
 	);
 };
 

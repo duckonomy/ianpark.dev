@@ -22,9 +22,9 @@
 import { ui, defaultLang, showDefaultLang } from "./ui";
 
 export function getLangFromUrl(url: URL) {
-    const [, lang = ""] = url.pathname.split("/");
-    if (lang in ui) return lang as keyof typeof ui;
-    return defaultLang;
+	const [, lang = ""] = url.pathname.split("/");
+	if (lang in ui) return lang as keyof typeof ui;
+	return defaultLang;
 }
 
 export function useTranslations(lang: keyof typeof ui) {
@@ -38,3 +38,9 @@ export function useTranslatedPath(lang: keyof typeof ui) {
 		return !showDefaultLang && l === defaultLang ? path : `/${l}${path}`;
 	};
 }
+
+// export function useTranslatedPath(lang: string) {
+//   return function translatePath(path: string) {
+//     return lang === "en" ? path : `/${lang}${path}`;
+//   };
+// }

@@ -8,6 +8,8 @@ const baseSchema = z.object({
 });
 
 const post = defineCollection({
+	// loader: glob({ base: "./src/content/post", pattern: "**/*.{md,mdx}" }),
+	// loader: glob({ base: "./src/content/post", pattern: "*/*/*.{md,mdx}" }),
 	loader: glob({ base: "./src/content/post", pattern: "**/*.{md,mdx}" }),
 	schema: ({ image }) =>
 		baseSchema.extend({
@@ -28,13 +30,15 @@ const post = defineCollection({
 				.string()
 				.optional()
 				.transform((str) => (str ? new Date(str) : undefined)),
-			language: z.enum(["en", "ko"]),
+			// language: z.enum(["en", "ko"]),
+			hasTranslation: z.boolean().default(false), // New field
 			tags: z.array(z.enum(VALID_TAGS)).max(3).optional().default([]), // Empty array by default if not specified
 		}),
 });
 
 const note = defineCollection({
-	// loader: glob({ base: "./src/content", pattern: "**/notes/**/*.{md,mdx}" }),
+	// loader: glob({ base: "./src/content/note", pattern: "**/*.{md,mdx}" }),
+	// loader: glob({ base: "./src/content/note", pattern: "*/*/*.{md,mdx}" }),
 	loader: glob({ base: "./src/content/note", pattern: "**/*.{md,mdx}" }),
 	schema: baseSchema.extend({
 		description: z.string().optional(),
@@ -42,10 +46,10 @@ const note = defineCollection({
 			.string()
 			.datetime()
 			.transform((val) => new Date(val)),
-		language: z.enum(["en", "ko"]),
+		// language: z.enum(["en", "ko"]),
+		hasTranslation: z.boolean().default(false), // New field
 	}),
 });
 
 export const collections = { post, note };
-
 export const tags = VALID_TAGS;

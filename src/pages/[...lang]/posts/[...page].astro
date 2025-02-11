@@ -6,7 +6,22 @@ import { getAllPosts, groupPostsByYear, sortMDByDate } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import Intro from "@/components/layout/Intro.astro";
-
+//
+// export const getStaticPaths = async () => {
+// 	const [enPosts, koPosts] = await Promise.all([getAllPosts("en"), getAllPosts("ko")]);
+//
+// 	return [
+// 		{
+// 			params: { lang: undefined },
+// 			props: { posts: sortMDByDate(enPosts) },
+// 		},
+// 		{
+// 			params: { lang: "ko" },
+// 			props: { posts: sortMDByDate(koPosts) },
+// 		},
+// 	];
+// };
+//
 export const getStaticPaths = async () => {
 	const [enPosts, koPosts] = await Promise.all([getAllPosts("en"), getAllPosts("ko")]);
 
@@ -45,7 +60,7 @@ const t = useTranslations(lang);
 			<FilterTags lang={lang} t={t} />
 		</div>
 	</Intro>
-	<div class="mb-16 mt-8">
+	<div class="mb-16 mt-16">
 		<section class="posts-list group/total relative" aria-label="Blog post list">
 			{
 				descYearKeys.map((yearKey) => (

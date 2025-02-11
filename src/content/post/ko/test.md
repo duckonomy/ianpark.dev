@@ -2,7 +2,7 @@
 title: "테스트"
 description: "Exploring Magic vs Explicit differences between golang and java"
 publishDate: "03 March 2025"
-language: "ko"
+language: "en"
 ---
 
 # 테스트 1

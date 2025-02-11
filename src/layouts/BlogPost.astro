@@ -2,7 +2,6 @@
 import { type CollectionEntry, render } from "astro:content";
 import BaseLayout from "@/layouts/Base.astro";
 import Masthead from "@/components/blog/Masthead.astro";
-import TableOfContents from "@/components/TOC";
 
 interface Props {
 	post: CollectionEntry<"post">;
@@ -19,14 +18,13 @@ const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString();
 const readingTime: string = remarkPluginFrontmatter.readingTime;
 ---
 
-<BaseLayout meta={{ articleDate, description, title, type }}>
-	{!!headings.length && <TableOfContents client:load headings={headings} />}
+<BaseLayout meta={{ articleDate, description, title, type }} post={post} headings={headings}>
 	<div class="post-content mb-16 mt-6 sm:mt-16 lg:flex">
 		<article class="mx-0 flex-grow text-pretty break-words sm:mx-0 sm:w-full" data-pagefind-body>
 			<div id="blog-hero" class="mb-8 sm:mb-0">
 				<Masthead content={post} readingTime={readingTime} />
 			</div>
-			<div class="prose prose-baseProse leading-7 sm:leading-7">
+			<div class="prose prose-baseProse mt-16 leading-7 sm:leading-7">
 				<slot />
 			</div>
 		</article>

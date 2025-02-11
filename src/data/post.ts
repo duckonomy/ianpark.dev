@@ -1,23 +1,24 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 import { siteConfig } from "@/site.config";
 
-/** filter out draft posts based on the environment */
-// export async function getAllPosts(lang?: string): Promise<CollectionEntry<"post">[]> {
-//   return await getCollection("post", ({ data }) => {
-//     const isDraft = import.meta.env.PROD ? !data.draft : true;
-//     return lang ? isDraft && data.language === lang : isDraft;
-//   });
-//
-// }
-//
-export async function getAllPosts(lang?: string): Promise<CollectionEntry<"post">[]> {
-	return await getCollection("post", ({ data }) => {
-		const isDraft = import.meta.env.PROD ? !data.draft : true;
-		return lang ? isDraft && data.language === lang : isDraft;
-	});
+export async function getAllPosts(lang: string) {
+	try {
+		const posts = await getCollection("post", (post) => {
+			const [postLang] = post.id.split("/");
+
+			const isKorean = (postLang === "ko" || postLang === "kr") && lang === "ko";
+			const isEnglish = postLang === "en" && lang === "en";
+			const matchesLanguage = isKorean || isEnglish;
+
+			return matchesLanguage && (!post.data.draft || import.meta.env.DEV);
+		});
+
+		return posts;
+	} catch (error) {
+		return [];
+	}
 }
 
-/** returns the date of the post based on option in siteConfig.sortPostsByUpdatedDate */
 export function getPostSortDate(post: CollectionEntry<"post">) {
 	return siteConfig.sortPostsByUpdatedDate && post.data.updatedDate !== undefined
 		? new Date(post.data.updatedDate)

@@ -4,6 +4,7 @@ description: "A Space-Time Adventure in Static Site Generation"
 publishDate: "3 January 2025"
 language: "en"
 tags: ["tools"]
+hasTranslation: true
 ---
 
 Fresh out of military service and diving back into tech feels like time travel. One minute you're in a structured military routine, the next you're trying to figure out which AI tool just rewrote half the web development playbook. After 18 months away, even my trusty old Hugo blog felt like it needed a refresh for this brave new world.

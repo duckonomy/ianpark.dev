@@ -4,16 +4,35 @@ import { getAllPosts } from "@/data/post";
 import PostLayout from "@/layouts/BlogPost.astro";
 import type { InferGetStaticPropsType } from "astro";
 
+// export const getStaticPaths = async () => {
+// 	const [enPosts, koPosts] = await Promise.all([getAllPosts("en"), getAllPosts("ko")]);
+//
+// 	return [...enPosts, ...koPosts].map((post) => {
+// 		const isDefaultLang = post.data.language === "en";
+//
+// 		return {
+// 			params: {
+// 				lang: isDefaultLang ? undefined : post.data.language, // Exclude 'en'
+// 				slug: post.id.split("/").pop(),
+// 			},
+// 			props: { post },
+// 		};
+// 	});
+// };
+//
 export const getStaticPaths = async () => {
 	const [enPosts, koPosts] = await Promise.all([getAllPosts("en"), getAllPosts("ko")]);
 
 	return [...enPosts, ...koPosts].map((post) => {
-		const isDefaultLang = post.data.language === "en";
+		// Extract language from the post path
+		const [lang, ...slugParts] = post.id.split("/");
+		const isDefaultLang = lang === "en";
 
 		return {
 			params: {
-				lang: isDefaultLang ? undefined : post.data.language, // Exclude 'en'
-				slug: post.id.split("/").pop(),
+				// For default language (en), don't include lang in URL
+				lang: isDefaultLang ? undefined : lang,
+				slug: slugParts.join("/"),
 			},
 			props: { post },
 		};

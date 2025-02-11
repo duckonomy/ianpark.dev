@@ -6,8 +6,14 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { languages, defaultLang, showDefaultLang } from "../i18n/ui";
+import type { CollectionEntry } from "astro:content";
 
-const LanguageToggle = ({ type }: { type: string }) => {
+type LanguageSelectorProps = {
+	type: string;
+	post?: CollectionEntry<"post"> | undefined;
+};
+
+const LanguageSelector: React.FC<LanguageSelectorProps> = ({ type, post }) => {
 	const getCurrentPath = () => {
 		if (typeof window === "undefined") return "";
 		const path = window.location.pathname;
@@ -43,7 +49,11 @@ const LanguageToggle = ({ type }: { type: string }) => {
 
 	const currentLang = getCurrentLanguage();
 
-	return type === "post" ? null : (
+	if (type === "post" && !post?.data.hasTranslation) {
+		return null;
+	}
+
+	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger className="inline-flex h-9 w-9 items-center justify-center rounded-md p-0 text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50">
 				<Globe className="h-4 w-4" />
@@ -67,4 +77,4 @@ const LanguageToggle = ({ type }: { type: string }) => {
 	);
 };
 
-export default LanguageToggle;
+export default LanguageSelector;
