@@ -17,7 +17,6 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ type, post }) => {
 	const getCurrentPath = () => {
 		if (typeof window === "undefined") return "";
 		const path = window.location.pathname;
-		// Remove language prefix if it exists
 		const segments = path.split("/").filter(Boolean);
 		const firstSegment = segments[0];
 
@@ -55,7 +54,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ type, post }) => {
 
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className="inline-flex h-9 w-9 items-center justify-center rounded-md p-0 text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50">
+			<DropdownMenuTrigger className="inline-flex h-9 w-9 items-center justify-center rounded-md p-0 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50">
 				<Globe className="h-4 w-4" />
 				<span className="sr-only">Toggle language menu</span>
 			</DropdownMenuTrigger>
