@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -17,8 +18,23 @@ interface NavDropdownProps {
 }
 
 const NavDropdown = ({ currentText, menuItems, menuClassString }: NavDropdownProps) => {
+	// Add controlled state for dropdown
+	const [isOpen, setIsOpen] = useState(false);
+
+	useEffect(() => {
+		// Cleanup function to reset dropdown state
+		return () => {
+			setIsOpen(false);
+		};
+	}, []);
+
+	const handleNavigation = (url: string) => {
+		setIsOpen(false); // Close dropdown before navigation
+		window.location.href = url;
+	};
+
 	return (
-		<DropdownMenu>
+		<DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
 			<DropdownMenuTrigger
 				className={`${menuClassString} touch-manipulation`}
 				aria-label="Navigation menu"
@@ -37,20 +53,12 @@ const NavDropdown = ({ currentText, menuItems, menuClassString }: NavDropdownPro
 						key={index}
 						className="p-0 font-logo text-lg font-bold text-logo-foreground hover:bg-inherit hover:text-inherit sm:hover:bg-logo-accent sm:hover:text-logo-accent-foreground"
 					>
-						<a
-							className="block w-full px-3 py-2"
-							href={menuItem.url}
-							onClick={(e) => {
-								e.preventDefault();
-								window.location.href = menuItem.url;
-							}}
-							onTouchEnd={(e) => {
-								e.preventDefault();
-								window.location.href = menuItem.url;
-							}}
+						<button
+							className="w-full px-3 py-2 text-left"
+							onClick={() => handleNavigation(menuItem.url)}
 						>
 							{menuItem.text}
-						</a>
+						</button>
 					</DropdownMenuItem>
 				))}
 			</DropdownMenuContent>

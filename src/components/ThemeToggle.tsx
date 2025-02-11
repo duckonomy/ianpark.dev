@@ -8,20 +8,32 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const ThemeToggle = () => {
-	const [theme, setThemeState] = useState("system");
+	// Add controlled state for dropdown
+	const [isOpen, setIsOpen] = useState(false);
+	const [theme, setThemeState] = useState<"light" | "dark" | "system">("system");
 	const [mounted, setMounted] = useState(false);
 
 	useEffect(() => {
 		setMounted(true);
-		const storedTheme = localStorage.getItem("theme") || "system";
-		setThemeState(storedTheme);
+		// Get theme from localStorage or default to system
+		const storedTheme = localStorage.getItem("theme") as "light" | "dark" | "system";
+		setThemeState(storedTheme || "system");
+
+		// Add cleanup function
+		return () => {
+			setIsOpen(false);
+		};
 	}, []);
 
-	const setTheme = (newTheme: string) => {
-		localStorage.setItem("theme", newTheme);
+	const setTheme = (newTheme: "light" | "dark" | "system") => {
+		// Close dropdown after selection
+		setIsOpen(false);
 		setThemeState(newTheme);
+
 		const themeChangeEvent = new CustomEvent("theme-change", {
-			detail: { theme: newTheme },
+			detail: {
+				theme: newTheme,
+			},
 		});
 		document.dispatchEvent(themeChangeEvent);
 	};
@@ -43,7 +55,7 @@ const ThemeToggle = () => {
 	}
 
 	return (
-		<DropdownMenu>
+		<DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
 			<DropdownMenuTrigger
 				className="inline-flex h-9 w-9 items-center justify-center rounded-md p-0 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
 				aria-label="Toggle theme"
@@ -67,7 +79,6 @@ const ThemeToggle = () => {
 				className="z-50 min-w-[8rem] overflow-hidden rounded-md border-0 bg-popover p-1 text-popover-foreground shadow-md"
 			>
 				<DropdownMenuItem
-					onTouchStart={() => setTheme("light")}
 					onClick={() => setTheme("light")}
 					className="flex cursor-pointer items-center justify-between px-2 py-1.5"
 				>
@@ -78,7 +89,6 @@ const ThemeToggle = () => {
 					{theme === "light" && <Check className="ml-2 h-4 w-4" />}
 				</DropdownMenuItem>
 				<DropdownMenuItem
-					onTouchStart={() => setTheme("dark")}
 					onClick={() => setTheme("dark")}
 					className="flex cursor-pointer items-center justify-between px-2 py-1.5"
 				>
@@ -89,7 +99,6 @@ const ThemeToggle = () => {
 					{theme === "dark" && <Check className="ml-2 h-4 w-4" />}
 				</DropdownMenuItem>
 				<DropdownMenuItem
-					onTouchStart={() => setTheme("system")}
 					onClick={() => setTheme("system")}
 					className="flex cursor-pointer items-center justify-between px-2 py-1.5"
 				>

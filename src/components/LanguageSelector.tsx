@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { languages, defaultLang, showDefaultLang } from "../i18n/ui";
 import type { CollectionEntry } from "astro:content";
+import { useState, useEffect } from "react";
 
 type LanguageSelectorProps = {
 	type: string;
@@ -14,6 +15,16 @@ type LanguageSelectorProps = {
 };
 
 const LanguageSelector: React.FC<LanguageSelectorProps> = ({ type, post }) => {
+	// Add controlled state for dropdown
+	const [isOpen, setIsOpen] = useState(false);
+
+	useEffect(() => {
+		// Cleanup function to reset dropdown state
+		return () => {
+			setIsOpen(false);
+		};
+	}, []);
+
 	const getCurrentPath = () => {
 		if (typeof window === "undefined") return "";
 		const path = window.location.pathname;
@@ -45,6 +56,12 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ type, post }) => {
 		return `/${lang}${currentPath}`;
 	};
 
+	const handleLanguageSelect = (lang: string) => {
+		setIsOpen(false); // Close dropdown before navigation
+		const path = getLanguagePath(lang);
+		window.location.href = path;
+	};
+
 	const currentLang = getCurrentLanguage();
 
 	if (type === "post" && !post?.data.hasTranslation) {
@@ -52,7 +69,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ type, post }) => {
 	}
 
 	return (
-		<DropdownMenu>
+		<DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
 			<DropdownMenuTrigger
 				className="inline-flex h-9 w-9 items-center justify-center rounded-md p-0 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
 				aria-label="Toggle language menu"
@@ -68,23 +85,13 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ type, post }) => {
 			>
 				{Object.entries(languages).map(([lang, label]) => (
 					<DropdownMenuItem key={lang} className="flex items-center justify-between p-0">
-						<a
-							href={getLanguagePath(lang)}
+						<button
 							className="flex w-full cursor-pointer items-center justify-between px-2 py-1.5"
-							hrefLang={lang}
-							onClick={(e) => {
-								// Prevent immediate closing on iOS
-								e.preventDefault();
-								window.location.href = getLanguagePath(lang);
-							}}
-							onTouchEnd={(e) => {
-								e.preventDefault();
-								window.location.href = getLanguagePath(lang);
-							}}
+							onClick={() => handleLanguageSelect(lang)}
 						>
 							<span>{label}</span>
 							{currentLang === lang && <Check className="ml-2 h-4 w-4" />}
-						</a>
+						</button>
 					</DropdownMenuItem>
 				))}
 			</DropdownMenuContent>
