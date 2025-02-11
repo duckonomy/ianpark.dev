@@ -8,29 +8,26 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const ThemeToggle = () => {
-	const [theme, setThemeState] = useState<"light" | "dark" | "system">("system");
+	const [theme, setThemeState] = useState("system");
 	const [mounted, setMounted] = useState(false);
 
 	useEffect(() => {
 		setMounted(true);
-		// Get theme from localStorage or default to system
-		const storedTheme = localStorage.getItem("theme") as "light" | "dark" | "system";
-		setThemeState(storedTheme || "system");
+		const storedTheme = localStorage.getItem("theme") || "system";
+		setThemeState(storedTheme);
 	}, []);
 
-	const setTheme = (newTheme: "light" | "dark" | "system") => {
+	const setTheme = (newTheme: string) => {
+		localStorage.setItem("theme", newTheme);
 		setThemeState(newTheme);
 		const themeChangeEvent = new CustomEvent("theme-change", {
-			detail: {
-				theme: newTheme,
-			},
+			detail: { theme: newTheme },
 		});
 		document.dispatchEvent(themeChangeEvent);
 	};
 
 	const getEffectiveTheme = () => {
 		if (!mounted) return "system";
-
 		if (theme === "system") {
 			return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 		}
@@ -47,19 +44,32 @@ const ThemeToggle = () => {
 
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className="inline-flex h-9 w-9 items-center justify-center rounded-md p-0 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50">
+			<DropdownMenuTrigger
+				className="inline-flex h-9 w-9 items-center justify-center rounded-md p-0 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+				aria-label="Toggle theme"
+				role="button"
+				tabIndex={0}
+			>
 				<Sun
-					className={`h-4 w-4 transition-all ${getEffectiveTheme() === "dark" ? "rotate-90 scale-0" : "rotate-0 scale-100"}`}
+					className={`h-4 w-4 transition-all ${
+						getEffectiveTheme() === "dark" ? "rotate-90 scale-0" : "rotate-0 scale-100"
+					}`}
 				/>
 				<Moon
-					className={`absolute h-4 w-4 transition-all ${getEffectiveTheme() === "dark" ? "rotate-0 scale-100" : "rotate-90 scale-0"}`}
+					className={`absolute h-4 w-4 transition-all ${
+						getEffectiveTheme() === "dark" ? "rotate-0 scale-100" : "rotate-90 scale-0"
+					}`}
 				/>
 				<span className="sr-only">Toggle theme</span>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent align="end" className="border-0">
+			<DropdownMenuContent
+				align="end"
+				className="z-50 min-w-[8rem] overflow-hidden rounded-md border-0 bg-popover p-1 text-popover-foreground shadow-md"
+			>
 				<DropdownMenuItem
+					onTouchStart={() => setTheme("light")}
 					onClick={() => setTheme("light")}
-					className="flex cursor-pointer items-center justify-between"
+					className="flex cursor-pointer items-center justify-between px-2 py-1.5"
 				>
 					<div className="flex items-center">
 						<Sun className="mr-2 h-4 w-4" />
@@ -68,8 +78,9 @@ const ThemeToggle = () => {
 					{theme === "light" && <Check className="ml-2 h-4 w-4" />}
 				</DropdownMenuItem>
 				<DropdownMenuItem
+					onTouchStart={() => setTheme("dark")}
 					onClick={() => setTheme("dark")}
-					className="flex cursor-pointer items-center justify-between"
+					className="flex cursor-pointer items-center justify-between px-2 py-1.5"
 				>
 					<div className="flex items-center">
 						<Moon className="mr-2 h-4 w-4" />
@@ -78,8 +89,9 @@ const ThemeToggle = () => {
 					{theme === "dark" && <Check className="ml-2 h-4 w-4" />}
 				</DropdownMenuItem>
 				<DropdownMenuItem
+					onTouchStart={() => setTheme("system")}
 					onClick={() => setTheme("system")}
-					className="flex cursor-pointer items-center justify-between"
+					className="flex cursor-pointer items-center justify-between px-2 py-1.5"
 				>
 					<div className="flex items-center">
 						<Laptop className="mr-2 h-4 w-4" />
