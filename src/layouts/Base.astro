@@ -50,11 +50,11 @@ const lang = getLangFromUrl(Astro.url);
 			title={title}
 			type={type}
 		/>
-		<ClientRouter fallback="animate" />
+		<ClientRouter fallback="swap" />
 	</head>
 	<!-- NOTE: transition for theme toggle -->
 	<body
-		class="mx-auto overflow-y-scroll bg-background text-sm text-foreground antialiased transition sm:mx-0 sm:flex sm:flex-row sm:justify-center"
+		class="mx-auto overflow-y-scroll bg-background text-sm text-foreground antialiased transition-colors sm:mx-0 sm:flex sm:flex-row sm:justify-center"
 	>
 		<div class="hidden lg:block"></div>
 		<div class="flex min-h-screen max-w-2xl flex-col px-6 pt-8 md:w-[670px] md:pt-32 lg:px-0">

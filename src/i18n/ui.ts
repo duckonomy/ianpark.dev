@@ -13,8 +13,10 @@ export const ui = {
 		"nav.posts": "Posts",
 		"about.title": "Ian Park",
 		"about.description":
-			"Full-stack developer engineering robust solutions, combining modern web technologies with systems expertise to build scalable, resilient applications that solve real-world challenges.",
+			"Passionate and dedicated to crafting end-to-end solutions, driven by the joy of building systems from the ground up and collaborating with fellow enthusiasts to tackle meaningful technical challenges.",
+
 		"about.open": "I am currently open for work.",
+		"about.now": "",
 		"contact.prefix": "Send me a message at ",
 		"contact.or": "or take a look at my ",
 		"contact.view": "detailed view",
@@ -36,9 +38,10 @@ export const ui = {
 		"nav.about": "소개",
 		"nav.posts": "글",
 		"about.title": "박은찬",
-		"about.open": "현재 구직 중입니다.",
+		"about.open": "",
+		"about.now": "",
 		"about.description":
-			"현대적인 기술과 시스템에 대한 깊은 이해를 바탕으로, 확장 가능하고 탄력적인 애플리케이션을 구축하는 풀스택 개발자입니다. 나의 목표는 단순히 코드를 작성하는 것을 넘어, 널리 인간 세상을 이롭게 하는 솔루션을 개발하여 더 나은 디지털 세상을 만드는 것입니다.",
+			"현대적인 기술과 시스템에 대한 깊은 이해를 바탕으로, 확장 가능하고 탄력적인 애플리케이션을 구축하는 개발자입니다.제 목표는 단순히 코드를 작성하는 것을 넘어, 널리 인간 세상을 이롭게 하는 솔루션을 개발하여 더 나은 디지털 세상을 만드는 것입니다.",
 
 		"contact.prefix": "제 작업이 궁금하신가요? ",
 		"contact.or": "로 메일를 보내주시거나 제",

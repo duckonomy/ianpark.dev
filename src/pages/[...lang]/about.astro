@@ -33,16 +33,25 @@ const t = useTranslations(lang);
 <PageLayout meta={meta}>
 	<Intro title={t("about.title")}>
 		<!-- this spacing should align with what's in intro -->
-		<div slot="description" class="flex flex-col space-y-1">
-			<div class="text-base sm:text-base">
+		<div slot="description">
+			<div class="font-italic text-[1.1rem] text-base">Full-stack Developer</div>
+			<div class="text-base">
 				{t("about.description")}
 			</div>
-			<div class="font-italic text-base italic text-accent-foreground sm:text-base">
-				{t("about.open")}
+		</div>
+	</Intro>
+
+	<div class="mb-16 mt-16 flex w-full flex-col justify-center space-y-16">
+		<Section title="Now">
+			<div class="text-base">
+				{t("about.now")}
+
+				<span class="font-italic text-[1.1rem] italic text-accent-foreground"
+					>{t("about.open")}</span
+				>
 			</div>
 			<div class="text-base sm:text-base">
 				{t("contact.prefix")}
-
 				<MyLink href="mailto:ian@ianpark.dev">
 					ian@ianpark.dev
 					<Mail className="ml-1 inline-block h-4 w-4" />
@@ -57,10 +66,7 @@ const t = useTranslations(lang);
 
 				{t("contact.portfolio")}
 			</div>
-		</div>
-	</Intro>
-
-	<div class="mb-16 mt-16 flex w-full flex-col justify-center space-y-16">
+		</Section>
 		<Section title="Skills">
 			<HighlightsSection lang={lang} client:load />
 		</Section>

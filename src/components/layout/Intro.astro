@@ -28,7 +28,7 @@ const homeStatementClasses = "site-home-content font-fun text-2xl sm:text-2xl";
 	<div class="flex flex-col space-y-1">
 		<span
 			class:list={[{ "animate-slideIn opacity-0": animate }]}
-			style={animate ? "--slideIn-delay: 50ms" : ""}
+			style={animate ? "--slideIn-delay: 100ms" : ""}
 		>
 			<h1 class={titleClasses}>
 				{title}
@@ -39,7 +39,7 @@ const homeStatementClasses = "site-home-content font-fun text-2xl sm:text-2xl";
 			isHome && (
 				<span
 					class:list={["", { "animate-slideIn opacity-0": animate }]}
-					style={animate ? "--slideIn-delay: 200ms" : ""}
+					style={animate ? "--slideIn-delay: 150ms" : ""}
 				>
 					<span class={`${homeStatementClasses} "mb-2"`}>{homeStatement}</span>
 				</span>
@@ -50,7 +50,7 @@ const homeStatementClasses = "site-home-content font-fun text-2xl sm:text-2xl";
 			animate ? (
 				<span
 					class:list={["", { "animate-slideIn opacity-0": animate }]}
-					style={animate ? "--slideIn-delay: 300ms" : ""}
+					style={animate ? "--slideIn-delay: 200ms" : ""}
 				>
 					<slot name="description-animate" />
 				</span>
@@ -64,7 +64,7 @@ const homeStatementClasses = "site-home-content font-fun text-2xl sm:text-2xl";
 			showSocial && (
 				<div
 					class:list={["mt-0 w-fit", { "animate-slideIn opacity-0": animate }]}
-					style={animate ? "--slideIn-delay: 400ms" : ""}
+					style={animate ? "--slideIn-delay: 50ms" : ""}
 				>
 					<SocialList />
 				</div>

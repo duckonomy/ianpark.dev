@@ -37,21 +37,3 @@ const translatePath = useTranslatedPath(lang);
 		</div>
 	</Intro>
 </BaseLayout>
-
-<script>
-	document.addEventListener("astro:after-swap", () => {
-		const animatedElements = document.querySelectorAll(".animate-slideIn");
-		animatedElements.forEach((el) => {
-			el.classList.remove("animate-slideIn", "opacity-0");
-		});
-	});
-
-	document.addEventListener("astro:page-load", () => {
-		if (!document.referrer.includes("/about")) {
-			const animatedElements = document.querySelectorAll('[class*="animate-slideIn"]');
-			animatedElements.forEach((el) => {
-				el.classList.add("animate-slideIn", "opacity-0");
-			});
-		}
-	});
-</script>
