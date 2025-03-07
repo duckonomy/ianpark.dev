@@ -15,7 +15,7 @@ export const ui = {
 		"about.description":
 			"Passionate and dedicated to crafting end-to-end solutions, driven by the joy of building systems from the ground up and collaborating with fellow enthusiasts to tackle meaningful technical challenges.",
 
-		"about.open": "I am currently open for work.",
+		"about.open": "Hired :)",
 		"about.now": "",
 		"contact.prefix": "Send me a message at ",
 		"contact.or": "or take a look at my ",

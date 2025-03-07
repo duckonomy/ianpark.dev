@@ -52,6 +52,19 @@ const ExperienceSection = ({ lang }: { lang: string }) => {
 		lang === "en"
 			? [
 					{
+						company: "Naver Pay",
+						positions: [
+							{
+								role: "Software Engineer",
+								team: {
+									name: "Naver Pay Money",
+								},
+								date: "2025.3~",
+								current: true,
+							},
+						],
+					},
+					{
 						company: "Republic of Korea Army",
 						positions: [
 							{
@@ -147,6 +160,19 @@ const ExperienceSection = ({ lang }: { lang: string }) => {
 				]
 			: [
 					{
+						company: "네이버 페이",
+						positions: [
+							{
+								role: "소프트웨어 엔지니어",
+								team: {
+									name: "Naver Pay Money",
+								},
+								date: "2025.3~",
+								current: true,
+							},
+						],
+					},
+					{
 						company: "대한민국 육군 만기전역",
 						positions: [
 							{
@@ -155,7 +181,7 @@ const ExperienceSection = ({ lang }: { lang: string }) => {
 									name: "2기갑여단 정보중대",
 								},
 								date: "2023.05–2024.11",
-								current: true,
+								current: false,
 								highlights: [
 									{
 										summary: "통역병 임무수행",
