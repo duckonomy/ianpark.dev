@@ -4,12 +4,7 @@ import { MailIcon } from "lucide-react";
 const SocialList = () => {
 	return (
 		<div className="site-social mt-1 flex flex-wrap gap-x-2">
-			<a
-				className="my-link-no-icon"
-				href="https://github.com/duckonomy/"
-				rel="noreferrer"
-				target="_blank"
-			>
+			<a className="my-link-no-icon" href="https://github.com/" rel="noreferrer" target="_blank">
 				<div className="flex flex-col justify-center">
 					<SiGithub className="h-4 w-4" />
 					<span className="sr-only">Github</span>
