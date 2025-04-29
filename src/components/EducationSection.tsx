@@ -26,7 +26,7 @@ const EducationSection = ({ lang }: { lang: string }) => {
 					<div className="flex w-full items-start justify-between">
 						<div className="w-full">
 							<CardTitle className="font-serif text-base font-semibold text-accent-foreground">
-								Calvin University
+								University of Michigan, Ann Arbor
 							</CardTitle>
 
 							<div className="mt-0 space-y-1">
