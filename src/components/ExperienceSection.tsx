@@ -101,13 +101,13 @@ const ExperienceSection = ({ lang }: { lang: string }) => {
 						],
 					},
 					{
-						company: "Texas Advanced Computing Center",
+						company: "Oracle",
 						positions: [
 							{
 								role: "Software Engineer",
 								team: {
 									name: "Web & Mobile Applications Team",
-									link: "https://tacc.utexas.edu/about/contact/",
+									// link: "https://tacc.utexas.edu/about/contact/",
 								},
 								date: "2020.10–2023.04",
 								highlights: [
@@ -200,13 +200,13 @@ const ExperienceSection = ({ lang }: { lang: string }) => {
 						],
 					},
 					{
-						company: "Texas Advanced Computing Center",
+						company: "Oracle",
 						positions: [
 							{
 								role: "소프트웨어 엔지니어",
 								team: {
 									name: "Web & Mobile Applications Team",
-									link: "https://tacc.utexas.edu/about/contact/",
+									// link: "https://tacc.utexas.edu/about/contact/",
 								},
 								date: "2020.10–2023.04",
 								highlights: [
