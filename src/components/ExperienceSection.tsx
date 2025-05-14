@@ -52,12 +52,12 @@ const ExperienceSection = ({ lang }: { lang: string }) => {
 		lang === "en"
 			? [
 					{
-						company: "Naver Pay",
+						company: "Zium",
 						positions: [
 							{
 								role: "Software Engineer",
 								team: {
-									name: "Naver Pay Money",
+									name: "Paymoney",
 								},
 								date: "2025.3~",
 								current: true,
@@ -160,12 +160,12 @@ const ExperienceSection = ({ lang }: { lang: string }) => {
 				]
 			: [
 					{
-						company: "네이버 페이",
+						company: "Zium",
 						positions: [
 							{
 								role: "소프트웨어 엔지니어",
 								team: {
-									name: "Naver Pay Money",
+									name: "Paymoney",
 								},
 								date: "2025.3~",
 								current: true,
