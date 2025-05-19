@@ -150,7 +150,7 @@ const ProjectsSection = ({ lang }: { lang: string }) => {
 						longDescription:
 							"Lightweight CLI tool for streamlining project discovery and workflow management across different programming languages and frameworks. Features intelligent project detection, unified command interface, and seamless environment integration. Achieves minimal configuration overhead while supporting complex multi-project workflows and ecosystem-specific build systems. Built in Go for performance and cross-platform compatibility.",
 						stack: ["Go", "TOML", "Shell", "Git"],
-						link: "github.com/duckonomy/parkour",
+						link: "github.com/",
 						category: "Developer Tools",
 						pinned: true,
 					},
@@ -161,7 +161,7 @@ const ProjectsSection = ({ lang }: { lang: string }) => {
 						longDescription:
 							"Performant and accessible personal website built with Astro and React. Features a bilingual blog system (Korean/English), dark mode support, and optimized asset delivery. Utilizes modern build tools and CI/CD pipelines for automated deployment. Content managed through MDX with custom components for code syntax highlighting and math typesetting.",
 						stack: ["Astro", "React", "TypeScript", "Tailwind CSS", "MDX", "GitHub Actions"],
-						link: "github.com/duckonomy/ianpark.dev",
+						link: "github.com/",
 						category: "Web",
 						pinned: true,
 					},
@@ -173,7 +173,7 @@ const ProjectsSection = ({ lang }: { lang: string }) => {
 						longDescription:
 							"Minimalist X11 window manager optimized for performance and productivity. Features include scriptable workspace management, custom keybinding engine, and hybrid tiling/floating layouts. Achieved 2MB memory footprint (90% reduction from i3wm) while maintaining full EWMH compliance. 500+ GitHub stars and adopted by minimalist Linux community.",
 						stack: ["C", "libxcb", "Lua", "Xlib", "CMake", "Shell"],
-						link: "github.com/duckonomy/sanewm",
+						link: "github.com/",
 						category: "Systems",
 						pinned: false,
 					},
@@ -185,7 +185,7 @@ const ProjectsSection = ({ lang }: { lang: string }) => {
 						longDescription:
 							"Experimental NLP system built for AI class final project, comparing LSTM and KoGPT 2.0 architectures for generating contextually-aware posts on DCinside forums. Features include web scraping infrastructure handling 100K+ posts and 500K+ comments, asynchronous response generation, and cultural-context awareness. Implemented with Flask/Celery for scalable deployment and RabbitMQ for message queuing.",
 						stack: ["Python", "Flask", "Celery", "RabbitMQ", "Scrapy", "KoGPT 2.0", "LSTM"],
-						link: "github.com/duckonomy/cs344",
+						link: "github.com/",
 						category: "AI/ML",
 						pinned: false,
 					},
@@ -210,7 +210,7 @@ const ProjectsSection = ({ lang }: { lang: string }) => {
 						longDescription:
 							"Astro와 React로 구축된 성능과 접근성이 뛰어난 개인 웹사이트입니다. 한영 이중언어 블로그 시스템, 다크 모드 지원, 최적화된 에셋 전달을 제공합니다. 현대적인 빌드 도구와 CI/CD 파이프라인을 활용한 자동화된 배포를 구현했습니다. MDX를 통한 콘텐츠 관리와 코드 문법 강조 및 수식 조판을 위한 커스텀 컴포넌트를 포함합니다.",
 						stack: ["Astro", "React", "TypeScript", "Tailwind CSS", "MDX", "GitHub Actions"],
-						link: "github.com/duckonomy/portfolio",
+						link: "github.com/",
 						category: "Web",
 						pinned: true,
 					},
@@ -221,7 +221,7 @@ const ProjectsSection = ({ lang }: { lang: string }) => {
 						longDescription:
 							"다양한 프로그래밍 언어와 프레임워크에 걸친 프로젝트 탐색과 워크플로우 관리를 간소화하는 경량 CLI 도구입니다. 지능형 프로젝트 감지, 통합 명령어 인터페이스, 원활한 환경 통합을 제공합니다. 복잡한 멀티 프로젝트 워크플로우와 에코시스템별 빌드 시스템을 지원하면서도 최소한의 설정만을 필요로 합니다. 성능과 크로스 플랫폼 호환성을 위해 Go로 개발되었습니다.",
 						stack: ["Go", "TOML", "Shell", "Git"],
-						link: "github.com/duckonomy/parkour",
+						link: "github.com/",
 						category: "Systems",
 						pinned: true,
 					},
@@ -232,7 +232,7 @@ const ProjectsSection = ({ lang }: { lang: string }) => {
 						longDescription:
 							"성능과 생산성에 최적화된 미니멀리스트 X11 윈도우 매니저입니다. 스크립트 가능한 작업 공간 관리, 커스텀 키바인딩 엔진, 하이브리드 타일링/플로팅 레이아웃을 제공합니다. i3wm 대비 90% 감소한 2MB의 메모리 사용량을 달성하면서도 완전한 EWMH 호환성을 유지합니다. GitHub 스타 500개 이상을 받았으며 미니멀리스트 Linux 커뮤니티에서 채택되었습니다.",
 						stack: ["C", "libxcb", "Lua", "Xlib", "CMake", "Shell"],
-						link: "github.com/duckonomy/sanewm",
+						link: "github.com/",
 						category: "Systems",
 						pinned: false,
 					},
@@ -254,7 +254,7 @@ const ProjectsSection = ({ lang }: { lang: string }) => {
 						longDescription:
 							"AI 수업 기말 프로젝트로 개발된 실험적 NLP 시스템으로, 디시인사이드 포럼의 맥락 인식 게시물 생성을 위한 LSTM과 KoGPT 2.0 아키텍처를 비교 분석했습니다. 10만 개 이상의 게시물과 50만 개 이상의 댓글을 처리하는 웹 스크래핑 인프라, 비동기 응답 생성, 문화적 맥락 인식 기능을 포함합니다. 확장 가능한 배포를 위해 Flask/Celery로 구현되었으며 RabbitMQ를 메시지 큐잉에 활용했습니다.",
 						stack: ["Python", "Flask", "Celery", "RabbitMQ", "Scrapy", "KoGPT 2.0", "LSTM"],
-						link: "github.com/duckonomy/cs344",
+						link: "github.com/",
 						category: "AI/ML",
 						pinned: false,
 					},

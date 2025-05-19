@@ -10,12 +10,7 @@ const SocialList = () => {
 					<span className="sr-only">Github</span>
 				</div>
 			</a>
-			<a
-				className="my-link-no-icon"
-				href="https://twitter.com/duckonomy/"
-				rel="noreferrer"
-				target="_blank"
-			>
+			<a className="my-link-no-icon" href="https://twitter.com/" rel="noreferrer" target="_blank">
 				<div className="flex flex-col justify-center">
 					<SiX className="h-4 w-4" />
 					<span className="sr-only">X</span>
@@ -34,7 +29,7 @@ const SocialList = () => {
 			</a>
 			<a
 				className="my-link-no-icon"
-				href="https://bsky.app/profile/ianpark.dev/"
+				href="https://bsky.app/profile/"
 				rel="noreferrer"
 				target="_blank"
 			>

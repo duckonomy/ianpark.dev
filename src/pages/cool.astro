@@ -1,0 +1,183 @@
+---
+import Slides from "../layouts/Slides.astro";
+---
+
+<Slides title="Awesome">
+	<div id="reveal-container" class="reveal">
+		<div class="slides">
+			<section>
+                          <h1>Git 멋쟁이</h2>
+                          <em>지음 네이버 1차 Lighting Talk</em>
+                          <p>박은찬 전임</p>
+                        </section>
+			<section>Slide 2</section>
+			<section data-markdown>
+				<textarea data-template>
+---
+Untangle the Chaos
+Git Branching & Recovery Strategies for Real-World Teams
+---
+
+## Our Reality
+
+- Small team, multiple clients
+- Feature branches diverge
+- Random releases
+- QA and hotfixes all over the place
+
+---
+
+## Git Chaos: What Actually Hurts
+
+- Big diverging branches (merge hell)
+- No shared habits (merge vs. rebase?)
+- Hotfixes patched into wrong branches
+- CI/CD triggers are hard to align
+
+---
+
+## 3 Solid Git Strategies
+
+1. 🧱 Trunk-Based + Release Tags
+2. 🌿 Stable Release Branches for QA
+3. 🔧 Short-lived Feature Branches w/ Discipline
+
+---
+
+## Strategy 1 – Trunk-Based + Tags
+
+- Keep `main` always deployable
+- Use `release/*` branches only for QA and stabilization
+- Tag releases: `v1.3.0-kakao`
+
+---
+
+## Strategy 2 – Isolated QA Branches
+
+- `release/kakao-1.4.0`
+- QA can test this branch freely
+- Bugfix? PR into `release/*`, then cherry-pick into `main`
+
+---
+
+## Strategy 3 – Feature Branch Hygiene
+
+- Branch from `main`
+- Keep branches 1 week old
+- Rebase onto `main` before merge
+- Always squash-merge to clean up noise
+
+---
+
+## Rebase vs Merge
+
+```bash
+# Feature branch
+git checkout -b feat-x main
+# Work...
+git fetch origin
+git rebase origin/main
+# Clean merge back
+git checkout main
+git merge --ff-only feat-x
+```
+
+---
+
+## Avoid Merge Hell
+
+- Pull early, pull often
+- Small PRs  500 LOC
+- Avoid editing shared files
+- Use CI to enforce base branch status
+
+---
+
+## Untangling When It’s Too Late
+
+- `git log --graph --oneline --all`
+- `git reflog` to find lost commits
+- `git bisect` to trace bugs
+- `git cherry-pick` to move small fixes
+- Use `git checkout commit` to reapply changes
+
+---
+
+## Automate with Tags
+
+- `git tag v1.4.0-kakao`
+- Push tags → triggers deployment
+- Tags = source of truth
+- Changelog via `git log v1.3.0..v1.4.0`
+
+---
+
+## Visual Workflow Summary
+
+```
+main ──────► tag: v1.4.0-kakao
+   │  ▲          │
+   │  │          ▼
+feature/*      release/kakao-1.4.0 → QA
+   │               │
+   ▼               ▼
+[ squash PR ]   [ hotfix PR ]
+```
+
+---
+
+## What We Gain
+
+✅ Cleaner merges
+✅ Predictable QA
+✅ Controlled releases
+✅ Easier hotfixes
+✅ Saner minds
+
+---
+
+## Let's Start Small
+
+- Try this flow on one project
+- One short-lived branch + one release tag
+- Measure if hotfixes and merges are less painful
+
+---
+				</textarea>
+			</section>
+		</div>
+	</div>
+</Slides>
+
+<style>
+	#reveal-container {
+		height: 100vh;
+	}
+	main {
+		margin: auto;
+		padding: 1.5rem;
+		max-width: 60ch;
+	}
+	h1 {
+		font-size: 3rem;
+		font-weight: 800;
+		margin: 0;
+	}
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+	.instructions {
+		line-height: 1.6;
+		margin: 1rem 0;
+		border: 1px solid rgba(var(--accent), 25%);
+		background-color: white;
+		padding: 1rem;
+		border-radius: 0.4rem;
+	}
+</style>
+
+<script src="../lib/reveal_client.js"></script>
