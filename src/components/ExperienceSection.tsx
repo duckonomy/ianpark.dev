@@ -101,7 +101,7 @@ const ExperienceSection = ({ lang }: { lang: string }) => {
 						],
 					},
 					{
-						company: "Oracle",
+						company: "Texas Advanced Computing Center/IBM",
 						positions: [
 							{
 								role: "Software Engineer",
@@ -200,7 +200,7 @@ const ExperienceSection = ({ lang }: { lang: string }) => {
 						],
 					},
 					{
-						company: "Oracle",
+						company: "Texas Advanced Computing Center/IBM",
 						positions: [
 							{
 								role: "소프트웨어 엔지니어",
