@@ -6,144 +6,340 @@ import Slides from "../layouts/Slides.astro";
 	<div id="reveal-container" class="reveal">
 		<div class="slides">
 			<section>
-                          <h1>Git 멋쟁이</h2>
-                          <em>지음 네이버 1차 Lighting Talk</em>
-                          <p>박은찬 전임</p>
-                        </section>
-			<section>Slide 2</section>
+				<h1>Git 활용</h1>
+				<em>지음 네이버 1차 Lighting Talk</em>
+				<p>박은찬 전임</p>
+			</section>
 			<section data-markdown>
-				<textarea data-template>
+				<textarea data-template> 
+## Git 내부 구조
+`git`이 실제로 코드를 저장하는 방법
 ---
-Untangle the Chaos
-Git Branching & Recovery Strategies for Real-World Teams
----
-
-## Our Reality
-
-- Small team, multiple clients
-- Feature branches diverge
-- Random releases
-- QA and hotfixes all over the place
-
----
-
-## Git Chaos: What Actually Hurts
-
-- Big diverging branches (merge hell)
-- No shared habits (merge vs. rebase?)
-- Hotfixes patched into wrong branches
-- CI/CD triggers are hard to align
-
----
-
-## 3 Solid Git Strategies
-
-1. 🧱 Trunk-Based + Release Tags
-2. 🌿 Stable Release Branches for QA
-3. 🔧 Short-lived Feature Branches w/ Discipline
-
----
-
-## Strategy 1 – Trunk-Based + Tags
-
-- Keep `main` always deployable
-- Use `release/*` branches only for QA and stabilization
-- Tag releases: `v1.3.0-kakao`
-
----
-
-## Strategy 2 – Isolated QA Branches
-
-- `release/kakao-1.4.0`
-- QA can test this branch freely
-- Bugfix? PR into `release/*`, then cherry-pick into `main`
-
----
-
-## Strategy 3 – Feature Branch Hygiene
-
-- Branch from `main`
-- Keep branches 1 week old
-- Rebase onto `main` before merge
-- Always squash-merge to clean up noise
-
----
-
-## Rebase vs Merge
-
+### 상태 주소 저장소 
+### (Content-Addressable Storage)
+Git은 diff/patch가 아닌 *스냅샷*을 저장
 ```bash
-# Feature branch
-git checkout -b feat-x main
-# Work...
-git fetch origin
-git rebase origin/main
-# Clean merge back
+$ git init
+$ echo "Hello World" > file.txt
+$ git add file.txt
+$ git commit -m "최초 커밋"
+```
+---
+### 네 가지 객체 유형
+![Git 객체](https://git-scm.com/book/en/v2/images/data-model-3.png)
+---
+### 네 가지 객체 유형
+- **Blob**: 파일 내용
+- **Tree**: 디렉토리 구조 (권한 등등)
+- **Commit**: 메타데이터가 있는 스냅샷
+- **Tag**: 커밋에 대한 참조 사항
+---
+### .git 디렉토리
+```bash
+$ find .git/objects -type f | head -n 5
+```
+모든 객체는 콘텐츠의 SHA-1 해시로 저장
+---
+## 고급 브랜칭 전략
+팀마다 다른 워크플로우
+---
+### Git Flow
+![Git Flow](https://miro.medium.com/v2/resize:fit:4800/format:webp/1*3-0EDzE63S_UZx2KbIz_dg.png "=300x300")
+---
+### Git Flow
+- 장기 feature 브랜치 및 승격 (promotional) 모델 적용
+- 구조화된 릴리스 프로세스
+- 예정된 릴리스에 적합
+---
+### GitHub Flow
+![GitHub Flow](https://miro.medium.com/v2/resize:fit:4800/format:webp/1*bFl2IXVT2xIRy8uOm7v4JA.png "=500x500")
+---
+### GitHub Flow
+- 메인에서 feature 브랜치 생성
+- Pull Request 워크플로우
+- 지속적 배포(CD)가 요구되는 팀 또는 오픈소스 팀
+
+---
+### 트렁크 기반 개발
+![트렁크 기반 개발](https://trunkbaseddevelopment.com/trunk1c.png)
+---
+### 트렁크 기반 개발
+- 모두가 메인/트렁크에서 작업
+- 단기 feature 브랜치
+- 미완성 작업을 위한 feature 플래그
+---
+## Hotfix 시퀀스 예시
+```bash
+# 피처 브랜치 작업
+git checkout -b feature/payment-gateway
+# 커밋들...
+# 중요한 버그 발견
 git checkout main
-git merge --ff-only feat-x
+git checkout -b hotfix/security-vulnerability
+# 버그 수정, 버전 bump와 함께 메인으로 병합
+git checkout main
+git merge --no-ff hotfix/security-vulnerability
+git tag -a v1.0.1 -m "보안 패치"
+# feature 브랜치에 수정사항 반영
+git checkout feature/payment-gateway
+git rebase main
+# 충돌 해결...
+# 병합 전 커밋 정리
+git rebase -i HEAD~3
 ```
 
 ---
-
-## Avoid Merge Hell
-
-- Pull early, pull often
-- Small PRs  500 LOC
-- Avoid editing shared files
-- Use CI to enforce base branch status
-
+## 효과적인 Git 버전 관리
+숫자를 통한 변경 사항 전달
 ---
-
-## Untangling When It’s Too Late
-
-- `git log --graph --oneline --all`
-- `git reflog` to find lost commits
-- `git bisect` to trace bugs
-- `git cherry-pick` to move small fixes
-- Use `git checkout commit` to reapply changes
-
----
-
-## Automate with Tags
-
-- `git tag v1.4.0-kakao`
-- Push tags → triggers deployment
-- Tags = source of truth
-- Changelog via `git log v1.3.0..v1.4.0`
-
----
-
-## Visual Workflow Summary
-
+### Semantic 버저닝 (SEMVER)
 ```
-main ──────► tag: v1.4.0-kakao
-   │  ▲          │
-   │  │          ▼
-feature/*      release/kakao-1.4.0 → QA
-   │               │
-   ▼               ▼
-[ squash PR ]   [ hotfix PR ]
+MAJOR.MINOR.PATCH
+```
+- **MAJOR**: 호환성이 깨지는 변경사항
+- **MINOR**: 새로운 Feature
+- **PATCH**: 버그 수정/간단한 패치
+---
+### 버전을 위한 Git 태그
+```bash
+# 주석이 있는 태그 생성
+$ git tag -a v1.2.3 -m "버전 1.2.3 릴리스"
+# 태그 나열
+$ git tag
+# 태그 푸시
+$ git push origin v1.2.3
+```
+---
+### 릴리스 브랜치 vs 태그된 커밋
+릴리스 브랜치:
+```bash
+$ git checkout -b release/1.2.0
+# 릴리스 관련 미세 조정
+$ git tag -a v1.2.0 -m "버전 1.2.0"
+```
+태그된 커밋:
+```bash
+$ git tag -a v1.2.0 -m "버전 1.2.0"
+```
+---
+## Git과 CI/CD 통합
+---
+### OSS/Pasta 파이프라인 트리거
+---
+### Github 브랜치 보호 규칙
+![브랜치 보호](https://www.cloudwithchris.com/blog/use-github-branch-protection-rules/images/use-github-branch-protection-rules/branch-protection-overview.png "=500x500")
+---
+### 배포를 위한 Git 전략
+1. **브랜치별 환경**:
+   ```
+   feature/xyz → preview-xyz.example.com
+   main → staging.example.com
+   tags → production.example.com
+   ```
+2. **승격 모델**:
+   ```
+   main → staging → production
+   ```
+---
+### Feature 플래그 vs Feature 브랜치
+```javascript
+if (FEATURES.newPaymentSystem) {
+  // 새 결제 코드
+} else {
+  // 기존 결제 코드
+}
+```
+vs.
+```bash
+git checkout -b feature/new-payment-gateway
+```
+---
+## Git History 수정
+---
+### Interactive(대화형?) Rebase
+```bash
+$ git rebase -i HEAD~3
+```
+```
+pick 2c3a9a0 초기 스켈레톤 추가
+squash 5d1a2f1 상태관리 구현
+squash 8e6c8b2 오류 처리 추가
+```
+---
+### History를 수정해야 하는 경우
+**수정 추천**:
+- Push하기 전 로컬 커밋
+- 피처 브랜치 PR (주의해서)
+- 파악하기 힘든 지저분한 히스토리
+**수정 비추천**:
+- 메인 브랜치의 공유 히스토리
+- 코드 리뷰 완료 후
+- 팀 논의 없이 (해쉬 변경)
+---
+## Git 디버깅
+---
+![아버지](https://cdn.arstechnica.net/wp-content/uploads/2012/06/torvaldsnvidia.jpg "=500x500")
+---
+### Git Bisect
+```bash
+$ git bisect start
+$ git bisect bad  # 현재 버전에 버그 있음
+$ git bisect good v1.0.0  # 정상 작동하는 버전
+# Git이 중간 커밋을 체크아웃
+# 테스트 후:
+$ git bisect good  # 또는 git bisect bad
+# 발견될 때까지 반복
+$ git bisect reset  # 완료 시
+```
+---
+### 복잡한 병합 충돌 해결
+```bash
+# 양쪽 브랜치에서 변경된 내용 확인
+$ git log --merge -p -- conflicted_file.js
+# 시각적 도구 활용 (intellij 자체기능)
+$ git mergetool
+# 해결 후
+$ git add conflicted_file.js
+$ git merge --continue
+```
+---
+## Checkout vs Reset
+브랜치와 커밋 사이 이동하기
+---
+### git checkout vs git reset
+![Checkout vs Reset](https://global.discourse-cdn.com/codecademy/original/5X/b/f/e/c/bfec7818cee2d571e3b16f42b1f07d372e5298f2.png)
+---
+### git checkout
+```bash
+# 브랜치 전환
+$ git checkout feature-branch
+
+# 특정 커밋으로 이동 (detached HEAD)
+$ git checkout abc123
+
+# 특정 파일을 특정 커밋 상태로 복원
+$ git checkout abc123 -- file.txt
+```
+**특징**:
+- HEAD를 이동시킴
+- 작업 디렉토리 내용이 변경됨
+- 브랜치 포인터는 변경되지 않음 (파일 복원 제외)
+---
+### git reset의 세 가지 모드
+```bash
+# Soft Reset: 커밋만 되돌림, 변경사항은 스테이징에 유지
+$ git reset --soft HEAD~1
+
+# Mixed Reset (기본): 커밋과 스테이징(git add)을 되돌림, 작업 디렉토리는 유지
+$ git reset HEAD~1
+$ git reset --mixed HEAD~1  # 위와 동일
+
+# Hard Reset: 커밋, 스테이징(git add), 작업 디렉토리 모두 되돌림
+$ git reset --hard HEAD~1
+```
+---
+### 커밋 그래프와 reset 명령어
+![Reset Animation](https://raw.githubusercontent.com/git-school/git-reset/master/git-reset-animation.gif "=450x450")
+---
+### 꼬인 브랜치 수정하기
+아래와 같은 문제 상황:
+```
+A---B---C---D---E  (main)
+         \
+          F---G---H  (feature)
+              \
+               I---J  (hotfix)
+```
+**그룹화**와 **순서 변경** 필요:
+```bash
+# 현재 작업 저장
+$ git stash
+
+# feature에서 hotfix 분리하기
+$ git checkout feature
+$ git reset --hard G  # H 커밋 제거
+
+# 누락된 작업을 올바른 브랜치에 적용
+$ git checkout hotfix
+$ git cherry-pick H  # H 커밋을 hotfix에 적용
+
+# 스태시에서 작업 복원
+$ git stash pop
+```
+---
+### 심화: 가상의 참조(Reflog)로 실수 복구
+```bash
+# 실수로 Hard Reset 후
+$ git reset --hard HEAD~3  # 쉬망...
+
+# Reflog로 이전 상태 확인
+$ git reflog
+463ae2f HEAD@{0}: reset: moving to HEAD~3
+72e5af1 HEAD@{1}: commit: 중요한 기능 추가
+...
+
+# 삭제된 커밋 복구
+$ git reset --hard 72e5af1
+```
+---
+## Revert & Amend
+이미 공유된 히스토리 수정하기
+---
+### git commit --amend
+가장 최근 커밋 수정하기
+```bash
+# 마지막 커밋 메시지 수정
+$ git commit --amend -m "새로운 커밋 메시지"
+
+# 파일을 더 추가하고 마지막 커밋에 포함
+$ git add forgotten-file.js
+$ git commit --amend --no-edit  # 메시지 유지
+```
+**중요**: amend는 이전 커밋을 *대체*합니다:
+- 로컬에서만 사용 (push 전)
+- 이미 push된 커밋은 amend하지 말 것
+---
+### git revert
+히스토리를 보존하면서 변경 취소하기
+```bash
+# 특정 커밋 되돌리기
+$ git revert abc123
+
+# 여러 커밋 되돌리기 (개별 revert 커밋 생성)
+$ git revert abc123 def456
+
+# 여러 커밋 되돌리기 (하나의 revert 커밋으로)
+$ git revert --no-commit abc123 def456
+$ git commit -m "여러 커밋 되돌리기"
+```
+---
+### Revert vs Reset vs Amend
+| 명령어 | 히스토리 수정 | 공유 브랜치에 안전 | 사용 사례 |
+|--------|----------|----------|----------|
+| `reset` | 제거됨 | ❌ | 로컬 작업만 |
+| `revert` | 보존됨 | ✅ | 공유 브랜치 |
+| `amend` | 수정됨 | ❌ | push 전 로컬 커밋 |
+---
+### 실제 예: 민감 정보 제거
+**잘못된 방법**:
+```bash
+# 🚫 이미 푸시된 커밋 변경 (팀원들에게 문제 발생)
+$ git reset --hard HEAD~1
+$ git push --force
 ```
 
----
+**올바른 방법**:
+```bash
+# ✅ 새 커밋으로 변경 취소 (히스토리 보존)
+$ git revert abc123
+$ git push
 
-## What We Gain
-
-✅ Cleaner merges
-✅ Predictable QA
-✅ Controlled releases
-✅ Easier hotfixes
-✅ Saner minds
-
----
-
-## Let's Start Small
-
-- Try this flow on one project
-- One short-lived branch + one release tag
-- Measure if hotfixes and merges are less painful
-
----
-				</textarea>
+# 💡 Git 히스토리에서 민감 파일 완전히 제거
+$ git filter-branch --force --index-filter \
+  "git rm --cached --ignore-unmatch config/secrets.yml" \
+  --prune-empty --tag-name-filter cat -- --all
+```
+</textarea>
 			</section>
 		</div>
 	</div>
