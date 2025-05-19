@@ -66,6 +66,7 @@ const HighlightsSection = ({ lang }: { lang: string }) => {
 			{ name: "TypeScript" },
 			{ name: "SQL" },
 			{ name: "Java" },
+			{ name: "Kotlin" },
 			{ name: "TailwindCSS" },
 			{ name: "Redis" },
 			{ name: "RabbitMQ" },
