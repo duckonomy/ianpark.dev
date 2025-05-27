@@ -1,0 +1,1292 @@
+<!doctype html>
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
+
+		<title>누구보다 빠르게 남들과는 다르게: 동시성 마스터하기</title>
+
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.min.css"
+		/>
+
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css"
+		/>
+
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.min.css"
+			id="theme"
+		/>
+
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/monokai.min.css"
+		/>
+
+		<style>
+			/* General slide styling */
+			.reveal .slides section {
+				text-align: left; /* Default text alignment */
+				padding: 0 5%; /* Add some padding to the sides */
+			}
+
+			.reveal h1,
+			.reveal h2,
+			.reveal h3,
+			.reveal h4,
+			.reveal h5,
+			.reveal h6 {
+				text-align: center; /* Keep titles centered */
+				margin-bottom: 20px;
+			}
+
+			.reveal h1 {
+				font-size: 2.8rem;
+			}
+
+			.reveal h2 {
+				font-size: 2.5rem;
+			}
+
+			.reveal h3 {
+				font-size: 1.5rem;
+			}
+
+			.reveal h4 {
+				font-size: 1.3rem;
+			}
+
+			.reveal h5 {
+				font-size: 0.4rem;
+			}
+
+			.reveal p {
+				font-size: 0.9rem;
+			}
+
+			.reveal h6 {
+				font-size: 0.4rem;
+			}
+
+			.reveal ul {
+				font-size: 0.45rem;
+				list-style-position: inside;
+				padding-left: 20px; /* Indent list items */
+			}
+
+			.reveal ul li {
+        font-size: 1.1rem;
+				margin-bottom: 10px;
+			}
+
+			/* Code specific styling */
+			.reveal pre {
+				font-size: 1.0rem; /* Adjust code font size */
+				margin: 0.2rem auto; /* Center code blocks and reduce vertical margin */
+				width: 95%; /* Make code blocks slightly narrower */
+				border-radius: 5px;
+				display: inline;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+			}
+
+			.reveal pre code {
+				font-size: 0.7rem; /* Adjust code font size */
+				max-height: 500px; /* Limit code block height if it gets too long */
+				padding: 15px;
+			}
+
+			.reveal .small-code {
+				font-size: 0.5rem; /* Smaller font for dense code examples */
+			}
+
+			/* Image styling */
+			.reveal img {
+				margin: 20px auto; /* Center images and add vertical margin */
+				display: block; /* Ensure images are block elements for centering */
+				max-width: 90%; /* Prevent images from overflowing */
+				height: auto; /* Maintain aspect ratio */
+				border-radius: 8px;
+				box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+			}
+
+			.reveal .r-stack {
+				text-align: center; /* Center stacked elements like images */
+			}
+
+			/* Fragment animations */
+			.reveal .fragment.fade-in-then-semi-out {
+				opacity: 1;
+				transition: opacity 0.8s ease-in-out;
+			}
+
+			.reveal .fragment.fade-in-then-semi-out.visible {
+				opacity: 0.5; /* Fades out slightly after being shown */
+			}
+
+			.reveal .fragment.fade-in-then-semi-out.visible.current-fragment {
+				opacity: 1; /* Stays fully visible when it's the current fragment */
+			}
+
+			/* Code comparison layout */
+			.reveal .code-comparison {
+				display: flex;
+				justify-content: space-around;
+				align-items: flex-start;
+				gap: 20px;
+				width: 100%;
+			}
+
+			.reveal .code-comparison > div {
+				flex: 1; /* Distribute space equally */
+				box-sizing: border-box;
+				padding: 0 10px;
+			}
+
+			.reveal .code-comparison pre {
+				width: 100%; /* Make sure pre tags fill their parent div */
+				margin: 0;
+			}
+
+			.reveal .code-comparison h3 {
+				text-align: center;
+				margin-top: 0;
+				margin-bottom: 15px;
+			}
+
+			.reveal .meme-caption {
+				font-size: 0.8rem;
+				text-align: center;
+				margin-top: 10px;
+				color: #aaa;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+          <h1>누구보다 빠르게 남들과는 다르게</h1>
+          <p style="text-align: center">박은찬 전임</p>
+
+					<aside class="notes">
+						안녕하세요! 오늘은 '빠르게' 느껴지는 서비스 뒤에 숨겨진 동시성의 마법을 파헤쳐볼 겁니다.
+						사용자에게 '와 빠르다!'는 인상을 주는 프론트엔드 트릭부터, 실제로 시스템을 빠르게 만드는
+						백엔드 기술까지, 쉽고 재미있게 알아봅시다!
+					</aside>
+				</section>
+
+				<section>
+					<h2>빠르다고 '착각'하게 만들기 (프론트엔드 마법)</h2>
+
+					<img
+						src="https://hasura.io/blog/content/images/2019/07/optimistic-ui.gif"
+						alt="Fast loading animation"
+						style="max-height: 400px"
+					/>
+
+					<ul>
+						<li>
+							<strong>스켈레톤 UI / 플레이스홀더:</strong> 내용이 로딩 중임을 미리 보여줘버리기~
+							(e.g. instagram, YouTube, Facebook)
+						</li>
+
+						<li>
+							<strong>낙관적 UI (Optimistic UI):</strong> 사용자 액션을 즉시 반영하고,
+							백그라운드에서 실제 처리해버리기~ (e.g. '좋아요' 버튼)
+						</li>
+
+						<li>
+							<strong>진행 표시줄 / 로딩 스피너:</strong> "나 일하고 있어" 신호를 보내 사용자
+							지루함을 줄여버리기~
+						</li>
+
+						<li><strong>즉각적인 피드백:</strong> 버튼 클릭 시 바로 시각적 변화줘버리기~</li>
+					</ul>
+
+					<aside class="notes">
+						진짜 속도도 중요하지만, 사용자가 '빠르다'고 느끼게 하는 것이 더 중요할 때도 있습니다.
+						시각적인 트릭으로 사용자 경험을 개선하는 방법을 설명합니다. GIF로 시각적인 효과를
+						강조합니다.
+					</aside>
+				</section>
+
+				<section>
+					<h2>브라우저는 어떻게 '진짜' 빠를까?</h2>
+
+					<img
+						src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*Y5zNrBWfYc7m_Fn03g9nYA.gif"
+						alt="JavaScript Event Loop GIF"
+						style="max-height: 300px"
+					/>
+
+					<ul>
+						<li>
+							대부분의 브라우저 <strong>JS 엔진은 단일 스레드:</strong> 한 번에 한 작업만 처리 가능
+						</li>
+
+						<li>DOM 조작, 스타일 계산, 레이아웃, 페인트... 모든 게 하나의 스레드에서</li>
+
+						<li>
+							<strong>그럼 어떻게 안 멈추지?</strong> ➔
+							<strong>이벤트 루프와 비동기 콜백</strong>
+						</li>
+
+						<li>
+							네트워크 요청, 타이머 등은 백그라운드에서 처리되고, 완료되면 콜백으로 Queue안으로
+						</li>
+					</ul>
+
+					<aside class="notes">
+						브라우저의 핵심 작동 방식과 그 한계를 설명합니다. 특히 자바스크립트의 단일 스레드 특성과
+						이벤트 루프의 역할을 강조하여 비동기 처리의 필요성을 제시합니다. GIF로 이벤트 루프의
+						동작을 시각화합니다.
+					</aside>
+				</section>
+
+				<section>
+					<h2>브라우저의 '숨겨진 일꾼'들</h2>
+
+					<div class="code-comparison">
+						<div>
+							<h4>Web Workers (병렬)</h4>
+
+							<pre><code style="font-size: 0.8rem" class="javascript small-code">
+// main.js
+const worker = new Worker('worker.js');
+worker.postMessage({ num: 1000000000 });
+
+worker.onmessage = (e) =&gt; {
+  console.log('Result:', e.data);
+};
+
+// worker.js
+onmessage = (e) =&gt; {
+  let sum = 0;
+  for (let i = 0; i &lt; e.data.num; i++) {
+    sum += i;
+  }
+  postMessage(sum);
+};
+                        </code></pre>
+							<p>CPU 헤비한 작업은 <strong>별도 스레드</strong>에서. 메인 스레드 프리징 방지.</p>
+						</div>
+
+						<div>
+							<h4>Fetch API (비동기)</h4>
+
+							<pre><code style="font-size: 0.8rem" class="javascript small-code">
+// main.js
+fetch('/api/data')
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log(data))
+  .catch(error =&gt console.error(error));
+
+console.log("나 먼저 실행된다!");
+                        </code></pre>
+
+							<p>
+								네트워크 요청은 <strong>백그라운드로 짬때리기</strong>, 응답 대기 중 다른 작업 계속
+							</p>
+						</div>
+					</div>
+					<ul>
+						<li>
+							<strong>Web Workers:</strong> UI를 멈추지 않고 <strong>복잡한 계산</strong>을 수행
+						</li>
+
+						<li>
+							<strong>비동기 API (Fetch, setTimeout 등):</strong> I/O 작업은 OS에 맡기고, 브라우저는
+							다른 일 합니다.
+						</li>
+
+						<li>
+							<strong>동시성(Concurrency):</strong> 여러 작업을 <strong>번갈아가며</strong> 처리
+							(싱글 코어에서 멀티 스레드처럼 보이는 것)
+						</li>
+
+						<li>
+							<strong>병렬성(Parallelism):</strong> 여러 작업을 <strong>동시에</strong> 처리 (멀티
+							코어에서 진짜 동시에)
+						</li>
+					</ul>
+
+					<aside class="notes">
+						브라우저가 단일 스레드임에도 불구하고 어떻게 여러 작업을 처리하는지, 즉 동시성 개념을
+						Web Workers와 비동기 API를 통해 설명합니다. 동시성과 병렬성의 차이를 간략하게 짚고
+						넘어갑니다. XKCD 만화로 재미를 더합니다.
+					</aside>
+				</section>
+
+				<section>
+					<h2>프론트엔드 비동기, Latte is horse 🐎</h2>
+					<div class="code-comparison">
+						<div>
+							<h3>콜백 지옥 (Callback Hell)</h3>
+
+							<pre><code style="font-size: 0.8rem" class="javascript small-code">
+fetchUser(function(user) {
+  fetchPosts(user.id, function(posts) {
+    fetchComments(posts[0].id, function(comments) {
+      console.log(comments);
+    });
+  });
+});
+                        </code></pre>
+
+							<p>가독성? 유지보수? 흐릿해지는 기억...</p>
+						</div>
+
+						<div>
+							<h3>Promise / Async-Await</h3>
+
+							<pre><code style="font-size: 0.8rem" class="javascript small-code">
+async function loadData() {
+  try {
+    const user = await fetchUser();
+    const posts = await fetchPosts(user.id);
+    const comments = await fetchComments(posts[0].id);
+    console.log(comments);
+  } catch (error) {
+    console.error(error);
+  }
+}
+loadData();
+                        </code></pre>
+
+							<p>Imperative한 흐름, 에러 처리도 깰-끔</p>
+						</div>
+					</div>
+
+					<aside class="notes">
+						프론트엔드 비동기 처리의 진화를 콜백 지옥과 Promise/Async-Await 코드를 비교하여
+						보여줍니다. 시각적인 GIF로 변화를 강조하고, 개선된 가독성과 유지보수성을 설명합니다.
+					</aside>
+				</section>
+
+				<section>
+					<h2>React &amp 함수형 프로그래밍 (왜 같이 다니죠?)</h2>
+
+					<h3>예측 가능한 상태, 동시성 친화적</h3>
+
+					<img
+						src="https://scontent-ssn1-1.xx.fbcdn.net/v/t39.30808-6/464432888_27284805464496556_5074733633421534240_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=0b6b33&_nc_ohc=463ybjq9hhkQ7kNvwHITDNn&_nc_oc=Adm1hsl29G3E4Fj9eMeCwIuanizZzcQGe9rSaFAgoE9P_9JGugJBqboqkCtPa46_0Jk&_nc_zt=23&_nc_ht=scontent-ssn1-1.xx&_nc_gid=soGIa7bkBlsibxo7I-_EGw&oh=00_AfLekpvEtLGqVmtThM__BssB-q6oXGcD8pdCRueu0tOZDw&oe=683A8BC1"
+						alt="Functional Programming GIF"
+						style="max-height: 350px"
+					/>
+
+					<ul>
+						<li>
+							<strong>순수 함수 (Pure Functions):</strong> 입력이 같으면 항상 같은 출력 ➡️ 예측
+							가능, 테스트 용이
+						</li>
+
+						<li>
+							<strong>불변성 (Immutability):</strong> 데이터는 한 번 생성되면 변경 불가 ➡️ 동시성
+							문제 감소, 상태 추적 용이.
+						</li>
+
+						<li>
+							React의 <strong>렌더링은 순수 함수</strong>처럼 동작하고,
+							<strong>상태 업데이트는 불변성 (immutability)</strong>을 지향.
+						</li>
+
+						<li>
+							덕분에 React는 내부적으로 렌더링 스케줄링을 최적화하고, 동시성 기능을 도입하기
+							유리해짐.
+						</li>
+					</ul>
+
+					<aside class="notes">
+						함수형 프로그래밍의 핵심 개념인 순수 함수와 불변성이 React에서 어떻게 활용되어 예측
+						가능한 UI와 동시성 친화적인 구조를 만드는지 설명합니다. React의 내부 동작과 연결하여 왜
+						함수형 프로그래밍이 중요한지 전달합니다.
+					</aside>
+				</section>
+
+				<section>
+					<h2>React의 동시성 슈퍼파워 (feat. Hooks &amp; Suspense)</h2>
+          <div style="display: flex">
+					<pre><code class="javascript">
+import { Suspense, lazy } from 'react';
+import { useTransition, useState } from 'react';
+
+// 코드 스플리팅으로 필요한 시점에 로딩
+const Comments = lazy(() =&gt; import('./Comments'));
+
+function ProfilePage() {
+  const [tab, setTab] = useState('posts');
+  const [isPending, startTransition] = useTransition();
+
+  function selectTab(nextTab) {
+    // UI 응답성을 유지하면서 상태 업데이트
+    startTransition(() =&gt; {
+      setTab(nextTab);
+    });
+  }
+  return (
+    &lt;div&gt;
+      &lt;button onClick={() =&gt; selectTab('posts')}&gt;Posts&lt;/button&gt;
+      &lt;button onClick={() =&gt; selectTab('comments')}&gt;Comments&lt;/button&gt;
+      {isPending &amp;&amp; &lt;p&gt;Loading...&lt;/p&gt;}
+      &lt;Suspense fallback=&lt;div&gt;Loading Comments...&lt;/div&gt;&gt;
+        {tab === 'comments' ? &lt;Comments /&gt; : &lt;Posts /&gt;}
+      &lt;/Suspense&gt;
+    &lt;/div&gt;
+  );
+}
+                </code></pre>
+
+					<ul>
+						<li>
+							<strong>
+								<pre>useTransition</pre>
+								&amp;
+								<pre>startTransition</pre>
+								:</strong
+							>
+							긴급하지 않은 업데이트를 '전환'으로 마킹. UI를 즉시 멈추지 않고 백그라운드에서 처리 ✨
+						</li>
+
+						<li>
+							<strong>
+								<pre>Suspense</pre>
+								&amp;
+								<pre>lazy</pre>
+								:</strong
+							>
+							데이터 로딩 또는 코드 스플리팅 시, 준비될 때까지 멋진 Fallback UI 보여주기
+						</li>
+
+						<li>
+							React 내부의 <strong>동시성 렌더링:</strong> 여러 렌더링 작업을 '동시'에 진행하거나
+							우선순위를 부여
+						</li>
+
+						<li>사용자는 로딩 중에도 앱이 <<strong>"응답한다"</strong>고 느낌</li>
+					</ul>
+
+					<aside class="notes">
+						React의 최신 동시성 기능인
+						<pre>useTransition</pre>
+						과
+						<pre>Suspense</pre>
+						를 코드 예제와 함께 설명합니다. 이들이 어떻게 사용자 경험을 부드럽게 만드는지, React
+						내부의 동시성 렌더링 개념과 연결하여 설명합니다.
+					</aside>
+</div>
+				</section>
+
+				<section>
+					<h2>백엔드의 세계로~</h2>
+					<img
+						src="https://i.makeagif.com/media/3-15-2017/Smcmra.gif"
+						alt="Server rack working hard"
+						style="max-height: 400px"
+					/>
+
+					<ul>
+						<li>
+							프론트엔드는 사용자 기기 1대.. 백엔드는 <<strong>수십, 수백만 동시 접속</strong>
+						</li>
+
+						<li>
+							데이터베이스, 외부 API 호출, 파일 시스템 접근... <strong>느린 I/O</strong>의 연속
+						</li>
+
+						<li>
+							사용자 요청 하나하나를 <strong>병렬</strong>로 잘 처리해야 서비스가 멈추지 않음.
+						</li>
+					</ul>
+
+					<aside class="notes">
+						프론트엔드에서 백엔드로 넘어가며, 동시성 문제가 어떻게 다른 양상으로 나타나는지
+						설명합니다. 특히 백엔드에서 다뤄야 할 동시 접속과 I/O 바운드 작업의 중요성을 강조합니다.
+						서버 랙 GIF로 백엔드의 스케일을 시각화합니다.
+					</aside>
+				</section>
+
+				<section>
+					<h2>I/O 바운드 vs. CPU 바운드</h2>
+					<div
+						style="display: flex; justify-content: space-around; align-items: center; width: 100%"
+					>
+						<div style="text-align: center; flex: 1">
+							<h3>I/O Bound</h3>
+
+							<img
+								src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWhmOXNlcG1xZTRlZ2NsdXA0bGI4NGc1bmYwajRhM2EyMm9jMTVlYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lP4jmO461gq9uLzzYc/giphy.gif"
+								alt="Waiting for something"
+								style="max-height: 250px"
+							/>
+
+							<p class="meme-caption">"잠만.. 데..이터 기다리는 중.."</p>
+
+							<ul>
+								<li>대부분의 시간: <strong>대기</strong> (DB 응답, API 호출 완료 등)</li>
+
+								<li>CPU는 쉬고, 다른 작업 가능. 근데 못함</li>
+							</ul>
+						</div>
+
+						<div style="text-align: center; flex: 1">
+							<h3>CPU Bound</h3>
+
+							<img
+								src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGF5d2I3ZTFxNXUxMnN3b2N4ZWFmbms3M3lnYWRoeTI5eHpmODM3dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vcShFtinE7YUo/giphy.gif"
+								alt="Person intensely thinking"
+								style="max-height: 250px"
+							/>
+
+							<p class="meme-caption">"머리 터지게 계산 중"</p>
+
+							<ul>
+								<li>대부분의 시간: <strong>계산</strong> (데이터 암호화, 이미지 처리 등)</li>
+
+								<li>CPU 풀 가동, 다른 작업 끼어들기 어려움.</li>
+							</ul>
+						</div>
+					</div>
+
+					<aside class="notes">
+						I/O 바운드와 CPU 바운드 작업의 차이를 시각적인 GIF와 간결한 설명으로 명확하게
+						구분합니다. 이 두 가지 유형에 따라 동시성 처리 전략이 달라져야 함을 암시합니다.
+					</aside>
+				</section>
+
+				<section>
+					<h2>백엔드의 '구식' 동시성 모델 (Java/Kotlin)</h2>
+
+					<img
+						src="https://media1.tenor.com/m/28FrkXCaR1oAAAAd/programming-multitasking.gif"
+						alt="Lots of busy people"
+						style="max-height: 350px"
+					/>
+					<ul>
+						<li>
+							<strong>플랫폼 스레드 (OS/커널 스레드)</strong>: OS가 직접 관리하는 '무거운' 스레드
+						</li>
+						<li>스레드 하나당 상당한 메모리 사용 (수백 KB ~ MB)🐷</li>
+						<li>스레드 생성/전환 비용 높음</li>
+						<li>
+							많은 동시 요청 처리 시
+							<strong>컨텍스트 스위칭 (Context Switching) 오버헤드</strong> 증가 → ⚠️OOM 위험⚠️
+						</li>
+						<li>전통적인 서블릿 기반 서버 (Spring MVC)의 기본 모델</li>
+					</ul>
+
+					<aside class="notes">
+						JVM의 전통적인 플랫폼 스레드 모델의 특징과 한계를 설명합니다. 특히 스레드 생성 및 관리
+						비용, 그리고 대규모 동시성 처리 시 발생하는 문제점을 강조합니다. GIF로 많은 스레드가
+						주는 부담을 표현합니다.
+					</aside>
+				</section>
+
+				<section>
+					<h2>리액티브 프로그래밍 (WebFlux, R2DBC, RxJava, WebClient)</h2>
+					<h3>극한의 논블로킹</h3>
+          <div style="display: flex">
+            <div>
+              <img
+                src="https://assets.blackslate.io/posts/01/uqFPJIkMOSdQlRA.png"
+                alt="Fast data stream"
+                style="max-height: 400px"
+              />
+              <p class="meme-caption">"파이프 타고 줄줄이 들어오는 데이터"</p>
+            </div>
+            <div>
+              <ul>
+                <li><strong>무엇을 해결?</strong>
+                  <ul>
+                    <li>전통적인 블로킹 I/O의 스레드 한계, 콜백 지옥</li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>어떻게 해결?</strong>
+                  <ul>
+                    <li>데이터 스트림 (Stream) &amp; 이벤트 기반.</li>
+                    <li>백프레셔 (Backpressure)로 생산자-소비자 속도 조절.</li>
+                    <li>
+                      <pre style="display: inline">Mono</pre>
+                      (0-1개),
+                      <pre style="display: inline">Flux</pre>
+                      (0-N개)와 같은 반응형 타입.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+
+					<aside class="notes">
+						리액티브 프로그래밍의 등장 배경, 해결하는 문제, 핵심 원리 (스트림, 이벤트, 백프레셔)를
+						설명합니다. Spring WebFlux, R2DBC, RxJava, WebClient 등을 예시로 들고, 그 장점과 함께
+						개발자가 겪을 수 있는 어려움(학습 곡선, 디버깅)도 솔직하게 언급합니다.
+					</aside>
+				</section>
+
+<section>
+	<h2>리액티브 프로그래밍의 단점들</h2>
+	<div class="code-comparison">
+		<div>
+			<h4>블로킹 도메인</h4>
+			<pre><code style="font-size: 0.8rem" class="java small-code">
+@Entity
+public class User {
+    private String name;
+    private List&lt;Post&gt; posts;
+
+    public List&lt;Post&gt; getPosts() {
+        return postRepository.findByUserId(id);
+    }
+}
+			</code></pre>
+		</div>
+		<div>
+			<h4>리액티브 도메인</h4>
+			<pre><code style="font-size: 0.8rem" class="java small-code">
+@Document
+public class ReactiveUser {
+    private String name;
+
+    public Flux&lt;Post&gt; getPosts() {
+        return postRepository.findByUserId(id);
+    }
+}
+			</code></pre>
+		</div>
+	</div>
+	<ul>
+                    <li>스택 트레이스가 복잡해 디버깅 어려움</li>
+                    <li>
+                      기존 블로킹 코드와의 통합 문제. 블로킹 IO가 이미 보틀넥 (e.g. WebFlux + JPA, MVC +
+                      R2DBC)
+                    </li>
+                    <li>
+                      Reactor 타입 변환 중 type-erasure 가능성 (
+                      <pre>ClassCastException</pre>
+                      )
+                    </li>
+                    <li>잘못 운용시 flatMap 지옥</li>
+		<li>코드 중 일부는 블로킹, 일부는 리액티브 → <strong>개발 복잡도 폭증</strong></li>
+            <li>JPA ↔ R2DBC 사이의 <strong>임피던스 부정합 (Impedence mismatch): 타입 Lift가 필요하거나 Mono만 사용</strong></li>
+		<li>Mono로 쭉 쓰지 않으면 Backpressurer같은 세부컨트롤 베네핏 삭제</li>
+		<li><strong>해결책:</strong>Coroutines로 단일 도메인 모델 유지</li>
+	</ul>
+</section>
+
+
+				<section>
+					<h2>Kotlin Coroutines &amp; 구조화된 동시성</h2>
+					<p class="meme-caption">"비동기 코드가 동기처럼"</p>
+					<pre><code class="kotlin">
+suspend fun getUserWithContent(userId: Long): UserWithPosts = coroutineScope {
+    val user = async { userRepository.findUserById(userId) }
+    val posts = async { userRepository.findPostsByUserId(userId) }
+    UserWithContent(
+        user = user.await(),
+        posts = posts.await()
+    )
+}
+
+// Spring WebFlux Controller 예시
+@GetMapping("/data")
+suspend fun getData(): UserWithPosts {
+    return getUserAndPosts()
+}
+        </code></pre>
+					<ul>
+						<li>
+							<strong>코루틴 (Coroutines):</strong> '경량 스레드'. 실제 OS 스레드에 매핑되지만, 훨씬
+							적은 비용. 기존 플렛폼 Thread가 아닌 캐리어(Carrier) Thread 추상화
+						</li>
+						<li>
+							<strong>
+								<pre>suspend</pre>
+								함수:</strong
+							>
+							논블로킹 방식으로 '잠시 멈췄다가' 이어서 실행 가능 (parking 주차라고 부름)
+						</li>
+						<li>
+							<strong>구조화된 동시성 (Structured Concurrency):</strong> 부모-자식 관계의 코루틴
+							계층
+						</li>
+						<li>
+							부모 코루틴이 취소되면 자식도 함께 취소되어 <strong>자원 누수 방지</strong>. 에러
+							전파 및 취소도 깔-끔
+						</li>
+						<li>I/O 바운드 작업에 특화된 엄청난 효율</li>
+						<li>CPU 바운드 작업도 컨테스트의 <pre>Dispatcher</pre>에 따라 가능</li>
+					</ul>
+
+					<aside class="notes">
+						Kotlin Coroutines의 핵심 개념인 경량 스레드,
+						<pre>suspend</pre>
+						함수, 그리고 구조화된 동시성을 설명합니다. 특히 구조화된 동시성의 장점과 I/O 바운드
+						작업에 대한 효율성을 강조합니다.
+					</aside>
+				</section>
+
+				<section>
+					<h2>동시성 (Concurrency) vs. 병렬성 (Parallelism) 다시 한번</h2>
+					<div
+						style="display: flex; justify-content: space-around; align-items: center; width: 100%"
+					>
+						<div style="text-align: center; flex: 1">
+							<h3>동시성 (Concurrency)</h3>
+							<img
+								src="https://dynamogeeks.com/wp-content/uploads/2024/08/Concurrency.gif"
+								alt="Chef juggling tasks"
+								style="max-height: 250px"
+							/>
+							<p class="meme-caption">"한 명이 여러 일을 번갈아 하면서 하는 척"</p>
+							<ul>
+								<li>하나의 코어에서 여러 작업이 <strong>번갈아 실행</strong>되는 것처럼 보임.</li>
+								<li>빠른 전환으로 <strong>동시에 진행</strong>되는 듯한 효과.</li>
+								<li>(e.g. 콜백, 코루틴, 비동기 논블로킹 I/O)</li>
+							</ul>
+						</div>
+
+						<div style="text-align: center; flex: 1">
+							<h3>병렬성 (Parallelism)</h3>
+
+							<img
+								src="https://dynamogeeks.com/wp-content/uploads/2024/08/Parallelism.gif"
+								alt="Multiple chefs cooking together"
+								style="max-height: 250px"
+							/>
+							<p class="meme-caption">"여러 명이 진짜 동시에 각자 일"</p>
+
+							<ul>
+								<li>여러 코어에서 여러 작업이 <strong>진짜 동시에 실행</strong>.</li>
+								<li>처리량(Throughput) 극대화.</li>
+								<li>(e.g. 멀티스레딩, Web Workers, CPU 바운드 작업)</li>
+							</ul>
+						</div>
+					</div>
+
+					<aside class="notes">
+						동시성과 병렬성의 차이를 다시 한번 시각적인 GIF와 간결한 설명으로 명확히 구분하여 개념을
+						확실히 잡을 수 있도록 합니다.
+					</aside>
+				</section>
+
+				<section>
+					<h2>I/O 바운드 시대의 구원자: Project Loom (Virtual Threads) Java 21+</h2>
+
+          <div style="display: flex">
+					<pre><code class="java">
+import java.util.concurrent.Executors;
+
+public class VirtualThreadExample {
+    public static void main(String[] args) {
+        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            for (int i = 0; i &lt; 1_000_000; i++) { // 백만 개의 '스레드' 생성
+                executor.submit(() -&gt; {
+                    try {
+                        Thread.sleep(100); // I/O 작업 흉내
+                        System.out.println("작업 완료!");
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                });
+            }
+            System.out.println("백만 개의 가상 스레드 시작");
+        } // try-with-resources가 자동으로 대기 및 종료 처리
+    }
+}
+          </code></pre>
+					<ul>
+						<li>
+							<strong>가상 스레드 (Virtual Threads):</strong> JVM이 관리하는 '초경량' 스레드
+							(코루틴과 유사한 개념)
+						</li>
+						<li>소수의 플랫폼 스레드 위에서 수백만 개의 가상 스레드 동시 실행 가능</li>
+						<li>특히 <strong>I/O 바운드 작업</strong> (DB 조회, HTTP 호출)에서 미친 효율</li>
+						<li><strong>"Plain Old Java Thread (POJT)"</strong> 스타일의 코드로 비동기 이점</li>
+						<li>대부분의 백엔드 작업은 I/O 바운드. Reactive 미적용 프로젝트 최적화.</li>
+					</ul>
+          </div>
+					<aside class="notes">
+						                    Project Loom (Virtual Threads)의 핵심을 설명합니다. 가상 스레드가
+						무엇인지, 플랫폼 스레드와의 차이점, 그리고 특히 I/O 바운드 작업에서 얼마나 효율적인지
+						강조합니다. 기존 블로킹 코드 스타일을 유지하면서도 비동기 이점을 얻을 수 있다는 점을
+						중요한 특징으로 제시합니다. 네이버 SI 환경의 BFF에 특히 적합하다는 점을 명확히
+						언급합니다.                
+					</aside>
+				</section>
+
+				<section>
+					<h2>그럼 CPU 헤비한 작업은?</h2>
+					<img
+						src="https://media1.tenor.com/m/hEwfEcj2R60AAAAd/laptop-smoking.gif"
+						alt="Warning sign"
+						style="max-height: 350px"
+					/>
+					<ul>
+						<li>
+              ⚠️ 가상 스레드는 <span style="color: #555">(아직)</span> <strong>I/O 바운드</strong>에만
+							최적화 ⚠️
+						</li>
+						<li>
+							<strong>CPU 바운드</strong> 작업 (e.g. 대규모 데이터 연산, 복잡한 암복호화)에는 여전히
+							적합하지 않음.
+						</li>
+						<li>
+							이런 작업은 기존처럼 <strong>별도의 전용 스레드 풀</strong>을 사용하거나,
+							<strong>메시지 큐</strong>를 통한 비동기 처리 고려
+						</li>
+						<li>
+							코틀린 코루틴은
+							<pre>Dispatcher</pre>
+							에 따라 쓰레드 활용도가 높아서 cpu 바운드 작업도 적절
+						</li>
+						<li><strong>핵심:</strong> 문제에 맞는 동시성 모델 선택이 중요</li>
+					</ul>
+					<aside class="notes">
+						                    가상 스레드가 만능이 아님을 명확히 하고, CPU 바운드 작업에는 여전히
+						기존의 스레드 풀 전략이 유효함을 설명합니다. 문제의 성격에 따라 적절한 동시성 모델을
+						선택하는 것이 중요하다고 강조합니다.                
+					</aside>
+				</section>
+				<section>
+					<h2>네이버 SI &amp; BFF, 그리고 동시성</h2>
+					<h3>우리 서비스에 어떻게 적용할까?</h3>
+					<img
+						src="https://media.giphy.com/media/3oKIPnAiaMSV0w9J1C/giphy.gif"
+						alt="Building blocks"
+						style="max-height: 350px"
+					/>
+					<p class="meme-caption">"우리 기술 스택에 동시성을 찰떡같이"</p>
+					<ul>
+						<li>
+							대부분의 네이버 SI 백엔드는 <strong>BFF (Backend For Frontend)</strong> 패턴을 많이
+							사용.
+						</li>
+						<li>여러 <strong>내부 API 호출 (I/O)</strong>을 취합하여 프론트엔드에 전달 🔄</li>
+						<li>
+							<strong>가상 스레드 (Loom)</strong>는 이런 I/O 바운드 BFF에
+							<strong>최적의 솔루션</strong>
+						</li>
+						<ul>
+							<li>기존 블로킹 코드베이스를 크게 바꾸지 않고도 성능 향상</li>
+							<li>개발 복잡도를 낮추면서 동시 처리량 증가</li>
+						</ul>
+						<li>
+							새로운 서비스는 <strong>코루틴 (Kotlin) 또는 가상 스레드 (Java 21+)</strong> 적극
+							고려
+						</li>
+						<li>
+							기존 서비스도 점진적인 도입을 통해 <strong>확장성</strong>과
+							<strong>응답성</strong> 개선
+						</li>
+					</ul>
+					<aside class="notes">
+						                    발표의 핵심 메시지 중 하나로, 배포될 환경인 네이버 SI의 BFF 특성에
+						맞춰 가상 스레드 및 코루틴의 적용 가능성과 이점을 구체적으로 제시합니다. 기존
+						코드베이스의 변화를 최소화하면서도 얻을 수 있는 이점을 강조하여 실질적인 도입을
+						제안합니다.                
+					</aside>
+				</section>
+
+
+
+
+
+<!-- Add to existing Kotlin Coroutines section -->
+<section>
+	<h2>Kotlin Coroutines 깊게 들어가기</h2>
+	<p class="meme-caption">"비동기 코드가 동기처럼"</p>
+	<pre><code class="kotlin">
+suspend fun getUserWithContent(userId: Long): UserWithPosts = coroutineScope {
+    val user = async { userRepository.findUserById(userId) }
+    val posts = async { userRepository.findPostsByUserId(userId) }
+    UserWithContent(
+        user = user.await(),
+        posts = posts.await()
+    )
+}
+
+// Spring WebFlux Controller 예시
+@GetMapping("/data")
+suspend fun getData(): UserWithPosts {
+    return getUserAndPosts()
+}
+	</code></pre>
+	<ul>
+		<li>
+			<strong>코루틴 (Coroutines):</strong> '경량 스레드'. 실제 OS 스레드에 매핑되지만, 훨씬
+			적은 비용. 기존 플렛폼 Thread가 아닌 캐리어(Carrier) Thread 추상화
+		</li>
+		<li>
+			<strong>캐리어 스레드 (Carrier Threads):</strong> 코루틴이 실제로 실행되는 OS 스레드. 코루틴은 suspend 시 캐리어 스레드에서 분리되어 다른 캐리어 스레드에서 재개 가능
+		</li>
+		<li>
+			<strong>자동 취소 메커니즘:</strong> 예외 발생 시 부모-자식 코루틴 계층 전체가 자동 취소 (JS async/await과 달리)
+		</li>
+		<li>
+			<strong>
+				<pre>suspend</pre>
+				함수:</strong
+			>
+			논블로킹 방식으로 '잠시 멈췄다가' 이어서 실행 가능 (parking 주차라고 부름)
+		</li>
+		<li>
+			<strong>구조화된 동시성 (Structured Concurrency):</strong> 부모-자식 관계의 코루틴
+			계층
+		</li>
+		<li>
+			부모 코루틴이 취소되면 자식도 함께 취소되어 <strong>자원 누수 방지</strong>. 에러
+			전파 및 취소도 깔-끔
+		</li>
+		<li>I/O 바운드 작업에 특화된 엄청난 효율</li>
+		<li>CPU 바운드 작업도 컨테스트의 <pre>Dispatcher</pre>에 따라 가능</li>
+	</ul>
+
+	<aside class="notes">
+		Kotlin Coroutines의 핵심 개념인 경량 스레드, 캐리어 스레드, 자동 취소 메커니즘,
+		<pre>suspend</pre>
+		함수, 그리고 구조화된 동시성을 설명합니다. 특히 구조화된 동시성의 장점과 I/O 바운드
+		작업에 대한 효율성을 강조합니다.
+	</aside>
+</section>
+
+<!-- New section: Flow vs Reactive Streams -->
+<section>
+	<h2>Kotlin Flow vs Reactive Streams (Mono/Flux)</h2>
+	<div class="code-comparison">
+		<div>
+			<h4>Kotlin Flow</h4>
+			<pre><code class="kotlin small-code">
+fun getUserFlow(): Flow&lt;User&gt; = flow {
+    emit(userService.getUser())
+}.flowOn(Dispatchers.IO)
+
+// 사용
+suspend fun handleUser() {
+    getUserFlow()
+        .map { it.name }
+        .collect { println(it) }
+}
+			</code></pre>
+		</div>
+		<div>
+			<h4>Reactor (Mono/Flux)</h4>
+			<pre><code class="java small-code">
+public Mono&lt;User&gt; getUserMono() {
+    return Mono.fromCallable(() -&gt;
+        userService.getUser()
+    ).subscribeOn(Schedulers.boundedElastic());
+}
+
+// 사용
+getUserMono()
+    .map(User::getName)
+    .subscribe(System.out::println);
+			</code></pre>
+		</div>
+	</div>
+	<ul>
+		<li><strong>Flow는 코루틴 기반</strong>으로 suspend 함수와 자연스럽게 통합</li>
+		<li><strong>Reactive Streams는 콜백 기반</strong>으로 별도의 스케줄러 관리 필요</li>
+		<li>Flow는 <strong>cold stream</strong> (collect 시점에 실행), Reactor는 hot/cold 모두 지원</li>
+		<li><strong>상호 변환 가능:</strong> Flow ↔ Mono/Flux 브릿지 존재</li>
+	</ul>
+</section>
+
+<!-- New section: Reactive Domain Problem -->
+
+<!-- New section: Event Loop vs Threading -->
+<section>
+	<h2>이벤트 루프 vs 스레딩 모델</h2>
+	<div style="display: flex; justify-content: space-around; align-items: center;">
+		<div style="text-align: center; flex: 1">
+			<h4>이벤트 루프 (Node.js)</h4>
+			<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*Y5zNrBWfYc7m_Fn03g9nYA.gif"
+				 alt="Event loop" style="max-height: 200px" />
+			<ul>
+				<li><strong>단일 스레드</strong>에서 이벤트 기반 처리</li>
+				<li>I/O 작업은 백그라운드로, 완료 시 콜백 큐에 추가</li>
+				<li><strong>CPU 바운드 작업 시 전체 블로킹</strong></li>
+			</ul>
+		</div>
+		<div style="text-align: center; flex: 1">
+			<h4>멀티스레딩 + 스케줄링</h4>
+			<img src="https://media.giphy.com/media/l0HlSZQ8GYGl0FLhK/giphy.gif"
+				 alt="Multiple workers" style="max-height: 200px" />
+			<ul>
+				<li><strong>여러 스레드</strong>가 작업을 분담 처리</li>
+				<li>OS 스케줄러가 시간 분할로 실행 관리</li>
+				<li><strong>CPU 바운드 작업도 병렬 처리 가능</strong></li>
+			</ul>
+		</div>
+	</div>
+	<p style="text-align: center; margin-top: 20px;">
+		<strong>Virtual Threads & Coroutines:</strong> 두 모델의 장점을 결합 -
+		이벤트 루프의 효율성 + 멀티스레딩의 유연성
+	</p>
+</section>
+
+<!-- Enhanced JavaScript section -->
+<section>
+	<h2>JavaScript의 동시성: Promise.all과 병목 해결</h2>
+	<div class="code-comparison">
+		<div>
+			<h4>순차 실행 (느림)</h4>
+			<pre><code class="javascript small-code">
+// 각각 1초씩 총 3초
+const user = await fetchUser();
+const posts = await fetchPosts();
+const comments = await fetchComments();
+
+console.log({ user, posts, comments });
+			</code></pre>
+		</div>
+		<div>
+			<h4>병렬 실행 (빠름)</h4>
+			<pre><code class="javascript small-code">
+// 동시 실행으로 총 1초
+const [user, posts, comments] = await Promise.all([
+    fetchUser(),
+    fetchPosts(),
+    fetchComments()
+]);
+
+console.log({ user, posts, comments });
+			</code></pre>
+		</div>
+	</div>
+	<ul>
+		<li><strong>Promise.all:</strong> 여러 비동기 작업을 '동시에' 시작</li>
+		<li><strong>Promise.allSettled:</strong> 일부 실패해도 모든 결과 수집</li>
+		<li><strong>Top-level await (ES2022):</strong> 모듈 레벨에서 바로 await 사용</li>
+		<li><strong>AbortController:</strong> 진행 중인 fetch 요청 취소 가능</li>
+	</ul>
+</section>
+
+<!-- New section: Virtual Threads Configuration -->
+<section>
+	<h2>Virtual Threads 설정 (한 줄이면 끝)</h2>
+	<pre><code class="yaml">
+# application.yml
+spring:
+  threads:
+    virtual:
+      enabled: true  # Spring Boot 3.2+에서 이거 하나면 끝
+	</code></pre>
+	<pre><code class="java">
+// 또는 Java 코드로
+@Bean
+public TomcatProtocolHandlerCustomizer&lt;?&gt; protocolHandlerVirtualThreadExecutorCustomizer() {
+    return protocolHandler -&gt; protocolHandler.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
+}
+	</code></pre>
+	<p style="text-align: center; font-size: 1.2rem; color: #4CAF50;">
+		<strong>그냥 이거 하나면 기존 Spring MVC가 Virtual Threads로 동작! 🎉</strong>
+	</p>
+</section>
+
+<!-- New section: Next.js PPR and Frontend Optimization -->
+<section>
+	<h2>Next.js PPR과 '빨라 보이는' 프론트엔드 기법들</h2>
+	<img src="https://nextjs.org/_next/image?url=https%3A%2F%2Fh8DxKfmAPhn8O0p3.public.blob.vercel-storage.com%2Flearn%2Fdark%2Fthinking-in-ppr.png&w=3840&q=75"
+		 alt="Next.js PPR diagram" style="max-height: 300px" />
+	<ul>
+		<li><strong>PPR (Partial Pre-rendering):</strong> 정적 부분은 미리 렌더링, 동적 부분만 스트리밍</li>
+		<li><strong>Streaming SSR:</strong> 페이지를 청크 단위로 점진적 전송</li>
+		<li><strong>RSC (React Server Components):</strong> 서버에서 렌더링되어 번들 크기 감소</li>
+		<li><strong>Image Optimization:</strong> WebP 변환, lazy loading, 적절한 크기 자동 선택</li>
+		<li><strong>Prefetching:</strong> 사용자가 클릭하기 전에 미리 필요한 데이터 로드</li>
+		<li><strong>Code Splitting:</strong> 필요한 코드만 선택적 로딩</li>
+	</ul>
+	<p class="meme-caption">"사용자는 빠르다고 느끼지만 실제로도 빠른 마법"</p>
+</section>
+
+<!-- New section: Shared Memory and Functional Programming Solutions -->
+<section>
+	<h2>공유 상태의 악몽과 함수형 프로그래밍의 구원</h2>
+	<img src="https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif"
+		 alt="Cars racing and crashing" style="max-height: 250px" />
+	<div class="code-comparison">
+		<div>
+			<h4>전통적인 공유 상태 (문제)</h4>
+			<pre><code class="java small-code">
+class BankAccount {
+    private int balance = 1000;
+
+    public void withdraw(int amount) {
+        if (balance &gt;= amount) {
+            balance -= amount; // Race condition!
+        }
+    }
+}
+
+// 동시에 두 번 출금 → 잔고 마이너스?!
+			</code></pre>
+		</div>
+		<div>
+			<h4>함수형 접근 (해결)</h4>
+			<pre><code class="javascript small-code">
+// React/Redux 스타일
+const bankReducer = (state, action) =&gt; {
+  switch (action.type) {
+    case 'WITHDRAW':
+      return state.balance &gt;= action.amount
+        ? { ...state, balance: state.balance - action.amount }
+        : state; // 새 객체 반환, 원본 불변
+  }
+};
+
+// Mono/Flux 스타일 - 파이프라인으로 상태 변환
+accountMono
+  .filter(account -&gt; account.balance &gt;= amount)
+  .map(account -&gt; account.withBalance(account.balance - amount))
+			</code></pre>
+		</div>
+	</div>
+	<ul>
+		<li><strong>함수형의 핵심 아이디어:</strong> 상태를 '변경'하지 말고 '변환'하라</li>
+		<li><strong>불변성 (Immutability):</strong> 데이터를 직접 수정하지 않고 새로운 버전 생성</li>
+		<li><strong>순수 함수:</strong> 같은 입력 → 같은 출력, 부작용 없음 → 예측 가능</li>
+		<li><strong>React:</strong> state는 불변, setState로 새 상태 생성</li>
+		<li><strong>Reactive Streams:</strong> 데이터 파이프라인, 각 단계는 순수 변환</li>
+		<li><strong>Promise 체이닝:</strong> 각 then은 새로운 Promise 반환</li>
+		<li><strong>결과:</strong> Race condition 원천 차단, 동시성 문제 90% 해결! 🎉</li>
+	</ul>
+</section>
+
+<section>
+	<h2>React &amp 함수형 프로그래밍 (왜 비동기와 찰떡궁합?)</h2>
+
+	<h3>예측 가능한 상태, 동시성 친화적</h3>
+
+	<img
+		src="https://scontent-ssn1-1.xx.fbcdn.net/v/t39.30808-6/464432888_27284805464496556_5074733633421534240_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=0b6b33&_nc_ohc=463ybjq9hhkQ7kNvwHITDNn&_nc_oc=Adm1hsl29G3E4Fj9eMeCwIuanizZzcQGe9rSaFAgoE9P_9JGugJBqboqkCtPa46_0Jk&_nc_zt=23&_nc_ht=scontent-ssn1-1.xx&_nc_gid=soGIa7bkBlsibxo7I-_EGw&oh=00_AfLekpvEtLGqVmtThM__BssB-q6oXGcD8pdCRueu0tOZDw&oe=683A8BC1"
+		alt="Functional Programming GIF"
+		style="max-height: 300px"
+	/>
+
+	<div class="code-comparison">
+		<div>
+			<h4>Imperative 비동기 (혼돈)</h4>
+			<pre><code class="javascript small-code">
+let userData = null;
+let isLoading = false;
+
+function fetchUser() {
+  isLoading = true;
+  fetch('/user').then(user =&gt; {
+    userData = user;  // 컴포넌트 언마운트됐으면?
+    isLoading = false; // 다른 요청이 진행 중이면?
+    updateUI(); // 어떤 상태의 UI?
+  });
+}
+			</code></pre>
+		</div>
+		<div>
+			<h4>Functional 비동기 (질서)</h4>
+			<pre><code class="javascript small-code">
+function UserComponent({ userId }) {
+  const [state, setState] = useState({
+    data: null, loading: false
+  });
+
+  useEffect(() =&gt; {
+    setState(prev =&gt; ({ ...prev, loading: true }));
+
+    fetch(`/user/${userId}`)
+      .then(user =&gt; setState({
+        data: user, loading: false
+      }));
+  }, [userId]);
+
+  // 순수 함수: 상태 → UI
+  return state.loading ? &lt;Spinner /&gt; : &lt;User data={state.data} /&gt;;
+}
+			</code></pre>
+		</div>
+	</div>
+
+	<ul>
+		<li>
+			<strong>순수 함수 (Pure Functions):</strong> 입력이 같으면 항상 같은 출력 ➡️ 비동기 상황에서도 예측 가능
+		</li>
+
+		<li>
+			<strong>불변성 (Immutability):</strong> 상태 스냅샷 개념 ➡️ 각 렌더는 그 순간의 상태만 참조, race condition 차단
+		</li>
+
+		<li>
+			<strong>시간 독립성:</strong> "언제"가 아닌 "무엇"에 집중 ➡️ React가 언제 렌더할지 결정
+		</li>
+
+		<li>
+			React의 <strong>렌더링은 순수 함수</strong>처럼 동작하고,
+			<strong>상태 업데이트는 불변성 (immutability)</strong>을 지향.
+		</li>
+
+		<li>
+			<strong>Effect는 부작용의 '서술':</strong> useEffect는 "이런 일이 일어나야 해"라는 선언적 기술
+		</li>
+
+		<li>
+			덕분에 React는 내부적으로 렌더링 스케줄링을 최적화하고, 동시성 기능을 도입하기
+			유리해짐.
+		</li>
+	</ul>
+
+	<aside class="notes">
+		함수형 프로그래밍의 핵심 개념인 순수 함수와 불변성이 React에서 어떻게 활용되어 예측
+		가능한 UI와 동시성 친화적인 구조를 만드는지 설명합니다. 특히 비동기 상황에서 함수형 패러다임이
+		어떻게 복잡성을 해결하는지 코드 비교로 보여줍니다. React의 내부 동작과 연결하여 왜
+		함수형 프로그래밍이 중요한지 전달합니다.
+	</aside>
+</section>
+
+
+
+
+
+
+
+
+
+
+				<section>
+				 Questions?
+					<img
+						src="https://media1.tenor.com/m/qH6BctmWa7MAAAAC/question-asking.gif"
+						alt="Thinking person asking question"
+						style="max-height: 400px"
+					/>
+					<aside class="notes">
+						                    질문을 유도하는 슬라이드입니다. 편안한 분위기에서 질문을 할 수
+						있도록 유도합니다.                
+					</aside>
+				</section>
+			</div>
+		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/highlight.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/markdown/markdown.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/notes/notes.min.js"></script>
+		<script>
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				transition: "slide",
+				plugins: [RevealHighlight, RevealMarkdown, RevealNotes],
+			});
+		</script>
+	</body>
+</html>
