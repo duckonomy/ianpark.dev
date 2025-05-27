@@ -1,0 +1,520 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
+
+		<title>소상공인 정책지원금 앱: 사장님 성공의 길잡이</title>
+
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reset.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.css" />
+
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/theme/night.css"
+		/>
+
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/highlight/monokai.css"
+		/>
+
+		<style>
+			/* Custom Styles - Consistent Typography & Enhanced Design */
+			.reveal .slides section .slide-title {
+				font-size: 2.2em;
+				color: #eebb4d;
+				margin-bottom: 0.5em;
+				font-weight: 700;
+			}
+			.reveal .slides section .subtitle {
+				font-size: 1.2em;
+				color: #f5f5f5;
+				font-weight: 300;
+			}
+			.reveal .slides section h2 {
+				font-size: 1.5em;
+				color: #eebb4d;
+				margin-bottom: 0.8em;
+				font-weight: 600;
+			}
+			.reveal .slides section h3 {
+				font-size: 1.2em;
+				color: #f5f5f5;
+				margin-bottom: 0.6em;
+				font-weight: 500;
+			}
+			.reveal .slides section h4 {
+				font-size: 1em;
+				color: #eebb4d;
+				margin-bottom: 0.4em;
+				font-weight: 500;
+			}
+			.reveal .slides section p {
+				font-size: 0.9em;
+				line-height: 1.4;
+				color: #e0e0e0;
+				margin-bottom: 0.6em;
+			}
+			.reveal .slides section ul li {
+				font-size: 0.85em;
+				margin-bottom: 0.4em;
+				color: #e0e0e0;
+				line-height: 1.3;
+			}
+			.reveal .slides section .highlight {
+				color: #ffd700;
+				font-weight: bold;
+			}
+			.reveal .slides section .emphasis {
+				color: #ff6b6b;
+				font-weight: bold;
+				background: rgba(255, 107, 107, 0.1);
+				padding: 0.2em 0.4em;
+				border-radius: 4px;
+			}
+			.reveal .slides section .data-emphasis {
+				color: #4ecdc4;
+				font-weight: bold;
+				background: rgba(78, 205, 196, 0.1);
+				padding: 0.2em 0.4em;
+				border-radius: 4px;
+			}
+			.reveal .slides section .pain-point-icon {
+				font-size: 1.2em;
+				margin-right: 0.5em;
+				vertical-align: middle;
+			}
+			.reveal .slides section .competitor-table {
+				width: 100%;
+				border-collapse: collapse;
+				margin-top: 1em;
+				font-size: 0.8em;
+			}
+			.reveal .slides section .competitor-table th,
+			.reveal .slides section .competitor-table td {
+				border: 1px solid #777;
+				padding: 12px;
+				text-align: left;
+				color: #e0e0e0;
+			}
+			.reveal .slides section .competitor-table th {
+				background-color: #3a3a3a;
+				color: #eebb4d;
+				font-weight: 600;
+			}
+			.reveal .slides section .key-features-grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 1.5em;
+				margin-top: 1.5em;
+			}
+			.reveal .slides section .feature-box {
+				background-color: rgba(0, 0, 0, 0.3);
+				padding: 1.5em;
+				border-radius: 12px;
+				text-align: center;
+				border: 1px solid rgba(238, 187, 77, 0.3);
+			}
+			.reveal .slides section .feature-box h4 {
+				color: #eebb4d;
+				font-size: 1em;
+				margin-bottom: 0.8em;
+				font-weight: 600;
+			}
+			.reveal .slides section .feature-box p {
+				font-size: 0.8em;
+			}
+			.reveal .slides section .pm-insight {
+				background-color: rgba(78, 205, 196, 0.15);
+				border-left: 4px solid #4ecdc4;
+				padding: 1em;
+				margin: 1em 0;
+				font-style: italic;
+			}
+			.reveal .slides section .pm-insight strong {
+				color: #4ecdc4;
+			}
+			.reveal .slides section .data-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 1em;
+				margin-top: 1em;
+			}
+			.reveal .slides section .data-item {
+				background-color: rgba(238, 187, 77, 0.1);
+				padding: 1em;
+				border-radius: 8px;
+				text-align: center;
+				border: 1px solid rgba(238, 187, 77, 0.3);
+			}
+			.reveal .slides section .data-item h5 {
+				color: #eebb4d;
+				font-size: 0.9em;
+				margin-bottom: 0.5em;
+				font-weight: 600;
+			}
+			.reveal .slides section .data-item p {
+				font-size: 0.7em;
+				margin: 0;
+			}
+			.reveal .slides section .fragment.fade-in {
+				opacity: 0;
+				transition: opacity 0.8s ease-in;
+			}
+			.reveal .slides section .fragment.fade-in.visible {
+				opacity: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1 class="slide-title">소상공인 정책지원금 앱</h1>
+					<p class="subtitle">사장님 성공의 길잡이</p>
+					<p class="fragment fade-in">숨겨진 정부지원금, 이제는 쉽고 빠르게!</p>
+					<br />
+					<p class="fragment fade-in">기획팀 박은찬</p>
+					<p class="fragment fade-in">2025년 5월 29일</p>
+				</section>
+
+				<section>
+					<h2>매일 바쁜 사장님, 정책지원금 찾기 어려우셨죠?</h2>
+					<br />
+					<ul style="list-style: none; padding-left: 0">
+						<li class="fragment fade-in">
+							<span class="pain-point-icon">📚</span> <strong>정보 과부하:</strong> "수많은 정보
+							속에서 우리 가게에 맞는 지원금을 찾기 힘들어요."
+						</li>
+						<li class="fragment fade-in">
+							<span class="pain-point-icon">📝</span> <strong>복잡한 절차:</strong> "신청 서류는 왜
+							이렇게 많고, 절차는 또 왜 이렇게 복잡한가요?"
+						</li>
+						<li class="fragment fade-in">
+							<span class="pain-point-icon">⏰</span> <strong>놓치는 기회:</strong> "바빠서 찾아볼
+							시간도 없고, 마감 기한도 놓치기 일쑤예요."
+						</li>
+						<li class="fragment fade-in">
+							<span class="pain-point-icon">💸</span> <strong>자금난 심화:</strong> "늘어나는 부채,
+							줄어드는 매출... 돌파구가 절실해요."
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>기존 서비스, 소상공인의 진짜 어려움을 해결하고 있나요?</h2>
+					<br />
+					<table class="competitor-table">
+						<thead>
+							<tr>
+								<th>서비스</th>
+								<th>장점 (Pros)</th>
+								<th>단점 (Cons)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="fragment fade-in">
+								<td><strong>보조금24 / 중소벤처24</strong><br />(정부 공식 플랫폼)</td>
+								<td>방대한 정보, 신뢰성</td>
+								<td>복잡한 UI/UX, 일반적 정보 제공</td>
+							</tr>
+							<tr class="fragment fade-in">
+								<td><strong>네이버페이 정책지원금</strong></td>
+								<td>높은 접근성, 간편 결제 연동</td>
+								<td>제한된 정보 범위, 신청 지원 미흡</td>
+							</tr>
+							<tr class="fragment fade-in">
+								<td><strong>Wello / Hometips</strong><br />(기타 금융/라이프스타일 앱)</td>
+								<td>사용자 친화적 UI/UX</td>
+								<td>소상공인 특화 부족, 정보/지원 깊이 부족</td>
+							</tr>
+						</tbody>
+					</table>
+					<p class="fragment fade-in" style="margin-top: 1.5em">
+						<strong>핵심:</strong> 정보는 있지만,
+						<span class="highlight">'우리 사장님 맞춤형'</span>으로
+						<span class="highlight">'찾아주고, 쉽게 이해하도록 돕는 서비스'</span>는 부족합니다.
+					</p>
+				</section>
+
+				<section>
+					<h2>우리 앱은 이렇게 다릅니다!</h2>
+					<h3>
+						압도적인 <span class="data-emphasis">'데이터 기반 초개인화'</span>와
+						<span class="highlight">'스마트 발견'</span>
+					</h3>
+					<br />
+					<div class="key-features-grid">
+						<div class="feature-box fragment fade-in">
+							<h4>1. AI 기반 데이터 드리븐 추천</h4>
+							<p>
+								800만+ 정책 데이터와 사용자 행동 분석으로 우리 가게에 딱 맞는 지원금만 알아서 찾아
+								드려요.
+							</p>
+						</div>
+						<div class="feature-box fragment fade-in">
+							<h4>2. 스마트 발견 & 정보 가이드</h4>
+							<p>
+								복잡한 자격 요건과 서류를 쉽게 이해할 수 있도록 단계별로 명확하게 안내해 드립니다.
+							</p>
+						</div>
+						<div class="feature-box fragment fade-in">
+							<h4>3. 실시간 기회 추적</h4>
+							<p>새로운 지원금 발표와 마감 임박 알림을 놓치지 않게 미리 알려드려요.</p>
+						</div>
+						<div class="feature-box fragment fade-in">
+							<h4>4. 바쁜 사장님을 위한 개인화 대시보드</h4>
+							<p>내 관심사와 사업 특성에 맞는 지원금만 모아서 한눈에 확인할 수 있어요.</p>
+						</div>
+					</div>
+					<div class="pm-insight fragment fade-in">
+						<strong>PM 관점:</strong> 자동 신청 기능은 법적/보안 이슈로 2차 개발로 이관. 1차는
+						'정확한 발견'과 '쉬운 이해'에 집중하여 사용자 신뢰 구축 우선.
+					</div>
+				</section>
+
+				<section>
+					<h2>현재 보유한 핵심 데이터 자산</h2>
+					<h3>800만+ 정책지원금 데이터로 시작하는 개인화</h3>
+					<br />
+					<div class="data-grid">
+						<div class="data-item fragment fade-in">
+							<h5>📋 기본 정보</h5>
+							<p>사업명, 지원기관, 신청기간, 지원금액 등 핵심 필터링 데이터</p>
+						</div>
+						<div class="data-item fragment fade-in">
+							<h5>🎯 타겟팅 정보</h5>
+							<p>지원대상 업종, 지역, 자격요건으로 정확한 매칭 가능</p>
+						</div>
+						<div class="data-item fragment fade-in">
+							<h5>📊 분류 체계</h5>
+							<p>지원유형코드로 창업/운영/디지털전환 등 카테고리 구분</p>
+						</div>
+						<div class="data-item fragment fade-in">
+							<h5>📝 상세 내용</h5>
+							<p>사업개요, 지원내용으로 콘텐츠 기반 추천 시스템 구축</p>
+						</div>
+						<div class="data-item fragment fade-in">
+							<h5>🔗 신청 정보</h5>
+							<p>신청방법, 공고URL로 사용자를 정확한 신청 페이지로 연결</p>
+						</div>
+						<div class="data-item fragment fade-in">
+							<h5>📞 문의 정보</h5>
+							<p>담당부서, 연락처로 사용자 지원 체계 완성</p>
+						</div>
+					</div>
+					<div class="pm-insight fragment fade-in">
+						<strong>PM 분석:</strong> 현재 데이터로 사용자 프로파일링(업종/지역/규모) → 적합한
+						지원금 필터링 → 개인화 추천까지 1차 MVP 핵심 기능 구현 가능. 사용자 행동 데이터 축적으로
+						점진적 개선.
+					</div>
+				</section>
+
+				<section>
+					<h2>데이터 기반 개인화 전략</h2>
+					<h3>체계적인 데이터 활용으로 정확한 매칭</h3>
+					<br />
+					<ul>
+						<li class="fragment fade-in">
+							<strong>1단계 - 기본 프로파일링:</strong>
+							<span class="data-emphasis">업종코드(industryCode)</span> +
+							<span class="data-emphasis">지역코드(supportTargetAreaCode)</span>로 기본 필터링
+						</li>
+						<li class="fragment fade-in">
+							<strong>2단계 - 자격 매칭:</strong>
+							<span class="data-emphasis">지원자격(supportQualificationContents)</span> 텍스트
+							분석으로 정확한 자격 확인
+						</li>
+						<li class="fragment fade-in">
+							<strong>3단계 - 콘텐츠 추천:</strong>
+							<span class="data-emphasis">사업개요(businessOverviewContent)</span> 유사도 분석으로
+							관련 지원금 발견
+						</li>
+						<li class="fragment fade-in">
+							<strong>4단계 - 행동 학습:</strong> 사용자 관심 표시, 조회 패턴으로
+							<span class="emphasis">개인화 가중치</span> 지속 개선
+						</li>
+					</ul>
+					<div class="pm-insight fragment fade-in">
+						<strong>기술 전략:</strong> Spring Boot + Kotlin 백엔드에서 Elasticsearch 활용한 검색
+						엔진, React/Flutter에서 실시간 개인화 UI 제공. GraphQL 대신 REST API로 단순하고 안정적인
+						아키텍처 구축.
+					</div>
+				</section>
+
+				<section>
+					<h2>대한민국의 심장, 800만 소상공인 사장님들!</h2>
+					<br />
+					<ul>
+						<li class="fragment fade-in">
+							<strong>규모:</strong> <span class="highlight">800만+ 사업체</span>,
+							<span class="highlight">1,900만+ 고용</span> (대한민국 경제의 핵심)
+						</li>
+						<li class="fragment fade-in">
+							<strong>재정적 고충:</strong> 고금리, 고물가, 부채 증가로
+							<span class="highlight">정책 지원금 니즈 증대</span>
+						</li>
+						<li class="fragment fade-in">
+							<strong>디지털 전환 시점:</strong> 절반 이상이 비디지털(종이 기반) 운영,
+							<span class="highlight">앱 통한 효율화 기회</span>
+						</li>
+						<li class="fragment fade-in">
+							<strong>시간 부족:</strong> 여러 역할 수행으로 행정 업무 시간 절대 부족,
+							<span class="highlight">간편한 솔루션 필요</span>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>핵심 기능 & 최우선 순위 (MVP)</h2>
+					<h3>바쁜 사장님을 위한, 지금 당장 필요한 기능!</h3>
+					<br />
+				</section>
+
+				<section>
+					<h4 style="color: #eebb4d">⭐ 발견 (Discovery) ⭐</h4>
+					<div>
+						<ul>
+							<li class="fragment fade-in">
+								<strong>1. 심층 사업자 프로파일링:</strong>
+								<p style="margin-top: 0.3em">
+									업종, 지역, 사업 기간, 직원수, 주요 목표(디지털 전환, 수출 등) 입력으로
+									<span class="highlight">'우리 가게' 맞춤 지원금 추천.</span>
+								</p>
+								<p style="font-size: 0.7em; margin-top: 0.2em; color: #aaa">
+									<em
+										>(활용 데이터: `supportTargetDivisionCode`, `supportTargetAreaCode`,
+										`businessOverviewContent` 등)</em
+									>
+								</p>
+							</li>
+							<li class="fragment fade-in">
+								<strong>2. 스마트 알림:</strong>
+								<p style="margin-top: 0.3em">
+									내 프로필에 맞는 신규 지원금, 마감 임박, 긴급 재난 지원금 등
+									<span class="highlight">푸시 알림.</span>
+								</p>
+								<p style="font-size: 0.7em; margin-top: 0.2em; color: #aaa">
+									<em
+										>(활용 데이터: `applicationStartDate`, `applicationEndDate`,
+										`announcmentDateTime`)</em
+									>
+								</p>
+							</li>
+						</ul>
+					</div>
+				</section>
+
+				<section>
+					<h4 style="color: #eebb4d; margin-top: 1.5em">
+						⭐ 신청 지원 (Application Assistance) ⭐
+					</h4>
+					<div>
+						<ul>
+							<li class="fragment fade-in">
+								<strong>3. 간편 지원금 요약 & 자격 조건 확인:</strong>
+								<p style="margin-top: 0.3em">
+									복잡한 내용을
+									<span class="highlight">'누가', '무엇을', '얼마나', '언제까지'</span> 등 핵심
+									정보만 요약 제공.
+								</p>
+								<p style="font-size: 0.7em; margin-top: 0.2em; color: #aaa">
+									<em
+										>(활용 데이터: `title`, `businessOverviewContent`,
+										`supportQualificationContents` 등)</em
+									>
+								</p>
+							</li>
+							<li class="fragment fade-in">
+								<strong>4. 맞춤형 서류 준비 가이드 & 신청 링크:</strong>
+								<p style="margin-top: 0.3em">
+									각 지원금에 필요한 서류 목록, 발급처 안내,
+									<span class="highlight">공식 신청 페이지로의 직접 링크.</span>
+								</p>
+								<p style="font-size: 0.7em; margin-top: 0.2em; color: #aaa">
+									<em>(활용 데이터: `supportDocumentContents`, `announcementUrlAddress` 등)</em>
+								</p>
+							</li>
+						</ul>
+					</div>
+				</section>
+
+				<section>
+					<h2>미래 비전 & 성장</h2>
+					<h3>사장님들의 지속 가능한 성장을 위한 동반자</h3>
+					<br />
+				</section>
+
+				<section>
+					<h4 class="fragment fade-in" style="color: #eebb4d">✨ 2차 개발 계획 (Post-MVP)</h4>
+					<ul>
+						<li class="fragment fade-in">
+							<strong>신청 진행 상황 대시보드:</strong> 내 지원금 심사 상태 한눈에 확인.
+						</li>
+						<li class="fragment fade-in">
+							<strong>서류 보관함 & 자동 채움:</strong> 자주 쓰는 서류 보관, 간편한 자동 입력 지원.
+						</li>
+						<li class="fragment fade-in">
+							<strong>성공 사례 & 실전 팁:</strong> 다른 사장님들의 노하우 공유.
+						</li>
+						<li class="fragment fade-in">
+							<strong class="emphasis">자동 신청 기능:</strong> 법적 검토 완료 후 단계적 도입 예정.
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h4 class="fragment fade-in" style="color: #eebb4d; margin-top: 1.5em">
+						🚀 장기 비전 (Long-Term Aspiration)
+					</h4>
+					<ul>
+						<li class="fragment fade-in">AI 기반 서류 작성 보조</li>
+						<li class="fragment fade-in">정책자금 컨설턴트 연계</li>
+						<li class="fragment fade-in">지원금 활용 성과 분석</li>
+						<li class="fragment fade-in">정부기관과의 직접 연동 시스템</li>
+					</ul>
+					<p class="fragment fade-in" style="margin-top: 1.5em">
+						단순 정보 제공을 넘어, 소상공인 사장님들이 정부 지원금을 통해
+						<span class="highlight">실질적인 성장과 안정</span>을 이룰 수 있도록 돕는
+						<span class="highlight">종합 솔루션</span>이 될 것입니다.
+					</p>
+					<div class="pm-insight fragment fade-in">
+						<strong>로드맵 우선순위:</strong> 1차는 정확한 발견과 매칭에 집중 → 2차는 편의성 기능 →
+						3차는 자동화 및 연동. 사용자 신뢰 구축이 최우선 목표.
+					</div>
+				</section>
+
+				<section>
+					<h2>바쁜 사장님들의 시간을 절약하고, 성공을 돕는 앱!</h2>
+					<p class="fragment fade-in" style="margin-top: 1.5em">
+						사장님들의 성공을 위한 혁신, 함께 만들어 나갑시다.
+					</p>
+					<br />
+					<h3 class="fragment fade-in" style="color: #eebb4d; margin-top: 2em">Questions?</h3>
+				</section>
+			</div>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
+
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/notes/notes.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/markdown/markdown.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/highlight/highlight.js"></script>
+
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+			});
+		</script>
+	</body>
+</html>
