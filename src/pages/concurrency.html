@@ -825,7 +825,7 @@ suspend fun getData(): UserWithPosts {
 	<div class="code-comparison">
 		<div>
 			<h4>Kotlin Flow</h4>
-			<pre><code class="kotlin small-code">
+			<pre><code class="kotlin">
 fun getUserFlow(): Flow&lt;User&gt; = flow {
     emit(userService.getUser())
 }.flowOn(Dispatchers.IO)
