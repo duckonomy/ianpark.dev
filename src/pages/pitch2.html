@@ -1,0 +1,1318 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
+
+		<title>소상공인 정책지원금 서비스</title>
+
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reset.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.css" />
+
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/theme/night.css"
+		/>
+
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/highlight/monokai.css"
+		/>
+
+		<style>
+			/* Custom Styles - Consistent Typography & Enhanced Design */
+			.reveal .slides section .slide-title {
+				font-size: 2.2rem;
+				color: #eebb4d;
+				margin-bottom: 0.5rem;
+				font-weight: 700;
+			}
+			.reveal .slides section .subtitle {
+				font-size: 1.2rem;
+				color: #f5f5f5;
+				font-weight: 300;
+			}
+			.reveal .slides section h2 {
+				font-size: 1.5rem;
+				color: #eebb4d;
+				margin-bottom: 0.8rem;
+				font-weight: 600;
+			}
+			.reveal .slides section h3 {
+				font-size: 1.2rem;
+				color: #f5f5f5;
+				margin-bottom: 0.6rem;
+				font-weight: 500;
+			}
+			.reveal .slides section h4 {
+				font-size: 1rem;
+				color: #eebb4d;
+				margin-bottom: 0.4rem;
+				font-weight: 500;
+			}
+			.reveal .slides section p {
+				font-size: 0.9rem;
+				line-height: 1.4;
+				color: #e0e0e0;
+				margin-bottom: 0.6rem;
+			}
+			.reveal .slides section ul li {
+				font-size: 0.85rem;
+				margin-bottom: 0.4rem;
+				color: #e0e0e0;
+				line-height: 1.3;
+			}
+			.reveal .slides section .highlight {
+				color: #ffd700;
+				font-weight: bold;
+			}
+			.reveal .slides section .emphasis {
+				color: #ff6b6b;
+				font-weight: bold;
+				background: rgba(255, 107, 107, 0.1);
+				padding: 0.2em 0.4rem;
+				border-radius: 4px;
+			}
+			.reveal .slides section .data-emphasis {
+				color: #4ecdc4;
+				font-weight: bold;
+				background: rgba(78, 205, 196, 0.1);
+				padding: 0.2em 0.4rem;
+				border-radius: 4px;
+			}
+			.reveal .slides section .pain-point-icon {
+				font-size: 1.2rem;
+				margin-right: 0.5rem;
+				vertical-align: middle;
+			}
+			.reveal .slides section .competitor-table {
+				width: 100%;
+				border-collapse: collapse;
+				margin-top: 1rem;
+				font-size: 0.8rem;
+			}
+			.reveal .slides section .competitor-table th,
+			.reveal .slides section .competitor-table td {
+				border: 1px solid #777;
+				padding: 12px;
+				text-align: left;
+				color: #e0e0e0;
+			}
+			.reveal .slides section .competitor-table th {
+				background-color: #3a3a3a;
+				color: #eebb4d;
+				font-weight: 600;
+			}
+			.reveal .slides section .key-features-grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 1.5rem;
+				margin-top: 1.5rem;
+			}
+			.reveal .slides section .feature-box {
+				background-color: rgba(0, 0, 0, 0.3);
+				padding: 1.5rem;
+				border-radius: 12px;
+				text-align: center;
+				border: 1px solid rgba(238, 187, 77, 0.3);
+			}
+			.reveal .slides section .feature-box h4 {
+				color: #eebb4d;
+				font-size: 1rem;
+				margin-bottom: 0.8rem;
+				font-weight: 600;
+			}
+			.reveal .slides section .feature-box p {
+				font-size: 0.8rem;
+			}
+			.reveal .slides section .data-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 1rem;
+				margin-top: 1rem;
+			}
+			.reveal .slides section .data-item {
+				background-color: rgba(238, 187, 77, 0.1);
+				padding: 1rem;
+				border-radius: 8px;
+				text-align: center;
+				border: 1px solid rgba(238, 187, 77, 0.3);
+			}
+			.reveal .slides section .data-item h5 {
+				color: #eebb4d;
+				font-size: 0.9rem;
+				margin-bottom: 0.5rem;
+				font-weight: 600;
+			}
+			.reveal .slides section .data-item p {
+				font-size: 0.7rem;
+				margin: 0;
+			}
+			.reveal .slides section .fragment.fade-in {
+				opacity: 0;
+				transition: opacity 0.8s ease-in;
+			}
+			.reveal .slides section .fragment.fade-in.visible {
+				opacity: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1 class="slide-title">정책지원금 기획 현황</h1>
+					<br />
+					<p class="fragment fade-in">기획팀</p>
+					<p class="fragment fade-in">2025년 6월 5일</p>
+				</section>
+
+				<!-- OAuth Flow Overview -->
+				<section>
+					<h1 class="slide-title">OAuth 2.0 인증 흐름</h1>
+					<p class="subtitle">사용자 친화적 로그인 시스템 구현</p>
+				</section>
+
+				<section>
+					<h1 class="slide-title">로그인 페이지</h1>
+
+					<div style="display: flex; gap: 2rem; align-items: center">
+						<div style="flex: 1">
+							<ul>
+								<li class="fragment fade-in">
+									<span class="highlight">3가지 OAuth 제공자</span> 지원
+								</li>
+								<li class="fragment fade-in">
+									<span class="data-emphasis">네이버, 카카오, Google</span> 계정 연동
+								</li>
+								<li class="fragment fade-in">
+									<span class="emphasis">추가 홍보 및 광고</span> 동의에 따라 가능
+								</li>
+							</ul>
+						</div>
+
+						<div
+							style="
+								flex: 1;
+								background: #f8f9fa;
+								padding: 2rem;
+								border-radius: 16px;
+								max-width: 320px;
+							"
+						>
+							<!-- Mobile Login Screen Mockup -->
+							<div
+								style="
+									background: white;
+									border-radius: 12px;
+									padding: 1.5rem;
+									box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+								"
+							>
+								<div style="text-align: center; margin-bottom: 1.5rem">
+									<div style="color: #1f2937; font-weight: bold; font-size: 1.1rem">정책지원금</div>
+								</div>
+
+								<h2
+									style="
+										text-align: center;
+										color: #1f2937;
+										font-size: 1.2rem;
+										margin-bottom: 1.5rem;
+										font-weight: bold;
+									"
+								>
+									간편 로그인
+								</h2>
+
+								<div style="display: flex; flex-direction: column; gap: 0.75rem">
+									<button
+										style="
+											width: 100%;
+											padding: 0.75rem;
+											border-radius: 12px;
+											border: none;
+											background: #03c75a;
+											color: white;
+											font-weight: 600;
+											font-size: 0.9rem;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+										"
+									>
+										<span
+											style="
+												margin-right: 0.5rem;
+												background: rgba(255, 255, 255, 0.2);
+												width: 20px;
+												height: 20px;
+												border-radius: 50%;
+												display: flex;
+												align-items: center;
+												justify-content: center;
+												font-size: 0.7rem;
+											"
+											>N</span
+										>
+										네이버로 시작하기
+									</button>
+									<button
+										style="
+											width: 100%;
+											padding: 0.75rem;
+											border-radius: 12px;
+											border: none;
+											background: #fee500;
+											color: black;
+											font-weight: 600;
+											font-size: 0.9rem;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+										"
+									>
+										<span
+											style="
+												margin-right: 0.5rem;
+												background: rgba(0, 0, 0, 0.1);
+												width: 20px;
+												height: 20px;
+												border-radius: 50%;
+												display: flex;
+												align-items: center;
+												justify-content: center;
+												font-size: 0.7rem;
+											"
+											>K</span
+										>
+										카카오로 시작하기
+									</button>
+									<button
+										style="
+											width: 100%;
+											padding: 0.75rem;
+											border-radius: 12px;
+											border: 1px solid #d1d5db;
+											background: white;
+											color: #374151;
+											font-weight: 600;
+											font-size: 0.9rem;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+										"
+									>
+										<span
+											style="
+												margin-right: 0.5rem;
+												background: #f3f4f6;
+												width: 20px;
+												height: 20px;
+												border-radius: 50%;
+												display: flex;
+												align-items: center;
+												justify-content: center;
+												font-size: 0.7rem;
+											"
+											>G</span
+										>
+										Google로 시작하기
+									</button>
+								</div>
+
+								<p
+									style="
+										text-align: center;
+										font-size: 0.7rem;
+										color: #6b7280;
+										margin-top: 1rem;
+										line-height: 1.3;
+									"
+								>
+									로그인 시
+									<span style="text-decoration: underline; color: #3b82f6">개인정보 처리방침</span>
+									및 <span style="text-decoration: underline; color: #3b82f6">이용약관</span>에
+									동의합니다.
+								</p>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<h1 class="slide-title">인증 흐름 다이어그램</h1>
+
+					<div
+						style="
+							display: flex;
+							flex-direction: column;
+							align-items: center;
+							gap: 1rem;
+							margin-top: 1rem;
+						"
+					>
+						<!-- User -->
+						<div
+							style="
+								background: rgba(78, 205, 196, 0.2);
+								padding: 1rem;
+								border-radius: 8px;
+								width: 200px;
+								text-align: center;
+								border: 2px solid #4ecdc4;
+							"
+						>
+							<h4 style="margin: 0; color: #4ecdc4">사용자</h4>
+						</div>
+
+						<!-- Arrow Down -->
+						<div class="fragment fade-in" style="color: #eebb4d; font-size: 1.5rem">↓</div>
+						<div class="fragment fade-in" style="font-size: 0.8rem; color: #e0e0e0">
+							OAuth 로그인 버튼 클릭
+						</div>
+
+						<!-- Our App -->
+						<div
+							class="fragment fade-in"
+							style="
+								background: rgba(238, 187, 77, 0.2);
+								padding: 1rem;
+								border-radius: 8px;
+								width: 200px;
+								text-align: center;
+								border: 2px solid #eebb4d;
+							"
+						>
+							<h4 style="margin: 0; color: #eebb4d">정책지원금 앱</h4>
+						</div>
+
+						<!-- Arrow Right -->
+						<div style="display: flex; align-items: center; gap: 1rem">
+							<div class="fragment fade-in" style="color: #eebb4d; font-size: 1.5rem">→</div>
+							<div class="fragment fade-in" style="font-size: 0.8rem; color: #e0e0e0">
+								Authorization Request
+							</div>
+							<div class="fragment fade-in" style="color: #eebb4d; font-size: 1.5rem">→</div>
+						</div>
+
+						<!-- OAuth Provider -->
+						<div
+							class="fragment fade-in"
+							style="
+								background: rgba(255, 107, 107, 0.2);
+								padding: 1rem;
+								border-radius: 8px;
+								width: 200px;
+								text-align: center;
+								border: 2px solid #ff6b6b;
+							"
+						>
+							<h4 style="margin: 0; color: #ff6b6b">OAuth 제공자</h4>
+							<p style="margin: 0.5rem 0 0; font-size: 0.7rem">(네이버/카카오/Google)</p>
+						</div>
+					</div>
+				</section>
+
+				<!-- Onboarding Overview -->
+				<section>
+					<h1 class="slide-title">로그인 후 온보딩 과정</h1>
+					<p class="subtitle">맞춤형 정책 추천을 위한 사업자 정보 수집</p>
+
+					<div style="display: flex; gap: 2rem; align-items: flex-start; margin-top: 2rem">
+						<div style="flex: 1">
+							<ul>
+								<li class="fragment fade-in">개인화된 정책 추천</li>
+								<li class="fragment fade-in">지역/업종별 맞춤 필터링</li>
+								<li class="fragment fade-in">지원 자격 자동 검증</li>
+								<li class="fragment fade-in">마감임박 알림 설정</li>
+							</ul>
+						</div>
+
+						<div style="flex: 1.2">
+							<!-- Mobile Form Mockup - Scrollable -->
+							<div
+								style="
+									background: #f3f4f6;
+									padding: 1rem;
+									border-radius: 12px;
+									max-width: 280px;
+									margin: 0 auto;
+									height: 480px;
+								"
+							>
+								<div
+									style="
+										background: white;
+										border-radius: 8px;
+										padding: 1.5rem;
+										height: 90%;
+										display: flex;
+										flex-direction: column;
+										box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+									"
+								>
+									<!-- Header - Fixed -->
+									<div style="flex-shrink: 0; margin-bottom: 1rem">
+										<div
+											style="
+												display: flex;
+												align-items: center;
+												justify-content: space-between;
+												margin-bottom: 1rem;
+											"
+										>
+											<span style="font-size: 0.875rem; color: #6b7280">1/2</span>
+											<div
+												style="
+													flex: 1;
+													margin: 0 1rem;
+													background: #e5e7eb;
+													height: 6px;
+													border-radius: 3px;
+												"
+											>
+												<div
+													style="width: 50%; height: 100%; background: #2563eb; border-radius: 3px"
+												></div>
+											</div>
+										</div>
+										<h1 style="font-size: 1.25rem; font-weight: bold; color: #111827; margin: 0">
+											내 사업 맞춤 설정
+										</h1>
+									</div>
+
+									<!-- Scrollable Content -->
+									<div
+										style="flex: 1; overflow-y: auto; margin-right: -0.5rem; padding-right: 0.5rem"
+									>
+										<div style="display: flex; flex-direction: column; gap: 1rem">
+											<!-- Business Registration Number -->
+											<div>
+												<label
+													style="
+														display: block;
+														font-size: 0.8rem;
+														font-weight: 500;
+														color: #374151;
+														margin-bottom: 0.4rem;
+													"
+													>사업자등록번호</label
+												>
+												<div style="position: relative">
+													<input
+														style="
+															width: 100%;
+															padding: 0.6rem;
+															padding-right: 2rem;
+															border: 1px solid #d1d5db;
+															border-radius: 6px;
+															font-size: 0.85rem;
+															box-sizing: border-box;
+														"
+														placeholder="123-45-67890"
+													/>
+												</div>
+												<p
+													style="
+														font-size: 0.7rem;
+														color: #6b7280;
+														margin-top: 0.2rem;
+														margin-bottom: 0;
+													"
+												>
+													사업자등록증에 기재된 번호를 입력해주세요.
+												</p>
+											</div>
+
+											<!-- Business Name -->
+											<div>
+												<label
+													style="
+														display: block;
+														font-size: 0.8rem;
+														font-weight: 500;
+														color: #374151;
+														margin-bottom: 0.4rem;
+													"
+													>사업자등록명</label
+												>
+												<input
+													style="
+														width: 100%;
+														padding: 0.6rem;
+														border: 1px solid #d1d5db;
+														border-radius: 6px;
+														font-size: 0.85rem;
+														box-sizing: border-box;
+													"
+													placeholder="(주)행복한카페"
+												/>
+											</div>
+
+											<!-- Representative Name -->
+											<div>
+												<label
+													style="
+														display: block;
+														font-size: 0.8rem;
+														font-weight: 500;
+														color: #374151;
+														margin-bottom: 0.4rem;
+													"
+													>대표자명</label
+												>
+												<input
+													style="
+														width: 100%;
+														padding: 0.6rem;
+														border: 1px solid #d1d5db;
+														border-radius: 6px;
+														font-size: 0.85rem;
+														box-sizing: border-box;
+													"
+													placeholder="김철수"
+												/>
+											</div>
+
+											<!-- Business Address -->
+											<div>
+												<label
+													style="
+														display: block;
+														font-size: 0.8rem;
+														font-weight: 500;
+														color: #374151;
+														margin-bottom: 0.4rem;
+													"
+													>사업장 주소</label
+												>
+												<div style="display: flex; gap: 0.4rem">
+													<input
+														style="
+															flex: 1;
+															padding: 0.6rem;
+															border: 1px solid #d1d5db;
+															border-radius: 6px;
+															font-size: 0.85rem;
+														"
+														placeholder="서울특별시 강남구..."
+													/>
+													<button
+														style="
+															padding: 0.6rem 0.8rem;
+															border: 1px solid #d1d5db;
+															background: white;
+															color: #374151;
+															border-radius: 6px;
+															font-size: 0.75rem;
+															white-space: nowrap;
+														"
+													>
+														주소 검색
+													</button>
+												</div>
+											</div>
+
+											<!-- Business Type -->
+											<div>
+												<label
+													style="
+														display: block;
+														font-size: 0.8rem;
+														font-weight: 500;
+														color: #374151;
+														margin-bottom: 0.4rem;
+													"
+													>업종</label
+												>
+												<select
+													style="
+														width: 100%;
+														padding: 0.6rem;
+														border: 1px solid #d1d5db;
+														border-radius: 6px;
+														font-size: 0.85rem;
+														background: white;
+														box-sizing: border-box;
+													"
+												>
+													<option>음식점업 (클릭 시 목록)</option>
+													<option>소매업</option>
+													<option>서비스업</option>
+													<option>제조업</option>
+												</select>
+											</div>
+
+											<!-- Establishment Date -->
+											<div>
+												<label
+													style="
+														display: block;
+														font-size: 0.8rem;
+														font-weight: 500;
+														color: #374151;
+														margin-bottom: 0.4rem;
+													"
+													>설립일</label
+												>
+												<input
+													type="date"
+													style="
+														width: 100%;
+														padding: 0.6rem;
+														border: 1px solid #d1d5db;
+														border-radius: 6px;
+														font-size: 0.85rem;
+														background: white;
+														box-sizing: border-box;
+													"
+												/>
+											</div>
+
+											<!-- Phone Number -->
+											<div>
+												<label
+													style="
+														display: block;
+														font-size: 0.8rem;
+														font-weight: 500;
+														color: #374151;
+														margin-bottom: 0.4rem;
+													"
+													>휴대폰 번호</label
+												>
+												<div style="display: flex; gap: 0.4rem">
+													<input
+														style="
+															flex: 1;
+															padding: 0.6rem;
+															border: 1px solid #d1d5db;
+															border-radius: 6px;
+															font-size: 0.85rem;
+														"
+														placeholder="010-1234-5678"
+													/>
+													<button
+														style="
+															padding: 0.6rem 0.8rem;
+															border: 1px solid #d1d5db;
+															background: white;
+															color: #374151;
+															border-radius: 6px;
+															font-size: 0.75rem;
+															white-space: nowrap;
+														"
+													>
+														인증
+													</button>
+												</div>
+											</div>
+
+											<!-- Interest Areas -->
+											<div>
+												<label
+													style="
+														display: block;
+														font-size: 0.8rem;
+														font-weight: 500;
+														color: #374151;
+														margin-bottom: 0.6rem;
+													"
+													>관심 지원 분야</label
+												>
+												<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem">
+													<label
+														style="
+															display: flex;
+															align-items: center;
+															gap: 0.4rem;
+															font-size: 0.8rem;
+															color: #374151;
+															cursor: pointer;
+														"
+													>
+														<input type="checkbox" style="width: 0.8rem; height: 0.8rem" /> 창업지원
+													</label>
+													<label
+														style="
+															display: flex;
+															align-items: center;
+															gap: 0.4rem;
+															font-size: 0.8rem;
+															color: #374151;
+															cursor: pointer;
+														"
+													>
+														<input type="checkbox" style="width: 0.8rem; height: 0.8rem" /> 시설자금
+													</label>
+													<label
+														style="
+															display: flex;
+															align-items: center;
+															gap: 0.4rem;
+															font-size: 0.8rem;
+															color: #374151;
+															cursor: pointer;
+														"
+													>
+														<input type="checkbox" style="width: 0.8rem; height: 0.8rem" /> 마케팅
+													</label>
+													<label
+														style="
+															display: flex;
+															align-items: center;
+															gap: 0.4rem;
+															font-size: 0.8rem;
+															color: #374151;
+															cursor: pointer;
+														"
+													>
+														<input type="checkbox" style="width: 0.8rem; height: 0.8rem" /> 인력지원
+													</label>
+												</div>
+											</div>
+
+											<!-- Company Size -->
+											<div>
+												<label
+													style="
+														display: block;
+														font-size: 0.8rem;
+														font-weight: 500;
+														color: #374151;
+														margin-bottom: 0.6rem;
+													"
+													>기업 규모</label
+												>
+												<div style="display: flex; flex-direction: column; gap: 0.4rem">
+													<label
+														style="
+															display: flex;
+															align-items: center;
+															gap: 0.4rem;
+															font-size: 0.8rem;
+															color: #374151;
+															cursor: pointer;
+														"
+													>
+														<input
+															type="radio"
+															name="companySize"
+															style="width: 0.8rem; height: 0.8rem"
+															checked
+														/>
+														소상공인
+													</label>
+													<label
+														style="
+															display: flex;
+															align-items: center;
+															gap: 0.4rem;
+															font-size: 0.8rem;
+															color: #374151;
+															cursor: pointer;
+														"
+													>
+														<input
+															type="radio"
+															name="companySize"
+															style="width: 0.8rem; height: 0.8rem"
+														/>
+														중소기업
+													</label>
+													<label
+														style="
+															display: flex;
+															align-items: center;
+															gap: 0.4rem;
+															font-size: 0.8rem;
+															color: #374151;
+															cursor: pointer;
+														"
+													>
+														<input
+															type="radio"
+															name="companySize"
+															style="width: 0.8rem; height: 0.8rem"
+														/>
+														중견기업
+													</label>
+												</div>
+											</div>
+
+											<!-- Region -->
+											<div style="margin-bottom: 1rem">
+												<label
+													style="
+														display: block;
+														font-size: 0.8rem;
+														font-weight: 500;
+														color: #374151;
+														margin-bottom: 0.4rem;
+													"
+													>지역</label
+												>
+												<select
+													style="
+														width: 100%;
+														padding: 0.6rem;
+														border: 1px solid #d1d5db;
+														border-radius: 6px;
+														font-size: 0.85rem;
+														background: white;
+														box-sizing: border-box;
+													"
+												>
+													<option>서울특별시 (클릭 시 목록)</option>
+													<option>부산광역시</option>
+													<option>경기도</option>
+													<option>인천광역시</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- Policy List Screen Overview -->
+				<section>
+					<h1 class="slide-title">정책 목록 화면 (목업)</h1>
+
+					<div style="display: flex; gap: 2rem; align-items: flex-start; margin-top: 2rem">
+						<div style="flex: 1">
+							<h3>핵심 기능</h3>
+							<ul>
+								<li class="fragment fade-in">통합 검색</li>
+								<li class="fragment fade-in">스마트 필터링</li>
+								<li class="fragment fade-in">정렬</li>
+								<li class="fragment fade-in">북마크/찜하기</li>
+							</ul>
+						</div>
+
+						<div style="flex: 1.2">
+							<!-- Mobile Policy List Mockup -->
+							<div
+								style="
+									background: #f3f4f6;
+									padding: 1rem;
+									border-radius: 12px;
+									max-width: 280px;
+									margin: 0 auto;
+									height: 500px;
+								"
+							>
+								<div
+									style="
+										background: white;
+										border-radius: 8px;
+										padding: 0;
+										height: 100%;
+										display: flex;
+										flex-direction: column;
+										box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+										overflow: hidden;
+									"
+								>
+									<!-- Header -->
+									<div style="padding: 1rem; border-bottom: 1px solid #f3f4f6; flex-shrink: 0">
+										<!-- Search Bar -->
+										<div style="position: relative; margin-bottom: 1rem">
+											<input
+												style="
+													width: 100%;
+													padding: 0.7rem 0.7rem 0.7rem 2.5rem;
+													border: 1px solid #d1d5db;
+													border-radius: 8px;
+													font-size: 0.9rem;
+													box-sizing: border-box;
+												"
+											/>
+										</div>
+
+										<!-- Sort and Filter -->
+										<div style="display: flex; justify-content: space-between; align-items: center">
+											<select
+												style="
+													padding: 0.5rem;
+													border: 1px solid #d1d5db;
+													border-radius: 6px;
+													font-size: 0.8rem;
+													background: white;
+												"
+											>
+												<option>최신순</option>
+											</select>
+											<button
+												style="
+													padding: 0.5rem 0.8rem;
+													border: 1px solid #d1d5db;
+													background: white;
+													color: #374151;
+													border-radius: 6px;
+													font-size: 0.8rem;
+													display: flex;
+													align-items: center;
+													gap: 0.3rem;
+												"
+											>
+												필터
+											</button>
+										</div>
+									</div>
+
+									<!-- Policy Cards - Scrollable -->
+									<div style="flex: 1; overflow-y: auto; padding: 1rem">
+										<!-- Policy Card 1 -->
+										<div
+											style="
+												background: white;
+												border: 1px solid #e5e7eb;
+												border-radius: 8px;
+												padding: 1rem;
+												margin-bottom: 1rem;
+												box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+											"
+										>
+											<div
+												style="
+													display: flex;
+													justify-content: between;
+													align-items: flex-start;
+													margin-bottom: 0.5rem;
+												"
+											>
+												<h4
+													style="
+														font-size: 0.9rem;
+														font-weight: 600;
+														color: #111827;
+														margin: 0;
+														flex: 1;
+														line-height: 1.3;
+													"
+												>
+													소상공인 디지털 전환 지원사업
+												</h4>
+												<div style="margin-left: 0.5rem; color: #9ca3af">♡</div>
+											</div>
+											<p style="font-size: 0.8rem; color: #6b7280; margin: 0.3rem 0">
+												중소벤처기업진흥공단
+											</p>
+											<div
+												style="
+													display: flex;
+													justify-content: space-between;
+													align-items: center;
+													margin-top: 0.5rem;
+												"
+											>
+												<span style="font-size: 0.75rem; color: #6b7280"
+													>2024.06.10 ~ 2024.07.10</span
+												>
+												<span style="font-size: 0.8rem; font-weight: 600; color: #2563eb"
+													>최대 ₩10,000,000</span
+												>
+											</div>
+										</div>
+
+										<!-- Policy Card 2 -->
+										<div
+											style="
+												background: white;
+												border: 1px solid #e5e7eb;
+												border-radius: 8px;
+												padding: 1rem;
+												margin-bottom: 1rem;
+												box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+											"
+										>
+											<div
+												style="
+													display: flex;
+													justify-content: between;
+													align-items: flex-start;
+													margin-bottom: 0.5rem;
+												"
+											>
+												<h4
+													style="
+														font-size: 0.9rem;
+														font-weight: 600;
+														color: #111827;
+														margin: 0;
+														flex: 1;
+														line-height: 1.3;
+													"
+												>
+													경기도 청년창업자금 지원
+												</h4>
+												<div style="margin-left: 0.5rem; color: #9ca3af">♡</div>
+											</div>
+											<p style="font-size: 0.8rem; color: #6b7280; margin: 0.3rem 0">
+												경기도경제과학진흥원
+											</p>
+											<div
+												style="
+													display: flex;
+													justify-content: space-between;
+													align-items: center;
+													margin-top: 0.5rem;
+												"
+											>
+												<span style="font-size: 0.75rem; color: #ef4444"
+													>2024.06.01 ~ 2024.06.25</span
+												>
+												<span style="font-size: 0.8rem; font-weight: 600; color: #2563eb"
+													>최대 ₩50,000,000</span
+												>
+											</div>
+										</div>
+										<div
+											style="
+												background: white;
+												border: 1px solid #e5e7eb;
+												border-radius: 8px;
+												padding: 1rem;
+												margin-bottom: 1rem;
+												box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+											"
+										>
+											<div
+												style="
+													display: flex;
+													justify-content: space-between;
+													align-items: flex-start;
+													margin-bottom: 0.5rem;
+												"
+											>
+												<h4
+													style="
+														font-size: 0.9rem;
+														font-weight: 600;
+														color: #111827;
+														margin: 0;
+														flex: 1;
+														line-height: 1.3;
+														padding-right: 0.5rem;
+													"
+												>
+													경기도 청년창업자금 지원
+												</h4>
+												<div style="color: #9ca3af; flex-shrink: 0">♡</div>
+											</div>
+											<p style="font-size: 0.8rem; color: #6b7280; margin: 0.3rem 0">
+												경기도경제과학진흥원
+											</p>
+											<div
+												style="
+													display: flex;
+													justify-content: space-between;
+													align-items: center;
+													margin-top: 0.5rem;
+												"
+											>
+												<span style="font-size: 0.75rem; color: #ef4444"
+													>2024.06.01 ~ 2024.06.25</span
+												>
+												<span style="font-size: 0.8rem; font-weight: 600; color: #2563eb"
+													>최대 ₩50,000,000</span
+												>
+											</div>
+										</div>
+
+										<!-- Policy Card 3 -->
+										<div
+											style="
+												background: white;
+												border: 1px solid #e5e7eb;
+												border-radius: 8px;
+												padding: 1rem;
+												margin-bottom: 1rem;
+												box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+											"
+										>
+											<div
+												style="
+													display: flex;
+													justify-content: between;
+													align-items: flex-start;
+													margin-bottom: 0.5rem;
+												"
+											>
+												<h4
+													style="
+														font-size: 0.9rem;
+														font-weight: 600;
+														color: #111827;
+														margin: 0;
+														flex: 1;
+														line-height: 1.3;
+													"
+												>
+													스마트공장 보급 확산사업
+												</h4>
+												<div style="margin-left: 0.5rem; color: #9ca3af">♡</div>
+											</div>
+											<p style="font-size: 0.8rem; color: #6b7280; margin: 0.3rem 0">
+												한국생산기술연구원
+											</p>
+											<div
+												style="
+													display: flex;
+													justify-content: space-between;
+													align-items: center;
+													margin-top: 0.5rem;
+												"
+											>
+												<span style="font-size: 0.75rem; color: #6b7280"
+													>2024.07.01 ~ 2024.08.15</span
+												>
+												<span style="font-size: 0.8rem; font-weight: 600; color: #2563eb"
+													>최대 ₩30,000,000</span
+												>
+											</div>
+										</div>
+
+										<!-- Policy Card 4 -->
+										<div
+											style="
+												background: white;
+												border: 1px solid #e5e7eb;
+												border-radius: 8px;
+												padding: 1rem;
+												margin-bottom: 1rem;
+												box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+											"
+										>
+											<div
+												style="
+													display: flex;
+													justify-content: between;
+													align-items: flex-start;
+													margin-bottom: 0.5rem;
+												"
+											>
+												<h4
+													style="
+														font-size: 0.9rem;
+														font-weight: 600;
+														color: #111827;
+														margin: 0;
+														flex: 1;
+														line-height: 1.3;
+													"
+												>
+													서울시 소상공인 긴급지원금
+												</h4>
+												<div style="margin-left: 0.5rem; color: #9ca3af">♡</div>
+											</div>
+											<p style="font-size: 0.8rem; color: #6b7280; margin: 0.3rem 0">서울시청</p>
+											<div
+												style="
+													display: flex;
+													justify-content: space-between;
+													align-items: center;
+													margin-top: 0.5rem;
+												"
+											>
+												<span style="font-size: 0.75rem; color: #ef4444"
+													>2024.06.01 ~ 2024.06.20</span
+												>
+												<span style="font-size: 0.8rem; font-weight: 600; color: #2563eb"
+													>최대 ₩5,000,000</span
+												>
+											</div>
+										</div>
+									</div>
+
+									<!-- Bottom Navigation -->
+									<div style="border-top: 1px solid #f3f4f6; padding: 0rem; flex-shrink: 0">
+										<div style="display: flex; justify-content: space-around">
+											<div style="text-align: center; color: #9ca3af">
+												<span style="font-size: 0.7rem">홈</span>
+											</div>
+											<div style="text-align: center; color: #2563eb">
+												<span style="font-size: 0.7rem; font-weight: 600">정책</span>
+											</div>
+											<div style="text-align: center; color: #9ca3af">
+												<span style="font-size: 0.7rem">나의 정책</span>
+											</div>
+											<div style="text-align: center; color: #9ca3af">
+												<span style="font-size: 0.7rem">내 정보</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- Advanced Filtering System -->
+				<section>
+					<h1 class="slide-title">필터링 카테고리</h1>
+
+					<div style="display: flex; gap: 2rem; margin-top: 2rem">
+						<div style="flex: 1">
+							<h3>필터 카테고리</h3>
+							<div class="data-grid">
+								<div class="data-item fragment fade-in">
+									<h5>기간</h5>
+									<p>모집 중<br />마감 임박</p>
+								</div>
+								<div class="data-item fragment fade-in">
+									<h5>지원 분야</h5>
+									<p>자금/교육<br />컨설팅</p>
+								</div>
+								<div class="data-item fragment fade-in">
+									<h5>지원 대상</h5>
+									<p>소상공인<br />예비창업가</p>
+								</div>
+							</div>
+
+							<div class="data-grid" style="margin-top: 1rem">
+								<div class="data-item fragment fade-in">
+									<h5>기관</h5>
+									<p>정부/지자체<br />공공기관</p>
+								</div>
+								<div class="data-item fragment fade-in">
+									<h5>지역</h5>
+									<p>전국 17개<br />시도</p>
+								</div>
+								<div class="data-item fragment fade-in">
+									<h5>업종</h5>
+									<p>25개 업종<br />세분류</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
+
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/notes/notes.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/markdown/markdown.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/highlight/highlight.js"></script>
+
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+			});
+		</script>
+	</body>
+</html>
