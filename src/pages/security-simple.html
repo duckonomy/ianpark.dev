@@ -206,79 +206,146 @@
 						</li>
 					</ul>
 				</section>
-
-				<section data-transition="slide">
-					<h3>RSA 원리</h3>
-					<ol>
-						<li class="fragment fade-in">
-							<strong>두 소수 선택:</strong> <code>p</code>, <code>q</code> (아주 큰 소수)
-							<ul>
-								<li>
-									<strong>소수:</strong> 1과 자기 자신만으로 나누어지는 1보다 큰 자연수 (예: 3, 5,
-									7).
-								</li>
-								<li>소수 크기 ➔ 암호화 보안성 증대</li>
-							</ul>
-						</li>
-						<li class="fragment fade-in">
-							<strong>모듈러스 <code>n</code> 계산:</strong> <code>n = p × q</code>
-							<ul>
-								<li><strong>공개 키 일부</strong> (자물쇠처럼 공개)</li>
-							</ul>
-						</li>
-						<li class="fragment fade-in">
-							<strong>오일러 피 함수 <code>φ(n)</code> 계산:</strong>
-							<code>φ(n) = (p - 1)(q - 1)</code>
-							<ul>
-								<li>
-									<strong><code>φ(n)</code>:</strong> 1부터 <code>n</code>까지의 자연수 중
-									<code>n</code>과 서로소인 수의 개수.
-								</li>
-								<li>비밀 키 생성 시 사용</li>
-								<li>외부 비공개</li>
-							</ul>
-						</li>
-						<li class="fragment fade-in">
-							<strong>공개 지수 <code>e</code> 선택:</strong> (일반적으로 <code>65537</code> = 10000000000000001 = 2^16 - 1)
-							<ul>
-								<li><code>φ(n)</code>과 서로소 (공통 약수 1) 필요</li>
-								<li><strong>공개 키 다른 일부</strong> (공개)</li>
-								<li><code>65537</code>: 빠른 연산 속도, 강한 보안성</li>
-							</ul>
-						</li>
-						<li class="fragment fade-in">
-							<strong>비밀 지수 <code>d</code> 계산:</strong>
-							<code>e × d ≡ 1 (mod φ(n))</code> 만족하는 <code>d</code> 찾기
-							<ul>
-								<li><strong>비밀 키 핵심 부분</strong></li>
-								<li>외부 절대 비공개</li>
-							</ul>
-						</li>
-						<li class="fragment fade-in">
-							<strong>메시지 암호화:</strong> <code>c = m^e % n</code>
-							<ul>
-								<li><code>m</code>: 평문 메시지</li>
-								<li><code>c</code>: 암호화된 메시지 (암호문)</li>
-								<li><code>e</code>, <code>n</code>: 공개 값 사용</li>
-							</ul>
-						</li>
-						<li class="fragment fade-in">
-							<strong>메시지 복호화:</strong> <code>m = c^d % n</code>
-							<ul>
-								<li><code>m</code>: 원래 평문 메시지</li>
-								<li><code>d</code>: 비밀 키 사용</li>
-								<li><code>n</code>: 공개 값 사용</li>
-							</ul>
-						</li>
-					</ol>
-					<ul class="fragment fade-in">
+		<section>
+			<h3>RSA 원리</h3>
+			<ol>
+				<li class="fragment fade-in">
+					<strong>두 소수 선택:</strong> <code>p</code>, <code>q</code>
+					(원래 큰 소수)
+					<ul>
 						<li>
-							RSA <strong>보안성</strong>: <code>n</code> 값으로 <code>p</code>, <code>q</code> 소수
-							찾아내기 <strong>극도로 어려움</strong>
+							예시:
+							<br />
+							<code>p = 5</code>
+							<br />
+							<code>q = 11</code>
 						</li>
-						<li><strong>소인수 분해 문제</strong> 기반: 효율적 해법 부재 ➔ 안전성 유지</li>
+						<li>
+							<strong>소수:</strong> 1과 자기 자신만으로 나누어지는 1보다 큰 자연수 (예:
+							3, 5, 7). 실제 RSA에서는 이 소수들이 엄청나게 커서 보안성을
+							높임.
+						</li>
 					</ul>
-				</section>
+				</li>
+				<li class="fragment fade-in">
+					<strong>모듈러스 <code>n</code> 계산:</strong> <code>n = p × q</code>
+					<ul>
+						<li>
+							예시:
+							<br />
+							<code>n = 5 × 11 = 55</code>
+						</li>
+						<li>
+							<code>n</code>은 <strong>공개 키의 일부</strong>. 마치 자물쇠처럼
+							누구나 알 수 있습니다.
+						</li>
+					</ul>
+				</li>
+				<li class="fragment fade-in">
+					<strong>오일러 피 함수 <code>φ(n)</code> 계산:</strong>
+					<code>φ(n) = (p - 1)(q - 1)</code>
+					<ul>
+						<li>
+							예시:
+							<br />
+							<code>φ(55) = (5 - 1)(11 - 1) = 4 × 10 = 40</code>
+						</li>
+						<li>
+							<strong><code>φ(n)</code>:</strong> 1부터 <code>n</code>까지의 자연수 중
+							<code>n</code>과 서로소인 수의 개수.
+						</li>
+						<li>이 값은 비밀 키 생성 시 사용되며, 외부에 **비공개**됩니다.</li>
+					</ul>
+				</li>
+				<li class="fragment fade-in">
+					<strong>공개 지수 <code>e</code> 선택:</strong> (일반적으로
+					<code>65537</code>)
+					<ul>
+						<li>
+							<code>φ(n)</code>과 서로소(공통 약수가 1).
+							<br />
+							<code>1 &lt; e &lt; φ(n)</code> 조건을 만족.
+						</li>
+						<li>
+							예시:
+							<br />
+							<code>φ(n) = 40</code>이므로, <code>40</code>과 서로소인 숫자 중
+							<code>1</code>보다 크고 <code>40</code>보다 작은 숫자를 선택.
+							<br />
+							<code>e = 3</code> (3과 40은 서로소.)
+						</li>
+						<li>
+							<code>e</code>는 **공개 키의 다른 일부**이며 공개됩니다. 따라서
+							**공개 키는 <code>(e, n) = (3, 55)</code>**.
+						</li>
+					</ul>
+				</li>
+				<li class="fragment fade-in">
+					<strong>비밀 지수 <code>d</code> 계산:</strong>
+					<code>e × d ≡ 1 (mod φ(n))</code>을 만족하는 <code>d</code> 찾기
+					<ul>
+						<li>
+							예시:
+							<br />
+							<code>3 × d ≡ 1 (mod 40)</code>
+							<br />
+							<code>d = 27</code> (<code>3 × 27 = 81</code>이고, <code>81</code>을
+							<code>40</code>으로 나눈 나머지는 <code>1</code>. 즉,
+							<code>81 = 2 × 40 + 1</code>)
+						</li>
+						<li>
+							<code>d</code>는 **비밀 키의 핵심 부분**이며, 외부에 **절대
+							비공개**. 따라서 **비밀 키는 <code>(d, n) = (27, 55)</code>**.
+						</li>
+					</ul>
+				</li>
+			</ol>
+			<hr />
+		</section>
+
+        <section>
+
+          <ol>
+				<li class="fragment fade-in">
+					<strong>메시지 암호화:</strong> <code>c = m^e % n</code>
+					<ul>
+						<li>
+							<code>m</code>: 평문 메시지 (<code>m</code>은 <code>n</code>보다 작은
+							숫자 . 텍스트는 숫자로 변환하여 사용)
+						</li>
+						<li><code>c</code>: 암호화된 메시지 (암호문)</li>
+						<li>
+							공개 키 <code>(e, n) = (3, 55)</code>를 사용.
+							<br />
+							예시: 평문 메시지 <code>m = 7</code>을 암호화
+							<br />
+							<code>c = 7^3 % 55</code>
+							<br />
+							<code>c = 343 % 55</code>
+							<br />
+							<code>c = 13</code>
+						</li>
+					</ul>
+				</li>
+				<li class="fragment fade-in">
+					<strong>메시지 복호화:</strong> <code>m = c^d % n</code>
+					<ul>
+						<li><code>m</code>: 원래 평문 메시지</li>
+						<li>
+							비밀 키 <code>(d, n) = (27, 55)</code>와 암호문 <code>c = 13</code>을
+							사용.
+							<br />
+							예시: 암호문 <code>c = 13</code>을 복호화
+							<br />
+							<code>m = 13^27 % 55</code>
+							<br />
+							이 계산은 복잡하지만, 결과는 원래 메시지인 <code>m = 7</code>
+						</li>
+					</ul>
+				</li>
+</ol>
+        </section>
+
 
 
 				<section data-transition="slide">
