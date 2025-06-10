@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="ko">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
+		<title>웹 보안</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reset.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/black.css"
+			id="theme"
+		/>
+		<style>
+			/* 사용자 정의 스타일 */
+			.reveal h1,
+			.reveal h2,
+			.reveal h3,
+			.reveal h4,
+			.reveal h5,
+			.reveal h6 {
+				font-family: "Inter", sans-serif; /* Inter 폰트 사용 */
+			}
+			.reveal p,
+			.reveal li {
+				font-size: 0.9rem;
+				font-family: "Inter", sans-serif; /* Inter 폰트 사용 */
+			}
+			.reveal .rem {
+				font-size: 0.5rem; /* 기본 rem 스케일 */
+			}
+			.reveal .rem[scale="1.5"] {
+				font-size: 1.5rem;
+			}
+			.reveal .rem[scale="1.2"] {
+				font-size: 1.3rem;
+			}
+			.reveal .rem[scale="1.0"] {
+				font-size: 1.0rem;
+			}
+			.reveal .r-stretch {
+				width: 100%;
+				height: auto;
+				max-width: 600px; /* 이미지 최대 너비 제한 */
+				border-radius: 8px; /* 둥근 모서리 */
+				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+			}
+
+			.reveal .r-awesome {
+				/* width: 100%; */
+				height: auto;
+				max-width: 400px; /* 이미지 최대 너비 제한 */
+				border-radius: 8px; /* 둥근 모서리 */
+				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+			}
+			.reveal table {
+				font-size: 1rem;
+				width: 100%;
+				border-collapse: collapse;
+				margin: 20px 0;
+			}
+			.reveal th,
+			.reveal td {
+				border: 1px solid #666;
+				padding: 10px;
+				text-align: left;
+			}
+			.reveal th {
+				background-color: #333;
+				color: #eee;
+			}
+			.reveal ul {
+				list-style-type: disc;
+				margin-left: 1.5rem;
+			}
+			.reveal li {
+				margin-bottom: 0.5rem;
+			}
+			.reveal pre {
+				background-color: #282c34;
+				padding: 15px;
+				border-radius: 8px;
+				overflow-x: auto;
+			}
+			.reveal code {
+				font-family: "Fira Code", monospace;
+				color: #61dafb;
+			}
+			.reveal .fragment {
+				opacity: 0;
+				transition: opacity 0.8s ease-in-out;
+			}
+			.reveal .fragment.visible {
+				opacity: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-transition="slide">
+					<h2><span class="rem" scale="1.5">웹 보안</span></h2>
+				</section>
+
+				<section data-transition="slide">
+					<ul>
+						<li class="fragment fade-in">
+							<strong>해시 (Hash)</strong>
+							<ul>
+								<li>단방향 변환 (e.g. MD5, SHA1, SHA256, SHA512)</li>
+								<li>역변환 불가능</li>
+								<li>
+									비밀번호 저장 (cryptographic hash), 데이터 무결성 (integrity) (e.g. checksum/파일
+									전송/https)
+								</li>
+							</ul>
+						</li>
+						<li class="fragment fade-in">
+							<strong>암호화 (Encryption)</strong>
+							<ul>
+								<li>양방향 (e.g. AES, RSA)</li>
+								<li>복호화를 위해 키 필요</li>
+								<li>기밀성 유지</li>
+							</ul>
+						</li>
+						<li class="fragment fade-in">
+							<strong>인코딩</strong>
+							<ul>
+								<li>e.g. UTF-8, 동영상, Base64</li>
+								<li>전송/읽기/쓰기/렌더링 등등</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section data-transition="slide">
+					<div
+						style="
+							display: flex;
+							justify-content: center;
+							align-items: flex-start;
+							gap: 40px;
+							flex-wrap: wrap;
+						"
+					>
+						<div style="flex: 1; min-width: 300px; max-width: 45%">
+							<h4>대칭키 (Symmetric)</h4>
+							<ul class="fragment fade-in">
+								<li>암복화 동일키 사용</li>
+								<li><strong>빠름:</strong> 대량 데이터, 로컬 데이터 (키 공유 X)</li>
+								<li>AES</li>
+							</ul>
+						</div>
+						<div style="flex: 1; min-width: 300px; max-width: 45%">
+							<h4>비대칭키 (Asymmetric)</h4>
+							<ul class="fragment fade-in">
+								<li><strong>Public Key(공개 키), Private Key(비공개 키), 비밀번호</strong></li>
+								<li><strong>공개 키:</strong>암호화에 사용</li>
+								<li><strong>개인 키:</strong>복화에 사용</li>
+								<li><strong>느림:</strong> 키 공유 가능 (ssh, gpg, 이메일)</li>
+								<li>RSA, ECC</li>
+							</ul>
+						</div>
+					</div>
+				</section>
+
+				<section data-transition="slide">
+					<h2><span class="rem" scale="1.2">봉투 암호화 (Envelope Encryption)</span></h2>
+					<ul>
+						<li class="fragment fade-in">
+							<strong>데이터 암호화 키 (Data Encryption Key, DEK):</strong>
+							<ul>
+								<li>데이터를 암호화/복호화하는 데 사용되는 대칭키 (속도, AES)</li>
+							</ul>
+						</li>
+						<li class="fragment fade-in">
+							<strong>키 암호화 키 (Key Encryption Key, KEK):</strong>
+							<ul>
+								<li>DEK를 암호화/복호화하는 데 사용되는 키 (비대칭키)</li>
+								<li>보안이 강화된 환경에 저장 (e.g. KMS/NClavis)</li>
+								<li>KEK로 암호화된 DEK는 데이터와 함께 저장 가능</li>
+							</ul>
+						</li>
+						<li class="fragment fade-in">
+							<strong>동작 방식</strong>
+							<ol>
+								<li class="fragment fade-in">랜덤 DEK 생성</li>
+								<li class="fragment fade-in">DEK로 데이터 (서비스에서 필요한 것들) 암호화</li>
+								<li class="fragment fade-in">KEK의 공개키로 DEK를 암호화 (NClavis 에서)</li>
+								<li class="fragment fade-in">암호화된 데이터와 암호화된 DEK를 함께 저장</li>
+								<li class="fragment fade-in">복호화 시: KEK의 개인키로 암호화된 DEK를 복호화 (NClavis Unwrap 요청)</li>
+								<li class="fragment fade-in">복호화된 DEK로 데이터 복호화</li>
+							</ol>
+						</li>
+						<li class="fragment fade-in">
+							<strong>장점</strong>
+							<ul>
+								<li class="fragment fade-in">대량 데이터 암호화 효율성 (DEK가 대칭키)</li>
+								<li class="fragment fade-in">Rotation 가능</li>
+								<li class="fragment fade-in">키 관리 용이성 (KEK만 안전하게 관리)</li>
+								<li class="fragment fade-in">각 데이터 블록에 다른 DEK 사용으로 보안 강화</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section data-transition="slide">
+					<h3>RSA 원리</h3>
+					<ol>
+						<li class="fragment fade-in">
+							<strong>두 소수 선택:</strong> <code>p</code>, <code>q</code> (아주 큰 소수)
+							<ul>
+								<li>
+									<strong>소수:</strong> 1과 자기 자신만으로 나누어지는 1보다 큰 자연수 (예: 3, 5,
+									7).
+								</li>
+								<li>소수 크기 ➔ 암호화 보안성 증대</li>
+							</ul>
+						</li>
+						<li class="fragment fade-in">
+							<strong>모듈러스 <code>n</code> 계산:</strong> <code>n = p × q</code>
+							<ul>
+								<li><strong>공개 키 일부</strong> (자물쇠처럼 공개)</li>
+							</ul>
+						</li>
+						<li class="fragment fade-in">
+							<strong>오일러 피 함수 <code>φ(n)</code> 계산:</strong>
+							<code>φ(n) = (p - 1)(q - 1)</code>
+							<ul>
+								<li>
+									<strong><code>φ(n)</code>:</strong> 1부터 <code>n</code>까지의 자연수 중
+									<code>n</code>과 서로소인 수의 개수.
+								</li>
+								<li>비밀 키 생성 시 사용</li>
+								<li>외부 비공개</li>
+							</ul>
+						</li>
+						<li class="fragment fade-in">
+							<strong>공개 지수 <code>e</code> 선택:</strong> (일반적으로 <code>65537</code> = 10000000000000001 = 2^16 - 1)
+							<ul>
+								<li><code>φ(n)</code>과 서로소 (공통 약수 1) 필요</li>
+								<li><strong>공개 키 다른 일부</strong> (공개)</li>
+								<li><code>65537</code>: 빠른 연산 속도, 강한 보안성</li>
+							</ul>
+						</li>
+						<li class="fragment fade-in">
+							<strong>비밀 지수 <code>d</code> 계산:</strong>
+							<code>e × d ≡ 1 (mod φ(n))</code> 만족하는 <code>d</code> 찾기
+							<ul>
+								<li><strong>비밀 키 핵심 부분</strong></li>
+								<li>외부 절대 비공개</li>
+							</ul>
+						</li>
+						<li class="fragment fade-in">
+							<strong>메시지 암호화:</strong> <code>c = m^e % n</code>
+							<ul>
+								<li><code>m</code>: 평문 메시지</li>
+								<li><code>c</code>: 암호화된 메시지 (암호문)</li>
+								<li><code>e</code>, <code>n</code>: 공개 값 사용</li>
+							</ul>
+						</li>
+						<li class="fragment fade-in">
+							<strong>메시지 복호화:</strong> <code>m = c^d % n</code>
+							<ul>
+								<li><code>m</code>: 원래 평문 메시지</li>
+								<li><code>d</code>: 비밀 키 사용</li>
+								<li><code>n</code>: 공개 값 사용</li>
+							</ul>
+						</li>
+					</ol>
+					<ul class="fragment fade-in">
+						<li>
+							RSA <strong>보안성</strong>: <code>n</code> 값으로 <code>p</code>, <code>q</code> 소수
+							찾아내기 <strong>극도로 어려움</strong>
+						</li>
+						<li><strong>소인수 분해 문제</strong> 기반: 효율적 해법 부재 ➔ 안전성 유지</li>
+					</ul>
+				</section>
+
+
+				<section data-transition="slide">
+					<h2><span class="rem" scale="1.2">HTTPS & TLS</span></h2>
+					<ul>
+						<li>
+							<strong>HTTPS (Hypertext Transfer Protocol Secure)</strong>
+							<ul>
+								<li>HTTP에 TLS(Transport Layer Security)를 적용</li>
+							</ul>
+						</li>
+						<li>
+							<strong>TLS (Transport Layer Security):</strong>
+							<ul>
+								<li>SSL(Secure Sockets Layer)의 후속 표준</li>
+                <li>
+                  <strong>암호화 (Encryption):</strong> 통신 내용을 제3자가 가로채도 해독할 수
+                  없도록 암호화 Wireshark (대칭키 사용)
+                </li>
+                <li>
+                  <strong>인증 (Authentication):</strong> 서버(필요시 클라이언트)의 신원을
+                  확인하여 위조된 서버에 연결되는 것을 방지 (비대칭키 및 디지털 인증서 사용)
+                </li>
+                <li>
+                  <strong>무결성 (Integrity):</strong> 전송 중 데이터가 변조되지 않았음을 확인
+                  (해시 함수 사용)
+                </li>
+							</ul>
+						</li>
+						<li>
+							<strong>디지털 인증서 (Digital Certificate):</strong>
+							<ul>
+								<li>Let's Encrypt - 무료 인증서</li>
+								<li>서버의 공개키와 서버의 신원 정보를 포함하는 전자 문서</li>
+								<li>신뢰할 수 있는 CA(인증 기관)에 의해 발급 및 서명</li>
+								<li>클라이언트는 CA의 공개키를 통해 인증서의 유효성 검증</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section data-transition="slide">
+          <h4>Demo</h4>
+        </section>
+
+				<section data-transition="slide">
+          <h4>로그인/사용자 관리</h4>
+        </section>
+
+				<section data-transition="slide">
+					<h2><span class="rem" scale="1.2">Auth: 인증 vs 권한</span></h2>
+					<table>
+						<thead>
+							<tr>
+								<th>용어</th>
+								<th>의미</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><strong>인증 (Authentication)</strong></td>
+								<td><strong>당신은 누구입니까?</strong> (신원)</td>
+							</tr>
+							<tr>
+								<td><strong>권한 부여 (Authorization)</strong></td>
+								<td><strong>무엇을 할 수 있습니까?</strong> (권한)</td>
+							</tr>
+						</tbody>
+					</table>
+					<div style="font-size: 1rem">
+						*보안 시스템들은 둘다 구현 (아파트,건물 경비/OS 유저 권한/웹 로그인 시스템/SASL etc)
+					</div>
+				</section>
+				<section data-transition="slide">
+					<h2><span class="rem" scale="1.2">권한 부여 (Authorization)</span></h2>
+					<ul>
+						<li class="fragment fade-in">
+							<strong>ACL (Access Control List):</strong>
+							<ul>
+								<li>리소스별로 접근 가능한 사용자 또는 그룹 나열</li>
+								<li>
+									<strong>Linux 파일 권한 (<code>chmod</code>)</strong>
+								</li>
+								<li>장점: 직관적이고 세밀한 제어 가능</li>
+								<li>단점: 관리 복잡성 증가 (리소스 및 사용자 수가 많아질수록)</li>
+							</ul>
+						</li>
+						<li class="fragment fade-in">
+							<strong>RBAC (Role-Based Access Control):</strong>
+							<ul>
+								<li>사용자에게 역할을 부여하고, 역할에 따라 권한을 할당</li>
+								<li>
+									<strong>운영체제 사용자 그룹</strong>
+									<ul>
+										<li>Linux의 <code>/etc/group</code> 및 <code>sudoers</code> 설정</li>
+									</ul>
+								</li>
+								<li>
+									<strong>ACG</strong>
+								</li>
+								<li>
+									<strong>사내 직원 관리 시스템</strong>
+								</li>
+								<li>장점: 관리 용이성, 대규모 시스템에 적합, 역할 변경 시 일괄 적용</li>
+								<li>단점: 역할 정의가 복잡해질 수 있음, 세밀한 제어가 어려울 수 있음</li>
+							</ul>
+						</li>
+						<li class="fragment fade-in">
+							<strong>ABAC (Attribute-Based Access Control):</strong>
+							<ul>
+								<li>사용자, 리소스, 환경 속성(Attribute)을 기반으로 동적으로 접근 결정</li>
+								<li>
+									<strong>클라우드 환경 (AWS IAM Policy)</strong>
+								</li>
+								<li>
+									<strong>LDAP (Lightweight Directory Access Protocol)</strong>
+								</li>
+								<li>장점: 매우 유연하고 동적인 권한 부여 가능, 복잡한 비즈니스 로직 적용에 유리</li>
+								<li>단점: 구현 및 관리 복잡성이 높음, 성능 오버헤드 발생 가능</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section data-transition="slide">
+					<h2><span class="rem" scale="1.2">인증 유형 (Authentication)</span></h2>
+					<ul>
+						<li class="fragment fade-in">
+							<strong>세션 기반 (Session-based)</strong>
+							<ul>
+								<li>
+									로그인 ➔ 세션 저장 (redis/db) ➔ 쿠키 세션 정보 저장 ➔ 차후 쿠기 서버에 전달 ➔
+									DB에서 세션 비교
+								</li>
+								<li>상태 관리 X ➔ 토큰기반 구현 로직 ↑</li>
+							</ul>
+						</li>
+						<li class="fragment fade-in">
+							<strong>토큰 기반 (Token-based)</strong>
+							<ul>
+								<li>
+									로그인 ➔ 사용자 정보 담은 토큰 서명/발행 (jwt) ➔ 클라이언트가 토큰저장 ➔ 차후
+									<code>Authorization: Bearer &lt;token&gt;</code> 서버 보내면 다른 DB룩업 없이 인증
+								</li>
+								<li>따로 상태 관리가 필요 X ➔ 구현 인프라 (백엔드 상태관리) ↑</li>
+							</ul>
+						</li>
+
+						<li class="fragment fade-in">
+              <strong>불투명 토큰 (Opaque Token)</strong>
+							<ul>
+								<li>
+                  서버에 대한 권한을 부여하는 토큰 (e.g. 서버간 api 키)
+								</li>
+								<li>장점: 심플</li>
+								<li>단점: 토큰만 취하면 뚤림</li>
+							</ul>
+						</li>
+
+						<li class="fragment fade-in">
+              <strong>그외 (위의 인증 인프라 기반으로)</strong>
+							<ul>
+								<li class="fragment fade-in">생체 인증 (Biometrics)</li>
+								<li class="fragment fade-in">OAuth 2.0/OIDC (위임 인증)</li>
+								<li class="fragment fade-in">Passkey</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section data-transition="slide">
+					<h2>
+						<span class="rem" style="margin-bottom: 0px" scale="1.2">JWT: JSON Web Token</span>
+					</h2>
+					<div style="display: flex">
+						<br /><img
+							class="r-stretch"
+							style="margin-top: 0px"
+							src="https://fusionauth.io/img/shared/json-web-token.png"
+						/>
+						<ul>
+							<li>토큰 기반 인증에 사용</li>
+							<li><strong>무상태 (Stateless)</strong></li>
+							<li><strong>서명 (certificate):</strong> 무결성 (Integrity) 보장</li>
+						</ul>
+					</div>
+				</section>
+
+				<section data-transition="slide">
+					<h2><span class="rem" scale="1.2">JWT (주의사항)</span></h2>
+					<ul>
+						<li><strong>짧은 TTL (Time-To-Live)</strong> ➔ Refresh Token</li>
+						<li>
+							<strong><code>localStorage</code> X (XSS 위험)</strong>
+						</li>
+						<li>
+							<strong><code>HttpOnly</code> 쿠키</strong>
+						</li>
+					</ul>
+				</section>
+
+				<section data-transition="slide">
+					<h2>OAuth 2.0</h2>
+					<div style="display: flex">
+						<img
+							class="r-awesome"
+							style="margin-top: 0px"
+							src="https://assets.bytebytego.com/diagrams/0112-oauth-flows.png"
+						/>
+						<ul>
+							<li>IdP(Identity Provider)가 젝 3자에게 권한 부여 (Open *Authorization*)하는 프레임워크</li>
+							<li><code>access_token</code>: 리소스에 대한 접근 권한부여 (인증 수단 X)</li>
+							<li>
+								인증 계층 (Authentication Layer): OpenID Connect (OIDC)가 OAuth 2.0 위에 구축되어
+								<code>id_token</code>(jwt) 을 통해 사용자 인증 정보 제공
+							</li>
+							<li>다양한 인증 Flow</li>
+						</ul>
+					</div>
+				</section>
+
+				<section data-transition="slide">
+					<h2><span class="rem" scale="1.2">비밀번호</span></h2>
+					<ul>
+						<li>평문 X</li>
+						<li>해쉬 O (Salt + 비밀번호)</li>
+						<li>권장 알고리즘 (cryptographic hash): bcrypt, Argon2, scrypt</li>
+					</ul>
+				</section>
+
+				<section data-transition="slide">
+          <h4>공격/방어</h4>
+        </section>
+
+				<section data-transition="slide">
+					<h2><span class="rem" scale="1.2">웹 익스플로잇 (Exploit)</span></h2>
+					<ul>
+						<li>
+							<strong>CSRF (Cross-Site Request Forgery - 교차 사이트 요청 위조)</strong>
+						</li>
+						<li>
+							<strong>XSS (Cross-Site Scripting - 교차 사이트 스크립팅)</strong>
+						</li>
+						<li>
+							<strong>SQLi (SQL Injection - SQL 주입)</strong>
+						</li>
+					</ul>
+				</section>
+
+				<section data-transition="slide">
+					<h2><span class="rem" scale="1.2">방지 대첵</span></h2>
+					<ul>
+						<li>
+							<strong>HTTPS & TLS</strong>
+							<ul>
+								<li>통신을 암호화</li>
+								<li>무결성 확인</li>
+							</ul>
+						</li>
+						<li>
+							<strong>HttpOnly, Secure, SameSite 쿠키</strong>
+							<ul>
+								<li>HttpOnly: 자바스크립트 접근 방지</li>
+								<li>Secure: HTTPS 연결에서만 쿠키가 전송</li>
+								<li>
+									SameSite: 웹사이트를 넘나드는 요청에서 쿠키가 전송되는 방식을 제어, CSRF 방지
+								</li>
+							</ul>
+						</li>
+						<li>
+							<strong>CORS (Cross-Origin Resource Sharing)</strong>
+							<ul>
+								<li>웹사이트가 어떤 다른 웹사이트로부터 요청을 받을지 지정</li>
+							</ul>
+						</li>
+						<li>
+							<strong>CSP (Content Security Policy)</strong>
+							<ul>
+								<li>웹 페이지에 들어갈 컨텐츠 (스크립트, 이미지 등) 지정. XSS/이미지 공격 방지</li>
+							</ul>
+						</li>
+						<li>
+							<strong>Input Validation/Sanization</strong>
+							<ul>
+								<li>XSS, SQL 인젝션 방지</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section data-transition="slide">
+					<h3>Questions?</h3>
+				</section>
+			</div>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.js"></script>
+		<script>
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				transition: "slide", // 전체 프레젠테이션에 슬라이드 전환 적용
+				dependencies: [
+					{
+						src: "https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/markdown/markdown.esm.js",
+						condition: function () {
+							return !!document.querySelector("[data-markdown]");
+						},
+					},
+					{
+						src: "https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/highlight/highlight.esm.js",
+						async: true,
+					},
+					{
+						src: "https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/notes/notes.esm.js",
+						async: true,
+					},
+				],
+			});
+		</script>
+	</body>
+</html>
