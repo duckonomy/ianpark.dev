@@ -2,7 +2,7 @@
 import PageLayout from "@/layouts/Base.astro";
 import MyLink from "@/components/MyLink";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
-// import { FileUser, Mail } from "lucide-react";
+import { FileUser, Mail } from "lucide-react";
 import { Mail } from "lucide-react";
 import ExperienceSection from "@/components/ExperienceSection";
 import HighlightsSection from "@/components/HighlightsSection";
@@ -58,14 +58,14 @@ const t = useTranslations(lang);
 					<Mail className="ml-1 inline-block h-4 w-4" />
 				</MyLink>
 
-				<!-- {" "}{t("contact.or")} -->
+				{" "}{t("contact.or")}
 
-				<!-- <MyLink href=`${lang === "en" ? "/resume.pdf" : "/resume-kr.pdf" }`> -->
-				<!-- CV -->
-				<!-- <FileUser className="ml-1 inline-block h-4 w-4" /> -->
-				<!-- </MyLink> -->
+				<MyLink href=`${lang === "en" ? "/resume.pdf" : "/resume-kr.pdf" }`>
+				CV
+				<FileUser className="ml-1 inline-block h-4 w-4" />
+				</MyLink>
 
-				<!-- {t("contact.portfolio")} -->
+				{t("contact.portfolio")}
 			</div>
 		</Section>
 		<Section title="Skills">

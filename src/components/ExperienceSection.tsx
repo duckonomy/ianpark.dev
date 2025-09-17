@@ -55,9 +55,9 @@ const ExperienceSection = ({ lang }: { lang: string }) => {
 						company: "Zium",
 						positions: [
 							{
-								role: "Software Engineer",
+								role: "Full-stack Engineer",
 								team: {
-									name: "Paymoney",
+									name: "Naver Finance Paymoney, Naver Finance Business Reporting",
 								},
 								date: "2025.3~",
 								current: true,
@@ -160,12 +160,12 @@ const ExperienceSection = ({ lang }: { lang: string }) => {
 				]
 			: [
 					{
-						company: "Zium",
+						company: "지음지식서비스",
 						positions: [
 							{
-								role: "소프트웨어 엔지니어",
+								role: "풀스택 엔지니어",
 								team: {
-									name: "Paymoney",
+									name: "Naver Finance Paymoney, Naver Finance Business Reporting",
 								},
 								date: "2025.3~",
 								current: true,
